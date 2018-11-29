@@ -35,6 +35,7 @@ public class JuntDockerHttpExtension implements BeforeTestExecutionCallback, Aft
         Method testMethod = context.getRequiredTestMethod();
         readProps();
         logger.info(String.format("%s", testMethod.getName()));
+        // use json key value with name of test being a key into the configuration
     }
 
     @Override

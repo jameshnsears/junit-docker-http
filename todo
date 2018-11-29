@@ -1,0 +1,41 @@
+convert json into ???
+
+
+https://github.com/google/gson
+http://www.studytrails.com/java/json/java-google-json-introduction/
+
+--
+
+https://jersey.github.io/documentation/latest/getting-started.html
+
+mvn archetype:generate -DarchetypeArtifactId=jersey-quickstart-grizzly2 \
+-DarchetypeGroupId=org.glassfish.jersey.archetypes -DinteractiveMode=false \
+-DgroupId=com.example -DartifactId=simple-service -Dpackage=com.example \
+-DarchetypeVersion=2.27
+
+--
+
+https://docs.docker.com/develop/sdk/examples/#run-a-container
+
+->
+
+https://www.baeldung.com/jackson-object-mapper-tutorial
+v.
+http://www.studytrails.com/java/json/java-google-json-parse-json-to-java/
+
+->
+
+https://developers.google.com/api-client-library/java/google-http-java-client/
+https://www.baeldung.com/google-http-client
+v.
+https://square.github.io/okhttp/
+v.
+https://hc.apache.org/httpcomponents-client-ga/
+v.
+https://jersey.github.io/documentation/latest/client.html
+v.
+https://github.com/OpenFeign/feign
+
+->
+
+https://docs.docker.com/develop/sdk/examples/#run-a-container
