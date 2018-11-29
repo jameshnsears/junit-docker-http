@@ -6,7 +6,6 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,7 +21,7 @@ public class JuntDockerHttpExtension implements BeforeTestExecutionCallback, Aft
         try (InputStream inputStream = JuntDockerHttpExtension.class.getResourceAsStream("/junit-docker-http.properties")) {
 
             prop.load(inputStream);
-            logger.info( prop.getProperty("a", "default"));
+            logger.info(prop.getProperty("a", "default"));
 
         } catch (FileNotFoundException e) {
             e.printStackTrace(System.out);
