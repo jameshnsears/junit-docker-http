@@ -1,15 +1,16 @@
-package okhttp3.unixdomainsockets;
+package com.github.jameshnsears;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.unixdomainsockets.UnixDomainSocketFactory;
 
 import java.io.File;
 
 
-public class ClientAndServer {
+public class DockerHttp {
     public static void main(String... args) throws Exception {
-        new ClientAndServer().run();
+        new DockerHttp().run();
     }
 
     public void run() throws Exception {
@@ -29,3 +30,7 @@ public class ClientAndServer {
 
     }
 }
+
+/*
+
+ */
