@@ -8,6 +8,9 @@ use swagger to generate client code from Docker Engine OpenAPI .yaml file
 
 Gson || Jackson
 
+https://github.com/square/okhttp/wiki/Recipes
+    https://github.com/square/moshi
+v.
 https://www.baeldung.com/jackson-object-mapper-tutorial
 v.
 http://www.studytrails.com/java/json/java-google-json-parse-json-to-java/
