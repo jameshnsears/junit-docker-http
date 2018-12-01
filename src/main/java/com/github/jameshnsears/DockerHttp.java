@@ -14,13 +14,15 @@ import java.io.File;
 
 
 public class DockerHttp {
+    private static final Logger log = LoggerFactory.getLogger(DockerHttp.class);
+
     public static void main(String... args) throws Exception {
         new DockerHttp().run();
     }
 
     public void run() throws Exception {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(Level.BODY);
+        logging.setLevel(Level.HEADERS);
 
         File socketFile = new File("/var/run/docker.sock");
 
@@ -34,7 +36,7 @@ public class DockerHttp {
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
-            System.out.println(response.body().string());
+            log.info(response.body().string());
         }
     }
 }
