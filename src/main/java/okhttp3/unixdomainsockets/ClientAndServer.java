@@ -20,7 +20,7 @@ public class ClientAndServer {
                 .build();
 
         Request request = new Request.Builder()
-                .url("http:/127.0.0.1/v1.39/images/json")
+                .url("http://127.0.0.1/v1.39/images/json")
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
