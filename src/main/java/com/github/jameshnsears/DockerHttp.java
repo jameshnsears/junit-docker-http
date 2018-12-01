@@ -1,9 +1,14 @@
 package com.github.jameshnsears;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
+import okhttp3.logging.HttpLoggingInterceptor.Level;
 import okhttp3.unixdomainsockets.UnixDomainSocketFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
@@ -14,10 +19,14 @@ public class DockerHttp {
     }
 
     public void run() throws Exception {
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(Level.BODY);
+
         File socketFile = new File("/var/run/docker.sock");
 
         OkHttpClient client = new OkHttpClient.Builder()
                 .socketFactory(new UnixDomainSocketFactory(socketFile))
+                .addInterceptor(logging)
                 .build();
 
         Request request = new Request.Builder()
@@ -27,10 +36,5 @@ public class DockerHttp {
         try (Response response = client.newCall(request).execute()) {
             System.out.println(response.body().string());
         }
-
     }
 }
-
-/*
-
- */

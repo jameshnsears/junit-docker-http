@@ -52,6 +52,9 @@
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.jetbrains.kotlin:kotlin-stdlib:1.2.60" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.jetbrains.kotlin:kotlin-stdlib-common:1.2.60" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.jetbrains:annotations:13.0" level="project" />
+    <orderEntry type="library" name="Maven: com.squareup.okhttp3:okhttp-tls:3.12.0" level="project" />
+    <orderEntry type="library" name="Maven: org.bouncycastle:bcprov-jdk15on:1.60" level="project" />
+    <orderEntry type="library" name="Maven: com.squareup.okhttp3:okhttp-testing-support:3.12.0" level="project" />
     <orderEntry type="library" name="Maven: com.github.jnr:jnr-unixsocket:0.21" level="project" />
     <orderEntry type="library" name="Maven: com.github.jnr:jnr-ffi:2.1.9" level="project" />
     <orderEntry type="library" name="Maven: com.github.jnr:jffi:1.2.17" level="project" />
