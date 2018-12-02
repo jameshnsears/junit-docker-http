@@ -1,0 +1,148 @@
+[
+  {
+    "Containers": -1,
+    "Created": 1543253222,
+    "Id": "sha256:7466ebd20c18d0a9decfba4a12b0f8c4cce87e38866b512ffd6d483bfb4c24e1",
+    "Labels": null,
+    "ParentId": "",
+    "RepoDigests": [
+      "jameshnsears/xqa-shard@sha256:fa38fd0fb25360fb992253b3d6a88214933a1d4e9ad2bdfdc3e5b24815496337"
+    ],
+    "RepoTags": [
+      "jameshnsears/xqa-shard:latest"
+    ],
+    "SharedSize": -1,
+    "Size": 948907058,
+    "VirtualSize": 948907058
+  },
+  {
+    "Containers": -1,
+    "Created": 1543253181,
+    "Id": "sha256:e02631c94239c4b612cefe867c0b1ea4829f7ae71029ba22b0830f505c75464f",
+    "Labels": null,
+    "ParentId": "",
+    "RepoDigests": [
+      "jameshnsears/xqa-db-amqp@sha256:d31a3359a99c737f036c3a0d06f0b5143411f21f88fc1db12d1d405a98ea889a"
+    ],
+    "RepoTags": [
+      "jameshnsears/xqa-db-amqp:latest"
+    ],
+    "SharedSize": -1,
+    "Size": 537338232,
+    "VirtualSize": 537338232
+  },
+  {
+    "Containers": -1,
+    "Created": 1543253087,
+    "Id": "sha256:d472512f26e877ee2278bfab4333898a28f61f588b89018b0640a2f1b2830e9d",
+    "Labels": {
+      "maintainer": "NGINX Docker Maintainers <docker-maint@nginx.com>"
+    },
+    "ParentId": "",
+    "RepoDigests": [
+      "jameshnsears/xqa-query-ui@sha256:d40bac50ae21c0ceab26e967319f2bf0d9177aaaa0052bf7436fba71d553a3c0"
+    ],
+    "RepoTags": [
+      "jameshnsears/xqa-query-ui:latest"
+    ],
+    "SharedSize": -1,
+    "Size": 17321341,
+    "VirtualSize": 17321341
+  },
+  {
+    "Containers": -1,
+    "Created": 1543253044,
+    "Id": "sha256:cc0515a5f101d0c92282189ed9cbda2c4521b8a48cc070516673b21e6889761e",
+    "Labels": null,
+    "ParentId": "",
+    "RepoDigests": [
+      "jameshnsears/xqa-message-broker@sha256:d4070f900f0ec4cdeb1820cbdbee2ef1137308293aeddc84cab156ebe1f2a136"
+    ],
+    "RepoTags": [
+      "jameshnsears/xqa-message-broker:latest"
+    ],
+    "SharedSize": -1,
+    "Size": 742575713,
+    "VirtualSize": 742575713
+  },
+  {
+    "Containers": -1,
+    "Created": 1543252960,
+    "Id": "sha256:227383210f9d980506d30e2aede619aee54b93355045801d58521f39d0b094c8",
+    "Labels": null,
+    "ParentId": "",
+    "RepoDigests": [
+      "jameshnsears/xqa-db@sha256:4f017ec5fef63c330beb00fcd49d05373c72aea301adbb39a3f35697358e2ac4"
+    ],
+    "RepoTags": [
+      "jameshnsears/xqa-db:latest"
+    ],
+    "SharedSize": -1,
+    "Size": 310792075,
+    "VirtualSize": 310792075
+  },
+  {
+    "Containers": -1,
+    "Created": 1543065811,
+    "Id": "sha256:45240bef3fbddcfac7a9ba9fdee501cf9b0671b352ee98a83d180f3d4f8c2680",
+    "Labels": null,
+    "ParentId": "",
+    "RepoDigests": [
+      "jameshnsears/xqa-query-balancer@sha256:948417ed66f4fe1b7521278a21ee75483cb5722f24a79001f7fc30eedb14b6cd"
+    ],
+    "RepoTags": [
+      "jameshnsears/xqa-query-balancer:latest"
+    ],
+    "SharedSize": -1,
+    "Size": 567762615,
+    "VirtualSize": 567762615
+  },
+  {
+    "Containers": -1,
+    "Created": 1543065786,
+    "Id": "sha256:4c9e7b6523ff6d1440b4426135722c412957c46c96328eb7da39bb1a184844e1",
+    "Labels": null,
+    "ParentId": "",
+    "RepoDigests": [
+      "jameshnsears/xqa-ingest-balancer@sha256:f4077e5a971f47914cef59decabccbb6dd11e644ab9982e8b3108f604d1a6414"
+    ],
+    "RepoTags": [
+      "jameshnsears/xqa-ingest-balancer:latest"
+    ],
+    "SharedSize": -1,
+    "Size": 559268306,
+    "VirtualSize": 559268306
+  },
+  {
+    "Containers": -1,
+    "Created": 1543065766,
+    "Id": "sha256:6acb445e24e335787425b6da68e9d59a061c7260e33bd6ab354bca9e2af85f28",
+    "Labels": null,
+    "ParentId": "",
+    "RepoDigests": [
+      "jameshnsears/xqa-ingest@sha256:1d3a384795f6d73671d7c650ee85815dbf4801caa0092a78026609b24ebc962f"
+    ],
+    "RepoTags": [
+      "jameshnsears/xqa-ingest:latest"
+    ],
+    "SharedSize": -1,
+    "Size": 559517749,
+    "VirtualSize": 559517749
+  },
+  {
+    "Containers": -1,
+    "Created": 1536704390,
+    "Id": "sha256:196d12cf6ab19273823e700516e98eb1910b03b17840f9d5509f03858484d321",
+    "Labels": null,
+    "ParentId": "",
+    "RepoDigests": [
+      "alpine@sha256:621c2f39f8133acb8e64023a94dbdf0d5ca81896102b9e57c0dc184cadaf5528"
+    ],
+    "RepoTags": [
+      "alpine:latest"
+    ],
+    "SharedSize": -1,
+    "Size": 4413370,
+    "VirtualSize": 4413370
+  }
+]
