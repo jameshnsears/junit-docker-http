@@ -1,7 +1,7 @@
 package unit.docker;
 
-import com.github.jameshnsears.docker.DockerHttpWrapper;
 import com.github.jameshnsears.Config;
+import com.github.jameshnsears.docker.DockerHttpWrapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
