@@ -40,7 +40,7 @@ public class ModelTest {
     public void lsContainersGson() {
         Type collectionType = new TypeToken<Collection<Container>>() {
         }.getType();
-        Collection<Container> containers = gson.fromJson(getInputStreamReader("/fixtures/lsContainers.json"), collectionType);
+        Collection<Container> containers = gson.fromJson(getInputStreamReader("/fixtures/lsContainers-found.json"), collectionType);
 
         Assert.assertEquals(
                 containers.size(),

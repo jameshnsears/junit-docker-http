@@ -29,5 +29,4 @@ public class Image {
     public void setRepoTags(List<String> repoTags) {
         this.repoTags = repoTags;
     }
-
 }

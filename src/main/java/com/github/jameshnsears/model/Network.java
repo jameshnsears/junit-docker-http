@@ -15,5 +15,4 @@ public class Network {
     public void setName(String name) {
         this.name = name;
     }
-
 }
