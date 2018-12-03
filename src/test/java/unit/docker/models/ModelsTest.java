@@ -1,28 +1,20 @@
-package unit.docker.gson;
+package unit.docker.models;
 
-import com.github.jameshnsears.docker.gson.Container;
-import com.github.jameshnsears.docker.gson.Image;
-import com.github.jameshnsears.docker.gson.Network;
-import com.github.jameshnsears.docker.gson.Volume;
-import com.google.gson.Gson;
+import com.github.jameshnsears.docker.models.Container;
+import com.github.jameshnsears.docker.models.Image;
+import com.github.jameshnsears.docker.models.Network;
+import com.github.jameshnsears.docker.models.Volume;
 import com.google.gson.reflect.TypeToken;
 import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import unit.GsonCommon;
 
-import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.Collection;
 
-public class GsonTest {
-
-    private final Gson gson;
-
-    public GsonTest() {
-        gson = new Gson();
-    }
-
+public class ModelsTest extends GsonCommon {
     @Test
-    public void lsImagesGson() {
+    public void lsImages() {
         Type collectionType = new TypeToken<Collection<Image>>() {
         }.getType();
         Collection<Image> images = gson.fromJson(getInputStreamReader("/fixtures/docker/images.json"), collectionType);
@@ -32,12 +24,8 @@ public class GsonTest {
                 12);
     }
 
-    private InputStreamReader getInputStreamReader(String s) {
-        return new InputStreamReader(getClass().getResourceAsStream(s));
-    }
-
     @Test
-    public void lsContainersGson() {
+    public void lsContainers() {
         Type collectionType = new TypeToken<Collection<Container>>() {
         }.getType();
         Collection<Container> containers = gson.fromJson(getInputStreamReader("/fixtures/docker/containers.json"), collectionType);
@@ -54,7 +42,7 @@ public class GsonTest {
     }
 
     @Test
-    public void lsNetworksGson() {
+    public void lsNetworks() {
         Type collectionType = new TypeToken<Collection<Network>>() {
         }.getType();
         Collection<Network> networks = gson.fromJson(getInputStreamReader("/fixtures/docker/networks.json"), collectionType);
@@ -65,7 +53,7 @@ public class GsonTest {
     }
 
     @Test
-    public void lsVolumesGson() {
+    public void lsVolumes() {
         Volume volume = gson.fromJson(getInputStreamReader("/fixtures/docker/volumes.json"), Volume.class);
 
         Assert.assertEquals(

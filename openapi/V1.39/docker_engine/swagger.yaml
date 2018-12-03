@@ -136,7 +136,7 @@ tags:
   x-displayName: "Secrets"
   description: |
     Secrets are sensitive data that can be used by services. Swarm mode must be enabled for these endpoints to work.
-- name: "Config"
+- name: "Configuration"
   x-displayName: "Configs"
   description: |
     Configs are application configurations that can be used by services. Swarm mode must be enabled for these endpoints to work.
@@ -1803,7 +1803,7 @@ definitions:
   Plugin:
     description: "A plugin for the Engine API"
     type: "object"
-    required: [Settings, Enabled, Config, Name]
+    required: [Settings, Enabled, Configuration, Name]
     properties:
       Id:
         type: "string"
@@ -6330,7 +6330,7 @@ paths:
         enum:
         - "application/x-tar"
         default: "application/x-tar"
-      - name: "X-Registry-Config"
+      - name: "X-Registry-Configuration"
         in: "header"
         description: |
           This is a base64-encoded JSON object with auth configurations for multiple registries that a build may refer to.
@@ -9920,7 +9920,7 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Config"
+              $ref: "#/definitions/Configuration"
             example:
             - ID: "ktnbjxoalbkvbvedmg1urrz8h"
               Version:
@@ -9948,7 +9948,7 @@ paths:
           - `label=<key> or label=<key>=value`
           - `name=<config name>`
           - `names=<config name>`
-      tags: ["Config"]
+      tags: ["Configuration"]
   /configs/create:
     post:
       summary: "Create a config"
@@ -9986,7 +9986,7 @@ paths:
               Labels:
                 foo: "bar"
               Data: "VEhJUyBJUyBOT1QgQSBSRUFMIENFUlRJRklDQVRFCg=="
-      tags: ["Config"]
+      tags: ["Configuration"]
   /configs/{id}:
     get:
       summary: "Inspect a config"
@@ -9997,7 +9997,7 @@ paths:
         200:
           description: "no error"
           schema:
-            $ref: "#/definitions/Config"
+            $ref: "#/definitions/Configuration"
           examples:
             application/json:
               ID: "ktnbjxoalbkvbvedmg1urrz8h"
@@ -10025,7 +10025,7 @@ paths:
         required: true
         type: "string"
         description: "ID of the config"
-      tags: ["Config"]
+      tags: ["Configuration"]
     delete:
       summary: "Delete a config"
       operationId: "ConfigDelete"
@@ -10052,10 +10052,10 @@ paths:
         required: true
         type: "string"
         description: "ID of the config"
-      tags: ["Config"]
+      tags: ["Configuration"]
   /configs/{id}/update:
     post:
-      summary: "Update a Config"
+      summary: "Update a Configuration"
       operationId: "ConfigUpdate"
       responses:
         200:
@@ -10093,7 +10093,7 @@ paths:
         type: "integer"
         format: "int64"
         required: true
-      tags: ["Config"]
+      tags: ["Configuration"]
   /distribution/{name}/json:
     get:
       summary: "Get image information from the registry"

@@ -43,7 +43,7 @@ public class JuntDockerHttpExtension implements BeforeTestExecutionCallback, Aft
         if fixturename.startswith(DockerPyWrapper.RECOGNISED_FIXTURE):
             docker_py_wrapper = DockerPyWrapper()
             # no alternative, at moment, other than using ._request
-            config = Config(item._request.getfixturevalue(fixturename))
+            config = Configuration(item._request.getfixturevalue(fixturename))
             docker_py_wrapper.rm_containers(config.images())
             if docker_py_wrapper.pull(config.images()):
                 docker_py_wrapper.start_containers(config)
@@ -62,7 +62,7 @@ public class JuntDockerHttpExtension implements BeforeTestExecutionCallback, Aft
             if fixturename.startswith(DockerPyWrapper.RECOGNISED_FIXTURE):
                 docker_py_wrapper = DockerPyWrapper()
                 docker_py_wrapper.rm_containers(
-                    Config(item._request.getfixturevalue(fixturename)).images())
+                    Configuration(item._request.getfixturevalue(fixturename)).images())
          */
     }
 }

@@ -1,19 +1,23 @@
 package unit.docker;
 
-import com.github.jameshnsears.Config;
+import com.github.jameshnsears.Configuration;
+import com.github.jameshnsears.ConfigurationAccessor;
 import com.github.jameshnsears.docker.DockerHttpWrapper;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.io.IOException;
 
-@ExtendWith(ConfigParameterResolver.class)
+@ExtendWith(ConfigurationAccessorParameterResolver.class)
 public class DockerHttpWrapperTest {
     DockerHttpWrapper dockerHttp = new DockerHttpWrapper();
 
     @Test
-    public void configuration(Config config) {
-        System.out.println(config.a);
+    public void configuration(ConfigurationAccessor configurationAccessor) {
+        Assert.assertEquals(
+                configurationAccessor.images(),
+                "");
         /*
         assert configuration.images() == ['alpine:latest', 'busybox:latest']
         assert configuration.networks() == ['docker_py_wrapper']
@@ -22,7 +26,7 @@ public class DockerHttpWrapperTest {
 
 
     @Test
-    public void pullImages(Config config) {
+    public void pullImages(ConfigurationAccessor configurationAccessor) {
         /*
         docker_py_wrapper.rm_images(configuration.images())
         for configuration_image in configuration.images():
@@ -35,7 +39,7 @@ public class DockerHttpWrapperTest {
     }
 
     @Test
-    public void stopStartContainers(Config config) {
+    public void stopStartContainers(ConfigurationAccessor configurationAccessor) {
         /*
         docker_py_wrapper.start_containers(configuration)
         assert len(docker_py_wrapper.ls_containers(configuration.images())) == 2
