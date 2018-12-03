@@ -22,7 +22,7 @@ public class ModelTest {
     }
 
     @Test
-    public void lsImagesGson() throws Exception {
+    public void lsImagesGson() {
         Type collectionType = new TypeToken<Collection<Image>>() {
         }.getType();
         Collection<Image> images = gson.fromJson(getInputStreamReader("/fixtures/lsImages.json"), collectionType);
@@ -55,7 +55,7 @@ public class ModelTest {
 
     @Test
     public void lsNetworksGson() {
-        Type collectionType = new TypeToken<Collection<Container>>() {
+        Type collectionType = new TypeToken<Collection<Network>>() {
         }.getType();
         Collection<Network> networks = gson.fromJson(getInputStreamReader("/fixtures/lsNetworks.json"), collectionType);
 
@@ -66,12 +66,10 @@ public class ModelTest {
 
     @Test
     public void lsVolumesGson() {
-        Type collectionType = new TypeToken<Collection<Volume>>() {
-        }.getType();
-        Collection<Volume> volumes = gson.fromJson(getInputStreamReader("/fixtures/lsVolumes.json"), collectionType);
+        Volume volume = gson.fromJson(getInputStreamReader("/fixtures/lsVolumes.json"), Volume.class);
 
         Assert.assertEquals(
-                volumes.size(),
-                12);
+                volume.getVolumes().size(),
+                3);
     }
 }

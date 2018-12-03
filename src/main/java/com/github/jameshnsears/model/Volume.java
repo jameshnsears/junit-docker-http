@@ -8,7 +8,7 @@ import java.util.List;
 public class Volume {
     @SerializedName("Volumes")
     @Expose
-    private List<VolumeName> volumes = null;
+    public List<VolumeName> volumes = null;
 
     public List<VolumeName> getVolumes() {
         return volumes;
@@ -18,7 +18,7 @@ public class Volume {
         this.volumes = volumes;
     }
 
-    static class VolumeName {
+    class VolumeName {
         @SerializedName("Name")
         @Expose
         private String name;
