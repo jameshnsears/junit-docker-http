@@ -36,11 +36,33 @@ public class JuntDockerHttpExtension implements BeforeTestExecutionCallback, Aft
         readProps();
         logger.info(String.format("%s", testMethod.getName()));
         // use json key value with name of test being a key into the configuration
+
+        /*
+    logging.debug("setup: %s", item)
+    for fixturename in item.fixturenames:
+        if fixturename.startswith(DockerPyWrapper.RECOGNISED_FIXTURE):
+            docker_py_wrapper = DockerPyWrapper()
+            # no alternative, at moment, other than using ._request
+            config = Config(item._request.getfixturevalue(fixturename))
+            docker_py_wrapper.rm_containers(config.images())
+            if docker_py_wrapper.pull(config.images()):
+                docker_py_wrapper.start_containers(config)
+         */
     }
 
     @Override
     public void afterTestExecution(ExtensionContext context) throws Exception {
         Method testMethod = context.getRequiredTestMethod();
         logger.info(String.format("%s", testMethod.getName()));
+
+        /*
+    logging.debug("teardown: %s", item)
+    if "PYTEST_DOCKER_PY_KEEP_LOGS" not in os.environ:
+        for fixturename in item.fixturenames:
+            if fixturename.startswith(DockerPyWrapper.RECOGNISED_FIXTURE):
+                docker_py_wrapper = DockerPyWrapper()
+                docker_py_wrapper.rm_containers(
+                    Config(item._request.getfixturevalue(fixturename)).images())
+         */
     }
 }

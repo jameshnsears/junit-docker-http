@@ -22,7 +22,7 @@ public class DockerHttpWrapper {
         logging = new HttpLoggingInterceptor();
         logging.setLevel(Level.HEADERS);
 
-        socketFile = new File("/var/run/com.github.jameshnsears.docker.sock");
+        socketFile = new File("/var/run/docker.sock");
 
         client = new OkHttpClient.Builder()
                 .socketFactory(new UnixDomainSocketFactory(socketFile))
@@ -91,6 +91,14 @@ public class DockerHttpWrapper {
 
         POST /v1.39/containers/prune
 
+        curl --unix-socket /var/run/com.github.jameshnsears.docker.sock http:/v1.39/containers/json
+[{
+  "Id":"ae63e8b89a26f01f6b4b2c9a7817c31a1b6196acf560f66586fbc8809ffcd772",
+  "Names":["/tender_wing"],
+  "Image":"bfirsh/reticulate-splines",
+  ...
+}]
+
         POST /v1.39/networks/prune
 
         GET /v1.39/networks?filters=%7B%7D
@@ -130,18 +138,7 @@ public class DockerHttpWrapper {
         return;
     }
 
-    /////////////
-
     private void stop_container() {
-        /*
-        curl --unix-socket /var/run/com.github.jameshnsears.docker.sock http:/v1.39/containers/json
-[{
-  "Id":"ae63e8b89a26f01f6b4b2c9a7817c31a1b6196acf560f66586fbc8809ffcd772",
-  "Names":["/tender_wing"],
-  "Image":"bfirsh/reticulate-splines",
-  ...
-}]
-
-         */
+        return;
     }
 }

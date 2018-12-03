@@ -1,9 +1,14 @@
-https://github.com/OpenFeign/feign
-https://www.baeldung.com/intro-to-feign
+wrap /home/jsears/GIT_REPOS/junit-docker-http/src/test/resources/fixtures/config*.json into gson wrapper
 
-============
+use config in DockerHttpWrapperTest
 
-pass paramater into test?
+look at structure of swaggar.yaml - for clues as to how to call
+
+--
 
 http://www.jsonschema2pojo.org/
 
+--
+
+https://github.com/OpenFeign/feign
+https://www.baeldung.com/intro-to-feign
