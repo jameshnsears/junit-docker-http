@@ -1,5 +1,5 @@
 {
-    "JunitDockerHttpExtensionTest.testExtension": [
+    "config": [
         {
             "image": "xqa-message-broker:latest",
             "name": "xqa-message-broker",

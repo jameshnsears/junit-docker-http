@@ -1,5 +1,6 @@
-package com.github.jameshnsears;
+package unit;
 
+import docker.DockerHttp;
 import org.junit.Test;
 
 public class DockerHttpTest {

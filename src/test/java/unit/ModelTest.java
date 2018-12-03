@@ -1,9 +1,9 @@
-package com.github.jameshnsears;
+package unit;
 
-import com.github.jameshnsears.model.Container;
-import com.github.jameshnsears.model.Image;
-import com.github.jameshnsears.model.Network;
-import com.github.jameshnsears.model.Volume;
+import docker.model.Container;
+import docker.model.Image;
+import docker.model.Network;
+import docker.model.Volume;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.junit.Assert;

@@ -1,11 +1,11 @@
-package com.github.jameshnsears.model;
+package docker.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Container {
+public class Image {
     @SerializedName("Id")
     @Expose
     private String id;

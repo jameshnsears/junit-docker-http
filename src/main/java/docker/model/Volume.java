@@ -1,4 +1,4 @@
-package com.github.jameshnsears.model;
+package docker.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

@@ -1,4 +1,4 @@
-package com.github.jameshnsears;
+package junit;
 
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
@@ -18,7 +18,7 @@ public class JuntDockerHttpExtension implements BeforeTestExecutionCallback, Aft
 
     private void readProps() {
         Properties prop = new Properties();
-        try (InputStream inputStream = JuntDockerHttpExtension.class.getResourceAsStream("/junit-docker-http.properties")) {
+        try (InputStream inputStream = JuntDockerHttpExtension.class.getResourceAsStream("/config.properties")) {
 
             prop.load(inputStream);
             logger.info(prop.getProperty("a", "default"));
