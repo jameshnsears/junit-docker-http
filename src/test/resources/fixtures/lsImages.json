@@ -1,0 +1,191 @@
+[
+  {
+    "Containers": -1,
+    "Created": 1543424208,
+    "Id": "sha256:4fad0b51a89c658b5fe415e71221ec18329b51518b643ef74934d787d696a07c",
+    "Labels": null,
+    "ParentId": "sha256:e544df6af79424aeeb61d89910dbb25fe678353ddd11bd793d12503b38f8de00",
+    "RepoDigests": null,
+    "RepoTags": [
+      "xqa-shard:latest"
+    ],
+    "SharedSize": -1,
+    "Size": 948911095,
+    "VirtualSize": 948911095
+  },
+  {
+    "Containers": -1,
+    "Created": 1543422059,
+    "Id": "sha256:e7f1dc2c1f86283f9e289ca1c2cecafa8bb5f95ec11aa452cd80697aeabe402f",
+    "Labels": null,
+    "ParentId": "sha256:8bbb48dd6a84b80bf7ea5c4265ed12d04d1a175c19fc8539e3d20dea0d7084a5",
+    "RepoDigests": null,
+    "RepoTags": [
+      "xqa-query-balancer:latest"
+    ],
+    "SharedSize": -1,
+    "Size": 568199589,
+    "VirtualSize": 568199589
+  },
+  {
+    "Containers": -1,
+    "Created": 1543422041,
+    "Id": "sha256:38585722f852c48aa9ca8b43fcba651a3838213facbd50ef4ff76c3283f4a309",
+    "Labels": null,
+    "ParentId": "sha256:76a23a54afa07d49da200625cfc46d2f2524e946bc55f24229216f322489ac77",
+    "RepoDigests": [
+      "jameshnsears/xqa-ingest-balancer@sha256:5e578e9bf26b2ab2e1e6adbc5371905bd8a89ef688b1240e7a0a28f2e167d14b"
+    ],
+    "RepoTags": [
+      "jameshnsears/xqa-ingest-balancer:latest",
+      "xqa-ingest-balancer:latest"
+    ],
+    "SharedSize": -1,
+    "Size": 559275674,
+    "VirtualSize": 559275674
+  },
+  {
+    "Containers": -1,
+    "Created": 1543422026,
+    "Id": "sha256:ce6a1931d02ff8e84278199bfe9ba615aa8520f0e8d5408a5a89191d4c514f32",
+    "Labels": null,
+    "ParentId": "sha256:c6f3979fec44cacb92a433f0413b30ed7ae95b29d46e5bd701423a89350d2aee",
+    "RepoDigests": null,
+    "RepoTags": [
+      "xqa-ingest:latest"
+    ],
+    "SharedSize": -1,
+    "Size": 559626989,
+    "VirtualSize": 559626989
+  },
+  {
+    "Containers": -1,
+    "Created": 1543421803,
+    "Id": "sha256:18d7ca7ae5244f76e95ab196dc6e68ddb5715846ae7b9d4ddfd22430bb85eb50",
+    "Labels": null,
+    "ParentId": "sha256:a7a43d1a00b5a782645e04f5c9fff248fca96f9325d3ce56e295d8f653856a87",
+    "RepoDigests": [
+      "jameshnsears/xqa-message-broker@sha256:87b30fd97d1a60a20c1e2175000c81c96a5d98c26513986c1f8d5c852e82a7cd"
+    ],
+    "RepoTags": [
+      "jameshnsears/xqa-message-broker:latest",
+      "xqa-message-broker:latest"
+    ],
+    "SharedSize": -1,
+    "Size": 742579503,
+    "VirtualSize": 742579503
+  },
+  {
+    "Containers": -1,
+    "Created": 1543421698,
+    "Id": "sha256:45dcf64ba8b89613f38aabba106818b9858445926e4bb1b1d90b32dca9182080",
+    "Labels": null,
+    "ParentId": "sha256:3debc720dfa190d95b224a4b3e79df417a2e20856ddcbb39692be3757e5bd1b1",
+    "RepoDigests": null,
+    "RepoTags": [
+      "xqa-db-amqp:latest"
+    ],
+    "SharedSize": -1,
+    "Size": 537343714,
+    "VirtualSize": 537343714
+  },
+  {
+    "Containers": -1,
+    "Created": 1543421593,
+    "Id": "sha256:a27db0e92bcbfaf0a1483765168827e283cd058abb3c5968b853be33f7c4c5d4",
+    "Labels": null,
+    "ParentId": "sha256:eca21fbe11b09a5dc6e82533ef0383acdcaea85ee2a96fa8c05d5fddec053164",
+    "RepoDigests": [
+      "jameshnsears/xqa-db@sha256:0731e671e487652dc3cda68965cdc2b6cb94b488d25d9410ede9e57d99f7d6d3"
+    ],
+    "RepoTags": [
+      "jameshnsears/xqa-db:latest",
+      "xqa-db:latest"
+    ],
+    "SharedSize": -1,
+    "Size": 310792075,
+    "VirtualSize": 310792075
+  },
+  {
+    "Containers": -1,
+    "Created": 1542662442,
+    "Id": "sha256:93fd78260bd1495afb484371928661f63e64be306b7ac48e2d13ce9422dfee26",
+    "Labels": null,
+    "ParentId": "",
+    "RepoDigests": [
+      "ubuntu@sha256:6d0e0c26489e33f5a6f0020edface2727db9489744ecc9b4f50c7fa671f23c49"
+    ],
+    "RepoTags": [
+      "ubuntu:bionic"
+    ],
+    "SharedSize": -1,
+    "Size": 86178190,
+    "VirtualSize": 86178190
+  },
+  {
+    "Containers": -1,
+    "Created": 1542348250,
+    "Id": "sha256:8d84c7940aa6ea74016d9b6f6ab6c65aa797cfd79b9b7d5ca7d3277b2cc7d30f",
+    "Labels": null,
+    "ParentId": "",
+    "RepoDigests": [
+      "postgres@sha256:40b48cf04185e69c5a9183a986fcbbfd105e5991a70b1980e9a641b53ba5ead7"
+    ],
+    "RepoTags": [
+      "postgres:11.1"
+    ],
+    "SharedSize": -1,
+    "Size": 310791273,
+    "VirtualSize": 310791273
+  },
+  {
+    "Containers": -1,
+    "Created": 1517392113,
+    "Id": "sha256:527073eb32d19aa8aee514d8017bc53656507ad12356fb19106e85645d18d792",
+    "Labels": null,
+    "ParentId": "",
+    "RepoDigests": [
+      "quay.io/testcontainers/ryuk@sha256:3d53f437c84a355eafccfef4a0fe3270c49893bd2ac80b5ef57698c1a9102fec"
+    ],
+    "RepoTags": [
+      "quay.io/testcontainers/ryuk:0.2.2"
+    ],
+    "SharedSize": -1,
+    "Size": 9310646,
+    "VirtualSize": 9310646
+  },
+  {
+    "Containers": -1,
+    "Created": 1515557663,
+    "Id": "sha256:24ed1c575f8176d90af60ed57f89a9bae0e16c56b48519311f48b106e0e0c407",
+    "Labels": {
+      "maintainer": "NGINX Docker Maintainers <docker-maint@nginx.com>"
+    },
+    "ParentId": "",
+    "RepoDigests": [
+      "nginx@sha256:db5acc22920799fe387a903437eb89387607e5b3f63cf0f4472ac182d7bad644"
+    ],
+    "RepoTags": [
+      "nginx:1.12.2-alpine"
+    ],
+    "SharedSize": -1,
+    "Size": 15502679,
+    "VirtualSize": 15502679
+  },
+  {
+    "Containers": -1,
+    "Created": 1512669355,
+    "Id": "sha256:75f88e3ec333cbb410297e4f40297ac615e076b4a50aeeae49f287093ff01ab1",
+    "Labels": {},
+    "ParentId": "",
+    "RepoDigests": [
+      "google/cadvisor@sha256:9e347affc725efd3bfe95aa69362cf833aa810f84e6cb9eed1cb65c35216632a"
+    ],
+    "RepoTags": [
+      "google/cadvisor:latest"
+    ],
+    "SharedSize": -1,
+    "Size": 62207857,
+    "VirtualSize": 62207857
+  }
+]

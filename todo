@@ -1,34 +1,3 @@
-use swagger to generate client code from Docker Engine OpenAPI .yaml file
-    https://github.com/swagger-api/swagger-codegen
-        https://swagger.io/tools/swagger-codegen/download/
-    https://docs.docker.com/engine/api/v1.39/
-        https://docs.docker.com/develop/sdk/examples/#run-a-container
-
-->
-
-Gson || Jackson
-
-https://github.com/square/okhttp/wiki/Recipes
-    https://github.com/square/moshi
-v.
-https://www.baeldung.com/jackson-object-mapper-tutorial
-v.
-http://www.studytrails.com/java/json/java-google-json-parse-json-to-java/
-    https://github.com/google/gson
-    http://www.studytrails.com/java/json/java-google-json-introduction/
-
-->
-
-https://developers.google.com/api-client-library/java/google-http-java-client/ = NO
-    https://www.baeldung.com/google-http-client
-v.
-https://square.github.io/okhttp/
-v.
-https://hc.apache.org/httpcomponents-client-ga/ = NO
-v.
-https://jersey.github.io/documentation/latest/client.html
-    https://jersey.github.io/documentation/latest/getting-started.html
-v.
 https://github.com/OpenFeign/feign
 https://www.baeldung.com/intro-to-feign
 

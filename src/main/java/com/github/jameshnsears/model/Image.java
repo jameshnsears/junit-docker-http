@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Container {
+public class Image {
     @SerializedName("Id")
     @Expose
     private String id;
@@ -29,4 +29,5 @@ public class Container {
     public void setRepoTags(List<String> repoTags) {
         this.repoTags = repoTags;
     }
+
 }

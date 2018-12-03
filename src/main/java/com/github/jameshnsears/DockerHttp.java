@@ -14,8 +14,8 @@ import java.io.File;
 public class DockerHttp {
     private static final Logger log = LoggerFactory.getLogger(DockerHttp.class);
     private HttpLoggingInterceptor logging;
-    File socketFile;
-    OkHttpClient client;
+    private File socketFile;
+    private OkHttpClient client;
 
     public DockerHttp() {
         logging = new HttpLoggingInterceptor();

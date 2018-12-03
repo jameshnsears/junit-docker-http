@@ -1,0 +1,40 @@
+{
+  "Volumes": [
+    {
+      "CreatedAt": "2018-11-28T17:07:04Z",
+      "Driver": "local",
+      "Labels": {
+        "com.docker.compose.project": "dev",
+        "com.docker.compose.version": "1.23.1",
+        "com.docker.compose.volume": "xqa-message-broker"
+      },
+      "Mountpoint": "/var/lib/docker/volumes/dev_xqa-message-broker/_data",
+      "Name": "dev_xqa-message-broker",
+      "Options": null,
+      "Scope": "local"
+    },
+    {
+      "CreatedAt": "2018-11-28T17:07:06Z",
+      "Driver": "local",
+      "Labels": null,
+      "Mountpoint": "/var/lib/docker/volumes/f4450aece8f49c310212fde5d8ce35f9863768918f08fcc10f96188a4ba731c8/_data",
+      "Name": "f4450aece8f49c310212fde5d8ce35f9863768918f08fcc10f96188a4ba731c8",
+      "Options": null,
+      "Scope": "local"
+    },
+    {
+      "CreatedAt": "2018-11-28T17:07:01Z",
+      "Driver": "local",
+      "Labels": {
+        "com.docker.compose.project": "dev",
+        "com.docker.compose.version": "1.23.1",
+        "com.docker.compose.volume": "xqa-db"
+      },
+      "Mountpoint": "/var/lib/docker/volumes/dev_xqa-db/_data",
+      "Name": "dev_xqa-db",
+      "Options": null,
+      "Scope": "local"
+    }
+  ],
+  "Warnings": null
+}

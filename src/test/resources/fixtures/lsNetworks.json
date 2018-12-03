@@ -1,0 +1,115 @@
+[
+  {
+    "Name": "host",
+    "Id": "9539d00bec3800805f3580c3c232c45fe568b4fa38b7b59267b80315a3e10f30",
+    "Created": "2018-11-06T19:12:51.491309471Z",
+    "Scope": "local",
+    "Driver": "host",
+    "EnableIPv6": false,
+    "IPAM": {
+      "Driver": "default",
+      "Options": null,
+      "Config": []
+    },
+    "Internal": false,
+    "Attachable": false,
+    "Ingress": false,
+    "ConfigFrom": {
+      "Network": ""
+    },
+    "ConfigOnly": false,
+    "Containers": {},
+    "Options": {},
+    "Labels": {}
+  },
+  {
+    "Name": "bridge",
+    "Id": "20da9a9d61c064841009afbd4c253c107032fb0a3477ff9e2509625efc819431",
+    "Created": "2018-12-03T08:15:03.08552671Z",
+    "Scope": "local",
+    "Driver": "bridge",
+    "EnableIPv6": false,
+    "IPAM": {
+      "Driver": "default",
+      "Options": null,
+      "Config": [
+        {
+          "Subnet": "172.17.0.0/16",
+          "Gateway": "172.17.0.1"
+        }
+      ]
+    },
+    "Internal": false,
+    "Attachable": false,
+    "Ingress": false,
+    "ConfigFrom": {
+      "Network": ""
+    },
+    "ConfigOnly": false,
+    "Containers": {},
+    "Options": {
+      "com.docker.network.bridge.default_bridge": "true",
+      "com.docker.network.bridge.enable_icc": "true",
+      "com.docker.network.bridge.enable_ip_masquerade": "true",
+      "com.docker.network.bridge.host_binding_ipv4": "0.0.0.0",
+      "com.docker.network.bridge.name": "docker0",
+      "com.docker.network.driver.mtu": "1500"
+    },
+    "Labels": {}
+  },
+  {
+    "Name": "none",
+    "Id": "15e177004e83ab7934f9556daadfd4fdcab54b8d0b880215a87f21b50a7e8a72",
+    "Created": "2018-11-06T19:12:51.465182988Z",
+    "Scope": "local",
+    "Driver": "null",
+    "EnableIPv6": false,
+    "IPAM": {
+      "Driver": "default",
+      "Options": null,
+      "Config": []
+    },
+    "Internal": false,
+    "Attachable": false,
+    "Ingress": false,
+    "ConfigFrom": {
+      "Network": ""
+    },
+    "ConfigOnly": false,
+    "Containers": {},
+    "Options": {},
+    "Labels": {}
+  },
+  {
+    "Name": "dev_xqa",
+    "Id": "7c5e10cee148853eb6bd39785bd8974ed80f89de8acd9e301ec73251e1a4f907",
+    "Created": "2018-11-28T17:06:56.973380478Z",
+    "Scope": "local",
+    "Driver": "bridge",
+    "EnableIPv6": false,
+    "IPAM": {
+      "Driver": "default",
+      "Options": null,
+      "Config": [
+        {
+          "Subnet": "172.21.0.0/16",
+          "Gateway": "172.21.0.1"
+        }
+      ]
+    },
+    "Internal": false,
+    "Attachable": true,
+    "Ingress": false,
+    "ConfigFrom": {
+      "Network": ""
+    },
+    "ConfigOnly": false,
+    "Containers": {},
+    "Options": {},
+    "Labels": {
+      "com.docker.compose.network": "xqa",
+      "com.docker.compose.project": "dev",
+      "com.docker.compose.version": "1.23.1"
+    }
+  }
+]
