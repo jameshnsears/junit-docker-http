@@ -10,7 +10,7 @@ logging.basicConfig(
     datefmt='%m/%d/%Y %H:%M:%S',
     level=logging.DEBUG)
 
-logging.getLogger('docker').setLevel(logging.WARNING)
+logging.getLogger('com.github.jameshnsears.docker').setLevel(logging.WARNING)
 logging.getLogger('urllib3').setLevel(logging.WARNING)
 
 docker_py_wrapper = DockerPyWrapper()

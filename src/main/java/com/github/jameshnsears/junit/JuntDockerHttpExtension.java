@@ -1,4 +1,4 @@
-package junit;
+package com.github.jameshnsears.junit;
 
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;

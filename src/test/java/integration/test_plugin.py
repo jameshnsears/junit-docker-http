@@ -1,4 +1,4 @@
-import docker
+import com.github.jameshnsears.docker
 import pytest
 
 
@@ -21,7 +21,7 @@ def test_plugin(dockerpy_easy_to_use):
     pytest_runtest_setup = will pull / start container(s).
     pytest_runtest_teardown = will kill container(s).
     """
-    client = docker.from_env()
+    client = com.github.jameshnsears.docker.from_env()
     container_found = False
     for container in client.containers.list():
         for tag in container.image.tags:

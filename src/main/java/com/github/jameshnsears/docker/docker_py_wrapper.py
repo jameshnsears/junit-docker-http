@@ -1,13 +1,13 @@
 import logging
 
-import docker
+import com.github.jameshnsears.docker
 
 
 class DockerPyWrapper:
     RECOGNISED_FIXTURE = 'dockerpy'
 
     def __init__(self):
-        self._client = docker.from_env()
+        self._client = com.github.jameshnsears.docker.from_env()
 
     def ls_images(self):
         image_tags = []
@@ -31,7 +31,7 @@ class DockerPyWrapper:
                 logging.debug(image_to_pull)
                 try:
                     self._client.images.pull(image_to_pull)
-                except docker.errors.ImageNotFound as exception:
+                except com.github.jameshnsears.docker.errors.ImageNotFound as exception:
                     logging.error(str(exception))
                     return False
             else:
@@ -85,7 +85,7 @@ class DockerPyWrapper:
         try:
             docker_container['container'].stop(timeout=1)
             docker_container['container'].remove(force=True)
-        except docker.errors.NotFound:
+        except com.github.jameshnsears.docker.errors.NotFound:
             pass
         self._client.volumes.prune()
 

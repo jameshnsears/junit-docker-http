@@ -1,6 +1,6 @@
-package unit;
+package unit.junit;
 
-import junit.JuntDockerHttpExtension;
+import com.github.jameshnsears.junit.JuntDockerHttpExtension;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

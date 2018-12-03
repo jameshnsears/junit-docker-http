@@ -1,9 +1,9 @@
-package unit;
+package unit.docker.gson;
 
-import docker.model.Container;
-import docker.model.Image;
-import docker.model.Network;
-import docker.model.Volume;
+import com.github.jameshnsears.docker.gson.Container;
+import com.github.jameshnsears.docker.gson.Image;
+import com.github.jameshnsears.docker.gson.Network;
+import com.github.jameshnsears.docker.gson.Volume;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.junit.Assert;
@@ -13,11 +13,11 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.Collection;
 
-public class ModelTest {
+public class GsonTest {
 
     private final Gson gson;
 
-    public ModelTest() {
+    public GsonTest() {
         gson = new Gson();
     }
 
@@ -25,7 +25,7 @@ public class ModelTest {
     public void lsImagesGson() {
         Type collectionType = new TypeToken<Collection<Image>>() {
         }.getType();
-        Collection<Image> images = gson.fromJson(getInputStreamReader("/fixtures/lsImages.json"), collectionType);
+        Collection<Image> images = gson.fromJson(getInputStreamReader("/fixtures/docker/images.json"), collectionType);
 
         Assert.assertEquals(
                 images.size(),
@@ -40,7 +40,7 @@ public class ModelTest {
     public void lsContainersGson() {
         Type collectionType = new TypeToken<Collection<Container>>() {
         }.getType();
-        Collection<Container> containers = gson.fromJson(getInputStreamReader("/fixtures/lsContainers-found.json"), collectionType);
+        Collection<Container> containers = gson.fromJson(getInputStreamReader("/fixtures/docker/containers.json"), collectionType);
 
         Assert.assertEquals(
                 containers.size(),
@@ -57,7 +57,7 @@ public class ModelTest {
     public void lsNetworksGson() {
         Type collectionType = new TypeToken<Collection<Network>>() {
         }.getType();
-        Collection<Network> networks = gson.fromJson(getInputStreamReader("/fixtures/lsNetworks.json"), collectionType);
+        Collection<Network> networks = gson.fromJson(getInputStreamReader("/fixtures/docker/networks.json"), collectionType);
 
         Assert.assertEquals(
                 networks.size(),
@@ -66,7 +66,7 @@ public class ModelTest {
 
     @Test
     public void lsVolumesGson() {
-        Volume volume = gson.fromJson(getInputStreamReader("/fixtures/lsVolumes.json"), Volume.class);
+        Volume volume = gson.fromJson(getInputStreamReader("/fixtures/docker/volumes.json"), Volume.class);
 
         Assert.assertEquals(
                 volume.getVolumes().size(),
