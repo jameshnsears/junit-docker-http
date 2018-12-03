@@ -14,19 +14,15 @@ import java.io.IOException;
 
 public class DockerHttpWrapper {
     private static final Logger log = LoggerFactory.getLogger(DockerHttpWrapper.class);
-    private HttpLoggingInterceptor logging;
-    private File socketFile;
     private OkHttpClient client;
 
     public DockerHttpWrapper() {
-        logging = new HttpLoggingInterceptor();
-        logging.setLevel(Level.HEADERS);
-
-        socketFile = new File("/var/run/docker.sock");
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        httpLoggingInterceptor.setLevel(Level.HEADERS);
 
         client = new OkHttpClient.Builder()
-                .socketFactory(new UnixDomainSocketFactory(socketFile))
-                .addInterceptor(logging)
+                .socketFactory(new UnixDomainSocketFactory(new File("/var/run/docker.sock")))
+                .addInterceptor(httpLoggingInterceptor)
                 .build();
     }
 

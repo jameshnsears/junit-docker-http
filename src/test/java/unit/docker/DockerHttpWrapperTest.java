@@ -1,6 +1,5 @@
 package unit.docker;
 
-import com.github.jameshnsears.Configuration;
 import com.github.jameshnsears.ConfigurationAccessor;
 import com.github.jameshnsears.docker.DockerHttpWrapper;
 import org.junit.Assert;

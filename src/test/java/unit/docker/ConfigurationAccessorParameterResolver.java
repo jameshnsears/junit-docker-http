@@ -27,12 +27,12 @@ public class ConfigurationAccessorParameterResolver implements ParameterResolver
         Gson gson = new Gson();
         Type collectionType = new TypeToken<Collection<Configuration>>() {
         }.getType();
-        Collection<Configuration> configurationCollection = gson.fromJson(getInputStreamReader("/fixtures/config.json"), collectionType);
+        Collection<Configuration> configurationCollection = gson.fromJson(getInputStreamReader(), collectionType);
 
         return new ConfigurationAccessor(configurationCollection);
     }
 
-    private InputStreamReader getInputStreamReader(String s) {
-        return new InputStreamReader(getClass().getResourceAsStream(s));
+    private InputStreamReader getInputStreamReader() {
+        return new InputStreamReader(getClass().getResourceAsStream("/fixtures/config.json"));
     }
 }
