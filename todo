@@ -1,4 +1,5 @@
 wrap /home/jsears/GIT_REPOS/junit-docker-http/src/test/resources/fixtures/config*.json into gson wrapper
+= this is what is passed into DockerHttpWrapperTest
 
 use config in DockerHttpWrapperTest
 

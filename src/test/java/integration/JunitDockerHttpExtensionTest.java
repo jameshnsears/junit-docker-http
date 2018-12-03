@@ -1,3 +1,7 @@
+package integration;
+
+public class JunitDockerHttpExtensionTest {
+    /*
 import com.github.jameshnsears.docker
 import pytest
 
@@ -28,3 +32,6 @@ def test_plugin(dockerpy_easy_to_use):
             if 'alpine:latest' == tag:
                 container_found = True
     assert container_found == True
+
+     */
+}
