@@ -1,9 +1,7 @@
 package com.github.jameshnsears;
 
-import com.google.gson.Gson;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
 import okhttp3.unixdomainsockets.UnixDomainSocketFactory;
@@ -15,35 +13,31 @@ import java.io.File;
 
 public class DockerHttp {
     private static final Logger log = LoggerFactory.getLogger(DockerHttp.class);
+    private HttpLoggingInterceptor logging;
+    File socketFile;
+    OkHttpClient client;
 
-    public static void main(String... args) throws Exception {
-        DockerHttp dockerHttp = new DockerHttp();
-        dockerHttp.lsContainers();
-    }
-
-    public void lsContainers() throws Exception {
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+    public DockerHttp() {
+        logging = new HttpLoggingInterceptor();
         logging.setLevel(Level.HEADERS);
 
-        File socketFile = new File("/var/run/docker.sock");
+        socketFile = new File("/var/run/docker.sock");
 
-        OkHttpClient client = new OkHttpClient.Builder()
+        client = new OkHttpClient.Builder()
                 .socketFactory(new UnixDomainSocketFactory(socketFile))
                 .addInterceptor(logging)
                 .build();
+    }
 
+    public String lsContainers() throws Exception {
         Request request = new Request.Builder()
                 .url("http://127.0.0.1/v1.39/images/json")
                 .build();
 
-        try (Response response = client.newCall(request).execute()) {
-            Gson gson = new Gson();
-            String jsonInString = response.body().string();
+        String jsonResponse = client.newCall(request).execute().body().string();
+        log.debug(jsonResponse);
 
-            // ignore any parts of the json we're not interested in!
-            User user gson.fromJson(jsonInString, User.class);
-            log.info(response.body().string());
-        }
+        return jsonResponse;
     }
 
     public void ls_images() {
@@ -59,10 +53,6 @@ public class DockerHttp {
     }
 
     public void pull() {
-        return;
-    }
-
-    public void ls_containers() {
         return;
     }
 
