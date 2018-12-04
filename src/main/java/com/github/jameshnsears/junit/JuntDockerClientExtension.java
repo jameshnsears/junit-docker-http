@@ -12,13 +12,13 @@ import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.Properties;
 
-public class JuntDockerHttpExtension implements BeforeTestExecutionCallback, AfterTestExecutionCallback {
+public class JuntDockerClientExtension implements BeforeTestExecutionCallback, AfterTestExecutionCallback {
 
-    private static final Logger logger = LoggerFactory.getLogger(JuntDockerHttpExtension.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(JuntDockerClientExtension.class.getName());
 
     private void readProps() {
         Properties prop = new Properties();
-        try (InputStream inputStream = JuntDockerHttpExtension.class.getResourceAsStream("/config.properties")) {
+        try (InputStream inputStream = JuntDockerClientExtension.class.getResourceAsStream("/config.properties")) {
 
             prop.load(inputStream);
             logger.info(prop.getProperty("a", "default"));

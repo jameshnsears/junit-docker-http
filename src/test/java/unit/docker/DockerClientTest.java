@@ -1,7 +1,7 @@
 package unit.docker;
 
 import com.github.jameshnsears.ConfigurationAccessor;
-import com.github.jameshnsears.docker.DockerHttpAccessor;
+import com.github.jameshnsears.docker.DockerClient;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -10,16 +10,16 @@ import java.util.ArrayList;
 import java.util.Map;
 
 @ExtendWith(ConfigurationAccessorParameterResolver.class)
-public class DockerHttpAccessorTest {
-    DockerHttpAccessor dockerHttpAccessor = new DockerHttpAccessor();
+public class DockerClientTest {
+    DockerClient dockerClient = new DockerClient();
 
     @Test
     public void pullImages(ConfigurationAccessor configurationAccessor) throws IOException {
-        ArrayList<String> images = dockerHttpAccessor.lsImages();
+        ArrayList<String> images = dockerClient.lsImages();
 
-        ArrayList<Map<String, Object>> containers = dockerHttpAccessor.lsContainers(configurationAccessor);
+        ArrayList<Map<String, Object>> containers = dockerClient.lsContainers(configurationAccessor);
 
-        dockerHttpAccessor.rmImages(configurationAccessor.images());
+        dockerClient.rmImages(configurationAccessor.images());
 
         /*
         docker_py_wrapper.rm_images(configuration.images())

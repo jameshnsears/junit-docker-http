@@ -8,7 +8,6 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
 import okhttp3.unixdomainsockets.UnixDomainSocketFactory;
@@ -23,12 +22,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class DockerHttpAccessor {
-    private static final Logger logger = LoggerFactory.getLogger(DockerHttpAccessor.class);
+public class DockerClient {
+    private static final Logger logger = LoggerFactory.getLogger(DockerClient.class);
     private OkHttpClient okHttpClient;
     private Gson gson;
 
-    public DockerHttpAccessor() {
+    public DockerClient() {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(Level.HEADERS);
 
@@ -40,11 +39,7 @@ public class DockerHttpAccessor {
         gson = new Gson();
     }
 
-    private enum HttpVerb {
-        GET, POST, DELETE
-    }
-
-    private String callDockerEngine(String endpoint, HttpVerb httpVerb) throws IOException {
+    private String callDockerEngine(String endpoint) throws IOException {
         /*
         HttpUrl url = new HttpUrl.Builder()
             .host(host).addQueryParameter(name, value).build();
@@ -56,28 +51,30 @@ okhttpClient.newCall(request).enqueue(new Callback() {
     ...
 });
          */
-        Request request;
-
-        switch (httpVerb) {
-            case GET:
-                request = new Request.Builder()
+        Request request = new Request.Builder()
                         .url(endpoint)
                         .build();
-                break;
 
-            case POST:
-                request = new Request.Builder()
-                        .url(endpoint)
-                        .post(RequestBody.create())
-                        .build();
-                break;
-
-            case DELETE:
-                request = new Request.Builder()
-                        .url(endpoint)
-                        .build();
-                break;
-        }
+//        switch (httpVerb) {
+//            case GET:
+//                request = new Request.Builder()
+//                        .url(endpoint)
+//                        .build();
+//                break;
+//
+//            case POST:
+//                request = new Request.Builder()
+//                        .url(endpoint)
+//                        .post(RequestBody.create())
+//                        .build();
+//                break;
+//
+//            case DELETE:
+//                request = new Request.Builder()
+//                        .url(endpoint)
+//                        .build();
+//                break;
+//        }
 
         String jsonResponse = okHttpClient.newCall(request).execute().body().string();
         logger.debug(String.format("jsonResponse=%s", jsonResponse));

@@ -1,5 +1,6 @@
-work on DockerHttpWrapperTest
-= problem is that docker-py returns different stuff than raw docker rest api!
+move okhttp stuff from DockerHttpAccessor into HttpConnection
+
+work on DockerClientTest
 
 use coverage + other static analsys tools to rm as much as possible - especially in Models
 = +incoproate more pre-condition tests
@@ -11,6 +12,8 @@ work on JunitDockerHttpExtensionTest to actually use the extension
 incoporate maven processes - i.e. jaccomo + sonarcube
 
 check volumes created correctly in pytest-docker-py
+
+rename project / repo from "junit-docker-http" to "junit-docker_client-extension"
 
 --
 

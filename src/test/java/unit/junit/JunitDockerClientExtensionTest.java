@@ -1,12 +1,12 @@
 package unit.junit;
 
-import com.github.jameshnsears.junit.JuntDockerHttpExtension;
+import com.github.jameshnsears.junit.JuntDockerClientExtension;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-@ExtendWith(JuntDockerHttpExtension.class)
-public class JunitDockerHttpExtensionTest {
+@ExtendWith(JuntDockerClientExtension.class)
+public class JunitDockerClientExtensionTest {
 
     @Test
     void testExtension() {
