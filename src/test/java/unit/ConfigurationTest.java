@@ -13,9 +13,10 @@ import java.util.Map;
 public class ConfigurationTest extends GsonCommon {
     @Test
     public void loadConfig() {
-        Type collectionType = new TypeToken<Collection<Configuration>>() {
-        }.getType();
-        Collection<Configuration> configurationCollection = gson.fromJson(getInputStreamReader("/fixtures/config.json"), collectionType);
+        Collection<Configuration> configurationCollection = gson.fromJson(
+                getInputStreamReader("/fixtures/config.json"),
+                new TypeToken<Collection<Configuration>>() {
+                }.getType());
 
         Assert.assertEquals(
                 configurationCollection.size(),

@@ -1,26 +1,26 @@
 package com.github.jameshnsears;
 
+import com.google.common.base.Preconditions;
+
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 public class ConfigurationAccessor {
     private Collection<Configuration> configurationCollection;
 
     public ConfigurationAccessor(Collection<Configuration> configurationCollection) {
+        Preconditions.checkArgument(configurationCollection != null);
         this.configurationCollection = configurationCollection;
     }
 
-    public String images() {
-        /*
-        def images(self):
-        images = []
-                for configuration in self.configurationCollection:
-                try:
-                images.append(configuration['image'])
-        except KeyError:
-                logging.error('missing: image')
-                return sorted(images)
-        */
-        return "";
+    public ArrayList<String> images() {
+        ArrayList<String> images = new ArrayList<>();
+        for (Configuration configuration: this.configurationCollection) {
+            images.add(configuration.getImage());
+        }
+        Collections.sort(images);
+        return images;
     }
 
     public void containers() {
