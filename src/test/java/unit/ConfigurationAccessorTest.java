@@ -32,7 +32,7 @@ public class ConfigurationAccessorTest extends GsonCommon {
 
     @Test
     public void networks() {
-        Assert.assertArrayEquals(configurationAccessor.networks().toArray(), new String[] { "dev" });
+        Assert.assertArrayEquals(configurationAccessor.networks().toArray(), new String[]{"dev"});
     }
 
     @Test

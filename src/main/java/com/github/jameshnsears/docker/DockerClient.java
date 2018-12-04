@@ -3,18 +3,14 @@ package com.github.jameshnsears.docker;
 import com.github.jameshnsears.ConfigurationAccessor;
 import com.github.jameshnsears.docker.models.Container;
 import com.github.jameshnsears.docker.models.Image;
+import com.github.jameshnsears.docker.transport.HttpConnection;
+import com.github.jameshnsears.docker.utils.ResponseMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.logging.HttpLoggingInterceptor;
-import okhttp3.logging.HttpLoggingInterceptor.Level;
-import okhttp3.unixdomainsockets.UnixDomainSocketFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,73 +20,30 @@ import java.util.Map;
 
 public class DockerClient {
     private static final Logger logger = LoggerFactory.getLogger(DockerClient.class);
-    private OkHttpClient okHttpClient;
+    HttpConnection httpConnection;
+    ResponseMapper responseMapper;
+
     private Gson gson;
 
     public DockerClient() {
-        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
-        httpLoggingInterceptor.setLevel(Level.HEADERS);
-
-        okHttpClient = new OkHttpClient.Builder()
-                .socketFactory(new UnixDomainSocketFactory(new File("/var/run/docker.sock")))
-                .addInterceptor(httpLoggingInterceptor)
-                .build();
+        httpConnection = new HttpConnection();
+        responseMapper = new ResponseMapper();
 
         gson = new Gson();
     }
 
-    private String callDockerEngine(String endpoint) throws IOException {
-        /*
-        HttpUrl url = new HttpUrl.Builder()
-            .host(host).addQueryParameter(name, value).build();
-
-Request request = new Request.Builder()
-            .url(url).post(RequestBody.create(mediaType, body)).addHeader(type, header).build();
-
-okhttpClient.newCall(request).enqueue(new Callback() {
-    ...
-});
-         */
-        Request request = new Request.Builder()
-                        .url(endpoint)
-                        .build();
-
-//        switch (httpVerb) {
-//            case GET:
-//                request = new Request.Builder()
-//                        .url(endpoint)
-//                        .build();
-//                break;
-//
-//            case POST:
-//                request = new Request.Builder()
-//                        .url(endpoint)
-//                        .post(RequestBody.create())
-//                        .build();
-//                break;
-//
-//            case DELETE:
-//                request = new Request.Builder()
-//                        .url(endpoint)
-//                        .build();
-//                break;
-//        }
-
-        String jsonResponse = okHttpClient.newCall(request).execute().body().string();
-        logger.debug(String.format("jsonResponse=%s", jsonResponse));
-        return jsonResponse;
-    }
 
     public ArrayList<String> lsImages() throws IOException {
         ArrayList<String> imageNames = new ArrayList<>();
 
         try {
             ArrayList<Image> dockerImages = gson.fromJson(
-                    callDockerEngine("http://127.0.0.1/v1.39/images/json"),
-                    new TypeToken<Collection<Image>>() {}.getType());
+                    httpConnection.get("http://127.0.0.1/v1.39/images/json"),
+                    new TypeToken<Collection<Image>>() {
+                    }.getType());
 
-            for (Image dockerImage: dockerImages)
-                for (String repoTag: dockerImage.getRepoTags())
+            for (Image dockerImage : dockerImages)
+                for (String repoTag : dockerImage.getRepoTags())
                     imageNames.add(repoTag);
         } catch (JsonSyntaxException jsonSyntaxException) {
             logger.warn(jsonSyntaxException.getMessage());
@@ -104,7 +57,7 @@ okhttpClient.newCall(request).enqueue(new Callback() {
 
         try {
             ArrayList<Container> dockerContainers = gson.fromJson(
-                    callDockerEngine("http://127.0.0.1/v1.39/containers/json"),
+                    httpConnection.get("http://127.0.0.1/v1.39/containers/json"),
                     new TypeToken<Collection<Container>>() {
                     }.getType());
 
