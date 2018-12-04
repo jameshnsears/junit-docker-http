@@ -5,42 +5,27 @@ import com.github.jameshnsears.docker.models.Container;
 import com.github.jameshnsears.docker.models.Image;
 import com.github.jameshnsears.docker.transport.HttpConnection;
 import com.github.jameshnsears.docker.utils.ResponseMapper;
-import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 
 public class DockerClient {
     private static final Logger logger = LoggerFactory.getLogger(DockerClient.class);
-    HttpConnection httpConnection;
-    ResponseMapper responseMapper;
-
-    private Gson gson;
-
-    public DockerClient() {
-        httpConnection = new HttpConnection();
-        responseMapper = new ResponseMapper();
-
-        gson = new Gson();
-    }
-
+    HttpConnection httpConnection = new HttpConnection();
+    ResponseMapper responseMapper = new ResponseMapper();
 
     public ArrayList<String> lsImages() throws IOException {
         ArrayList<String> imageNames = new ArrayList<>();
 
         try {
-            ArrayList<Image> dockerImages = gson.fromJson(
-                    httpConnection.get("http://127.0.0.1/v1.39/images/json"),
-                    new TypeToken<Collection<Image>>() {
-                    }.getType());
+            String json = httpConnection.get("http://127.0.0.1/v1.39/images/json");
+            ArrayList<Image> dockerImages = responseMapper.mapJsonIntoImageList(json);
 
             for (Image dockerImage : dockerImages)
                 for (String repoTag : dockerImage.getRepoTags())
@@ -56,10 +41,8 @@ public class DockerClient {
         ArrayList<Map<String, Object>> containersThatMatchConfiguration = new ArrayList<>();
 
         try {
-            ArrayList<Container> dockerContainers = gson.fromJson(
-                    httpConnection.get("http://127.0.0.1/v1.39/containers/json"),
-                    new TypeToken<Collection<Container>>() {
-                    }.getType());
+            String json = httpConnection.get("http://127.0.0.1/v1.39/containers/json");
+            ArrayList<Container> dockerContainers = responseMapper.mapJsonIntoContainerList(json);
 
             for (Container dockerContainer : dockerContainers)
                 for (String containerName : dockerContainer.getNames())
