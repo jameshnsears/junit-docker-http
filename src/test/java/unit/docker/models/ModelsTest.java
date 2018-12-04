@@ -9,15 +9,16 @@ import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import unit.GsonCommon;
 
-import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class ModelsTest extends GsonCommon {
     @Test
     public void lsImages() {
-        Type collectionType = new TypeToken<Collection<Image>>() {
-        }.getType();
-        Collection<Image> images = gson.fromJson(getInputStreamReader("/fixtures/docker/images.json"), collectionType);
+        ArrayList<Image> images = gson.fromJson(
+                getInputStreamReader("/fixtures/docker/images.json"),
+                new TypeToken<Collection<Image>>() {
+                }.getType());
 
         Assert.assertEquals(
                 images.size(),
@@ -26,26 +27,28 @@ public class ModelsTest extends GsonCommon {
 
     @Test
     public void lsContainers() {
-        Type collectionType = new TypeToken<Collection<Container>>() {
-        }.getType();
-        Collection<Container> containers = gson.fromJson(getInputStreamReader("/fixtures/docker/containers.json"), collectionType);
+        ArrayList<Container> containers = gson.fromJson(
+                getInputStreamReader("/fixtures/docker/containers.json"),
+                new TypeToken<Collection<Container>>() {
+                }.getType());
 
         Assert.assertEquals(
                 containers.size(),
-                9);
+                7);
         Assert.assertEquals(
                 ((Container) ((java.util.ArrayList) containers).get(0)).getId(),
-                "sha256:7466ebd20c18d0a9decfba4a12b0f8c4cce87e38866b512ffd6d483bfb4c24e1");
+                "60cb5bc7fa7f5ac26a48520f8bd68decd8307af1b114f25b29827120ba4d4c16");
         Assert.assertEquals(
-                ((java.util.ArrayList) ((Container) ((java.util.ArrayList) containers).get(0)).getRepoTags()).get(0),
-                "jameshnsears/xqa-shard:latest");
+                ((java.util.ArrayList) ((Container) ((java.util.ArrayList) containers).get(0)).getNames()).get(0),
+                "/xqa-ingest");
     }
 
     @Test
     public void lsNetworks() {
-        Type collectionType = new TypeToken<Collection<Network>>() {
-        }.getType();
-        Collection<Network> networks = gson.fromJson(getInputStreamReader("/fixtures/docker/networks.json"), collectionType);
+        ArrayList<Network> networks = gson.fromJson(
+                getInputStreamReader("/fixtures/docker/networks.json"),
+                new TypeToken<Collection<Network>>() {
+                }.getType());
 
         Assert.assertEquals(
                 networks.size(),

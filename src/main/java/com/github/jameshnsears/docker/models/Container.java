@@ -3,6 +3,7 @@ package com.github.jameshnsears.docker.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Container {
@@ -10,9 +11,13 @@ public class Container {
     @Expose
     private String id;
 
-    @SerializedName("RepoTags")
+    @SerializedName("Image")
     @Expose
-    private List<String> repoTags = null;
+    private String image;
+
+    @SerializedName("Names")
+    @Expose
+    private List<String> names = null;
 
     public String getId() {
         return id;
@@ -22,11 +27,21 @@ public class Container {
         this.id = id;
     }
 
-    public List<String> getRepoTags() {
-        return repoTags;
+    public String getImage() {
+        return image;
     }
 
-    public void setRepoTags(List<String> repoTags) {
-        this.repoTags = repoTags;
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public List<String> getNames() {
+        if (names == null)
+            return new ArrayList<>();
+        return names;
+    }
+
+    public void setNames(List<String> names) {
+        this.names = names;
     }
 }

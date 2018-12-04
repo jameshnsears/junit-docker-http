@@ -1,6 +1,8 @@
 work on DockerHttpWrapperTest
+= problem is that docker-py returns different stuff than raw docker rest api!
 
-use coverage to rm as much as possible - especially in Models
+use coverage + other static analsys tools to rm as much as possible - especially in Models
+= +incoproate more pre-condition tests
 
 look at structure of swaggar.yaml - for clues as to how to call
 

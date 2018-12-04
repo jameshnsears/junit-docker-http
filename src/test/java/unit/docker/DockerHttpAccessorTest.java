@@ -1,22 +1,25 @@
 package unit.docker;
 
 import com.github.jameshnsears.ConfigurationAccessor;
-import com.github.jameshnsears.docker.DockerHttpWrapper;
-import org.junit.Assert;
+import com.github.jameshnsears.docker.DockerHttpAccessor;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
 
 @ExtendWith(ConfigurationAccessorParameterResolver.class)
-public class DockerHttpWrapperTest {
-    DockerHttpWrapper dockerHttp = new DockerHttpWrapper();
+public class DockerHttpAccessorTest {
+    DockerHttpAccessor dockerHttpAccessor = new DockerHttpAccessor();
 
     @Test
-    public void pullImages(ConfigurationAccessor configurationAccessor) {
-        dockerHttp.lsImages();
+    public void pullImages(ConfigurationAccessor configurationAccessor) throws IOException {
+        ArrayList<String> images = dockerHttpAccessor.lsImages();
 
-//        dockerHttp.rmImages(configurationAccessor.images());
+        ArrayList<Map<String, Object>> containers = dockerHttpAccessor.lsContainers(configurationAccessor);
+
+        dockerHttpAccessor.rmImages(configurationAccessor.images());
 
         /*
         docker_py_wrapper.rm_images(configuration.images())
@@ -42,15 +45,5 @@ public class DockerHttpWrapperTest {
         assert docker_py_wrapper.ls_networks(configuration.networks()) == []
         assert docker_py_wrapper.ls_volumes(configuration.volumes()) == []
          */
-    }
-
-    @Test
-    public void lsImages() throws IOException {
-        String jsonResponse = dockerHttp.lsImages();
-    }
-
-    @Test
-    public void lsContainers() throws IOException {
-        String jsonResponse = dockerHttp.lsContainers();
     }
 }

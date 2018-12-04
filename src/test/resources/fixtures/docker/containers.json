@@ -1,148 +1,323 @@
 [
   {
-    "Containers": -1,
-    "Created": 1543253222,
-    "Id": "sha256:7466ebd20c18d0a9decfba4a12b0f8c4cce87e38866b512ffd6d483bfb4c24e1",
-    "Labels": null,
-    "ParentId": "",
-    "RepoDigests": [
-      "jameshnsears/xqa-shard@sha256:fa38fd0fb25360fb992253b3d6a88214933a1d4e9ad2bdfdc3e5b24815496337"
+    "Id": "60cb5bc7fa7f5ac26a48520f8bd68decd8307af1b114f25b29827120ba4d4c16",
+    "Names": [
+      "/xqa-ingest"
     ],
-    "RepoTags": [
-      "jameshnsears/xqa-shard:latest"
-    ],
-    "SharedSize": -1,
-    "Size": 948907058,
-    "VirtualSize": 948907058
-  },
-  {
-    "Containers": -1,
-    "Created": 1543253181,
-    "Id": "sha256:e02631c94239c4b612cefe867c0b1ea4829f7ae71029ba22b0830f505c75464f",
-    "Labels": null,
-    "ParentId": "",
-    "RepoDigests": [
-      "jameshnsears/xqa-db-amqp@sha256:d31a3359a99c737f036c3a0d06f0b5143411f21f88fc1db12d1d405a98ea889a"
-    ],
-    "RepoTags": [
-      "jameshnsears/xqa-db-amqp:latest"
-    ],
-    "SharedSize": -1,
-    "Size": 537338232,
-    "VirtualSize": 537338232
-  },
-  {
-    "Containers": -1,
-    "Created": 1543253087,
-    "Id": "sha256:d472512f26e877ee2278bfab4333898a28f61f588b89018b0640a2f1b2830e9d",
-    "Labels": {
-      "maintainer": "NGINX Docker Maintainers <docker-maint@nginx.com>"
+    "Image": "jameshnsears/xqa-ingest:latest",
+    "ImageID": "sha256:6acb445e24e335787425b6da68e9d59a061c7260e33bd6ab354bca9e2af85f28",
+    "Command": "java -jar xqa-ingest-1.0.0-SNAPSHOT-jar-with-dependencies.jar -message_broker_host xqa-message-broker -path /xml",
+    "Created": 1543945490,
+    "Ports": [],
+    "Labels": {},
+    "State": "running",
+    "Status": "Up 13 seconds",
+    "HostConfig": {
+      "NetworkMode": "xqa"
     },
-    "ParentId": "",
-    "RepoDigests": [
-      "jameshnsears/xqa-query-ui@sha256:d40bac50ae21c0ceab26e967319f2bf0d9177aaaa0052bf7436fba71d553a3c0"
-    ],
-    "RepoTags": [
-      "jameshnsears/xqa-query-ui:latest"
-    ],
-    "SharedSize": -1,
-    "Size": 17321341,
-    "VirtualSize": 17321341
+    "NetworkSettings": {
+      "Networks": {
+        "xqa": {
+          "IPAMConfig": null,
+          "Links": null,
+          "Aliases": null,
+          "NetworkID": "79b2368e5cc4c68e2360e20a6157dbf7710885809f7907802746fb6b1e6146ad",
+          "EndpointID": "7982125f0e0b7c20a2fd9ff2f8fd979e1147c5660f473959c31b5855e4b97025",
+          "Gateway": "172.18.0.1",
+          "IPAddress": "172.18.0.8",
+          "IPPrefixLen": 16,
+          "IPv6Gateway": "",
+          "GlobalIPv6Address": "",
+          "GlobalIPv6PrefixLen": 0,
+          "MacAddress": "02:42:ac:12:00:08",
+          "DriverOpts": null
+        }
+      }
+    },
+    "Mounts": [
+      {
+        "Type": "bind",
+        "Source": "/home/jsears/GIT_REPOS/xqa-test-data",
+        "Destination": "/xml",
+        "Mode": "rw",
+        "RW": true,
+        "Propagation": "rprivate"
+      }
+    ]
   },
   {
-    "Containers": -1,
-    "Created": 1543253044,
-    "Id": "sha256:cc0515a5f101d0c92282189ed9cbda2c4521b8a48cc070516673b21e6889761e",
-    "Labels": null,
-    "ParentId": "",
-    "RepoDigests": [
-      "jameshnsears/xqa-message-broker@sha256:d4070f900f0ec4cdeb1820cbdbee2ef1137308293aeddc84cab156ebe1f2a136"
+    "Id": "b189d8ccd5383cd70269126290940574ed0bf65b44b91a2fc1c7d1582e87045b",
+    "Names": [
+      "/xqa-db-amqp"
     ],
-    "RepoTags": [
-      "jameshnsears/xqa-message-broker:latest"
-    ],
-    "SharedSize": -1,
-    "Size": 742575713,
-    "VirtualSize": 742575713
+    "Image": "jameshnsears/xqa-db-amqp:latest",
+    "ImageID": "sha256:e02631c94239c4b612cefe867c0b1ea4829f7ae71029ba22b0830f505c75464f",
+    "Command": "python3 xqa/db_amqp.py -message_broker_host xqa-message-broker -storage_host xqa-db -storage_port 5432",
+    "Created": 1543945487,
+    "Ports": [],
+    "Labels": {},
+    "State": "running",
+    "Status": "Up 15 seconds",
+    "HostConfig": {
+      "NetworkMode": "xqa"
+    },
+    "NetworkSettings": {
+      "Networks": {
+        "xqa": {
+          "IPAMConfig": null,
+          "Links": null,
+          "Aliases": null,
+          "NetworkID": "79b2368e5cc4c68e2360e20a6157dbf7710885809f7907802746fb6b1e6146ad",
+          "EndpointID": "97dcf8faefcbe14011a63b3253ea03e2838b7582ef21b2ed99734b5965f71723",
+          "Gateway": "172.18.0.1",
+          "IPAddress": "172.18.0.7",
+          "IPPrefixLen": 16,
+          "IPv6Gateway": "",
+          "GlobalIPv6Address": "",
+          "GlobalIPv6PrefixLen": 0,
+          "MacAddress": "02:42:ac:12:00:07",
+          "DriverOpts": null
+        }
+      }
+    },
+    "Mounts": []
   },
   {
-    "Containers": -1,
-    "Created": 1543252960,
-    "Id": "sha256:227383210f9d980506d30e2aede619aee54b93355045801d58521f39d0b094c8",
-    "Labels": null,
-    "ParentId": "",
-    "RepoDigests": [
-      "jameshnsears/xqa-db@sha256:4f017ec5fef63c330beb00fcd49d05373c72aea301adbb39a3f35697358e2ac4"
+    "Id": "2e5333419a5fe1ba224626d6df735f9b359d15b71475070b32d6d851b6eb268f",
+    "Names": [
+      "/xqa-ingest-balancer"
     ],
-    "RepoTags": [
-      "jameshnsears/xqa-db:latest"
-    ],
-    "SharedSize": -1,
-    "Size": 310792075,
-    "VirtualSize": 310792075
+    "Image": "jameshnsears/xqa-ingest-balancer:latest",
+    "ImageID": "sha256:4c9e7b6523ff6d1440b4426135722c412957c46c96328eb7da39bb1a184844e1",
+    "Command": "java -jar xqa-ingest-balancer-1.0.0-SNAPSHOT-jar-with-dependencies.jar -message_broker_host xqa-message-broker -pool_size 2 -insert_thread_wait 2000",
+    "Created": 1543945485,
+    "Ports": [],
+    "Labels": {},
+    "State": "running",
+    "Status": "Up 17 seconds",
+    "HostConfig": {
+      "NetworkMode": "xqa"
+    },
+    "NetworkSettings": {
+      "Networks": {
+        "xqa": {
+          "IPAMConfig": null,
+          "Links": null,
+          "Aliases": null,
+          "NetworkID": "79b2368e5cc4c68e2360e20a6157dbf7710885809f7907802746fb6b1e6146ad",
+          "EndpointID": "3b4970d0203e4683bf44fd599ff033ffafe0cb3ade43f95baf33c208c8f40af5",
+          "Gateway": "172.18.0.1",
+          "IPAddress": "172.18.0.6",
+          "IPPrefixLen": 16,
+          "IPv6Gateway": "",
+          "GlobalIPv6Address": "",
+          "GlobalIPv6PrefixLen": 0,
+          "MacAddress": "02:42:ac:12:00:06",
+          "DriverOpts": null
+        }
+      }
+    },
+    "Mounts": []
   },
   {
-    "Containers": -1,
-    "Created": 1543065811,
-    "Id": "sha256:45240bef3fbddcfac7a9ba9fdee501cf9b0671b352ee98a83d180f3d4f8c2680",
-    "Labels": null,
-    "ParentId": "",
-    "RepoDigests": [
-      "jameshnsears/xqa-query-balancer@sha256:948417ed66f4fe1b7521278a21ee75483cb5722f24a79001f7fc30eedb14b6cd"
+    "Id": "797eed6bd3c1d441433923e6a2bfaa8b598189f9cd446bb2060ab5eee64d083a",
+    "Names": [
+      "/xqa-shard-02"
     ],
-    "RepoTags": [
-      "jameshnsears/xqa-query-balancer:latest"
+    "Image": "jameshnsears/xqa-shard:latest",
+    "ImageID": "sha256:7466ebd20c18d0a9decfba4a12b0f8c4cce87e38866b512ffd6d483bfb4c24e1",
+    "Command": "python3 xqa/shard.py -message_broker_host xqa-message-broker",
+    "Created": 1543945483,
+    "Ports": [
+      {
+        "IP": "0.0.0.0",
+        "PrivatePort": 1984,
+        "PublicPort": 32769,
+        "Type": "tcp"
+      }
     ],
-    "SharedSize": -1,
-    "Size": 567762615,
-    "VirtualSize": 567762615
+    "Labels": {},
+    "State": "running",
+    "Status": "Up 20 seconds",
+    "HostConfig": {
+      "NetworkMode": "xqa"
+    },
+    "NetworkSettings": {
+      "Networks": {
+        "xqa": {
+          "IPAMConfig": null,
+          "Links": null,
+          "Aliases": null,
+          "NetworkID": "79b2368e5cc4c68e2360e20a6157dbf7710885809f7907802746fb6b1e6146ad",
+          "EndpointID": "c3c68452f6573875bc7266b4a0cf568d3663eecb04f160f11c822e189f539dda",
+          "Gateway": "172.18.0.1",
+          "IPAddress": "172.18.0.5",
+          "IPPrefixLen": 16,
+          "IPv6Gateway": "",
+          "GlobalIPv6Address": "",
+          "GlobalIPv6PrefixLen": 0,
+          "MacAddress": "02:42:ac:12:00:05",
+          "DriverOpts": null
+        }
+      }
+    },
+    "Mounts": []
   },
   {
-    "Containers": -1,
-    "Created": 1543065786,
-    "Id": "sha256:4c9e7b6523ff6d1440b4426135722c412957c46c96328eb7da39bb1a184844e1",
-    "Labels": null,
-    "ParentId": "",
-    "RepoDigests": [
-      "jameshnsears/xqa-ingest-balancer@sha256:f4077e5a971f47914cef59decabccbb6dd11e644ab9982e8b3108f604d1a6414"
+    "Id": "85c860cf468300d9a3cf5755b0a9f2c03c4055b65ec8282a555f5e7885c88586",
+    "Names": [
+      "/xqa-shard-01"
     ],
-    "RepoTags": [
-      "jameshnsears/xqa-ingest-balancer:latest"
+    "Image": "jameshnsears/xqa-shard:latest",
+    "ImageID": "sha256:7466ebd20c18d0a9decfba4a12b0f8c4cce87e38866b512ffd6d483bfb4c24e1",
+    "Command": "python3 xqa/shard.py -message_broker_host xqa-message-broker",
+    "Created": 1543945480,
+    "Ports": [
+      {
+        "IP": "0.0.0.0",
+        "PrivatePort": 1984,
+        "PublicPort": 32768,
+        "Type": "tcp"
+      }
     ],
-    "SharedSize": -1,
-    "Size": 559268306,
-    "VirtualSize": 559268306
+    "Labels": {},
+    "State": "running",
+    "Status": "Up 22 seconds",
+    "HostConfig": {
+      "NetworkMode": "xqa"
+    },
+    "NetworkSettings": {
+      "Networks": {
+        "xqa": {
+          "IPAMConfig": null,
+          "Links": null,
+          "Aliases": null,
+          "NetworkID": "79b2368e5cc4c68e2360e20a6157dbf7710885809f7907802746fb6b1e6146ad",
+          "EndpointID": "a47734e526a4e0bf431a67a1935ef4ddc1e18ebd84bd481728736bdaaa6fbfc3",
+          "Gateway": "172.18.0.1",
+          "IPAddress": "172.18.0.4",
+          "IPPrefixLen": 16,
+          "IPv6Gateway": "",
+          "GlobalIPv6Address": "",
+          "GlobalIPv6PrefixLen": 0,
+          "MacAddress": "02:42:ac:12:00:04",
+          "DriverOpts": null
+        }
+      }
+    },
+    "Mounts": []
   },
   {
-    "Containers": -1,
-    "Created": 1543065766,
-    "Id": "sha256:6acb445e24e335787425b6da68e9d59a061c7260e33bd6ab354bca9e2af85f28",
-    "Labels": null,
-    "ParentId": "",
-    "RepoDigests": [
-      "jameshnsears/xqa-ingest@sha256:1d3a384795f6d73671d7c650ee85815dbf4801caa0092a78026609b24ebc962f"
+    "Id": "8b2fcd7874b60b8c00313e1fd9fe683c2e4c370be710630dd9950746f173c0e8",
+    "Names": [
+      "/xqa-db"
     ],
-    "RepoTags": [
-      "jameshnsears/xqa-ingest:latest"
+    "Image": "jameshnsears/xqa-db:latest",
+    "ImageID": "sha256:227383210f9d980506d30e2aede619aee54b93355045801d58521f39d0b094c8",
+    "Command": "docker-entrypoint.sh postgres",
+    "Created": 1543945478,
+    "Ports": [
+      {
+        "IP": "0.0.0.0",
+        "PrivatePort": 5432,
+        "PublicPort": 5432,
+        "Type": "tcp"
+      }
     ],
-    "SharedSize": -1,
-    "Size": 559517749,
-    "VirtualSize": 559517749
+    "Labels": {},
+    "State": "running",
+    "Status": "Up 24 seconds",
+    "HostConfig": {
+      "NetworkMode": "xqa"
+    },
+    "NetworkSettings": {
+      "Networks": {
+        "xqa": {
+          "IPAMConfig": null,
+          "Links": null,
+          "Aliases": null,
+          "NetworkID": "79b2368e5cc4c68e2360e20a6157dbf7710885809f7907802746fb6b1e6146ad",
+          "EndpointID": "9b97ff8f59148c44873e62e84f4b752342dca4723008da94214c38d8de5d083f",
+          "Gateway": "172.18.0.1",
+          "IPAddress": "172.18.0.3",
+          "IPPrefixLen": 16,
+          "IPv6Gateway": "",
+          "GlobalIPv6Address": "",
+          "GlobalIPv6PrefixLen": 0,
+          "MacAddress": "02:42:ac:12:00:03",
+          "DriverOpts": null
+        }
+      }
+    },
+    "Mounts": [
+      {
+        "Type": "volume",
+        "Name": "2e3dcdbe4b008d7a8afc3e05286741dd43a873ef399bd1066815dd36987fe8e8",
+        "Source": "",
+        "Destination": "/var/lib/postgresql/data",
+        "Driver": "local",
+        "Mode": "",
+        "RW": true,
+        "Propagation": ""
+      }
+    ]
   },
   {
-    "Containers": -1,
-    "Created": 1536704390,
-    "Id": "sha256:196d12cf6ab19273823e700516e98eb1910b03b17840f9d5509f03858484d321",
-    "Labels": null,
-    "ParentId": "",
-    "RepoDigests": [
-      "alpine@sha256:621c2f39f8133acb8e64023a94dbdf0d5ca81896102b9e57c0dc184cadaf5528"
+    "Id": "82330671985b1b4e1bf68048da4ce74367835a724fbf786fbaba75c6623373fe",
+    "Names": [
+      "/xqa-message-broker"
     ],
-    "RepoTags": [
-      "alpine:latest"
+    "Image": "jameshnsears/xqa-message-broker:latest",
+    "ImageID": "sha256:cc0515a5f101d0c92282189ed9cbda2c4521b8a48cc070516673b21e6889761e",
+    "Command": "/bin/sh -c 'bin/activemq console'",
+    "Created": 1543945477,
+    "Ports": [
+      {
+        "IP": "0.0.0.0",
+        "PrivatePort": 5672,
+        "PublicPort": 5672,
+        "Type": "tcp"
+      },
+      {
+        "PrivatePort": 61616,
+        "Type": "tcp"
+      },
+      {
+        "IP": "0.0.0.0",
+        "PrivatePort": 8161,
+        "PublicPort": 8161,
+        "Type": "tcp"
+      },
+      {
+        "PrivatePort": 1099,
+        "Type": "tcp"
+      }
     ],
-    "SharedSize": -1,
-    "Size": 4413370,
-    "VirtualSize": 4413370
+    "Labels": {},
+    "State": "running",
+    "Status": "Up 26 seconds",
+    "HostConfig": {
+      "NetworkMode": "xqa"
+    },
+    "NetworkSettings": {
+      "Networks": {
+        "xqa": {
+          "IPAMConfig": null,
+          "Links": null,
+          "Aliases": null,
+          "NetworkID": "79b2368e5cc4c68e2360e20a6157dbf7710885809f7907802746fb6b1e6146ad",
+          "EndpointID": "a78823297bbdf0cb4c9abcc327be09531b12f85ea0fb2d380e183f4ea68837b0",
+          "Gateway": "172.18.0.1",
+          "IPAddress": "172.18.0.2",
+          "IPPrefixLen": 16,
+          "IPv6Gateway": "",
+          "GlobalIPv6Address": "",
+          "GlobalIPv6PrefixLen": 0,
+          "MacAddress": "02:42:ac:12:00:02",
+          "DriverOpts": null
+        }
+      }
+    },
+    "Mounts": []
   }
 ]

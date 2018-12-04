@@ -1,5 +1,11 @@
 package com.github.jameshnsears.docker;
 
+import com.github.jameshnsears.ConfigurationAccessor;
+import com.github.jameshnsears.docker.models.Container;
+import com.github.jameshnsears.docker.models.Image;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -11,64 +17,84 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 
-public class DockerHttpWrapper {
-    private static final Logger log = LoggerFactory.getLogger(DockerHttpWrapper.class);
-    private OkHttpClient client;
+public class DockerHttpAccessor {
+    private static final Logger logger = LoggerFactory.getLogger(DockerHttpAccessor.class);
+    private OkHttpClient okHttpClient;
+    private Gson gson;
 
-    public DockerHttpWrapper() {
+    public DockerHttpAccessor() {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(Level.HEADERS);
 
-        client = new OkHttpClient.Builder()
+        okHttpClient = new OkHttpClient.Builder()
                 .socketFactory(new UnixDomainSocketFactory(new File("/var/run/docker.sock")))
                 .addInterceptor(httpLoggingInterceptor)
                 .build();
+
+        gson = new Gson();
+    }
+
+    private String callDockerEngine(String endpoint) throws IOException {
+        Request request = new Request.Builder()
+                .url(endpoint)
+                .build();
+
+        String jsonResponse = okHttpClient.newCall(request).execute().body().string();
+        logger.debug(String.format("jsonResponse=%s", jsonResponse));
+        return jsonResponse;
     }
 
     public ArrayList<String> lsImages() throws IOException {
-        /*
-        image_tags = []
-        for image in self._client.images.list():
-            for tag in image.tags:
-                image_tags.append(tag)
-        return image_tags
-         */
-        Request request = new Request.Builder()
-                .url("http://127.0.0.1/v1.39/images/json")  // /v1.39/images/json?only_ids=0
-                .build();
+        ArrayList<String> imageNames = new ArrayList<>();
 
-        String jsonResponse = client.newCall(request).execute().body().string();
-        log.debug(jsonResponse);
+        try {
+            ArrayList<Image> dockerImages = gson.fromJson(
+                    callDockerEngine("http://127.0.0.1/v1.39/images/json"),
+                    new TypeToken<Collection<Image>>() {}.getType());
 
-        return jsonResponse;
+            for (Image dockerImage: dockerImages)
+                for (String repoTag: dockerImage.getRepoTags())
+                    imageNames.add(repoTag);
+        } catch (JsonSyntaxException jsonSyntaxException) {
+            logger.warn(jsonSyntaxException.getMessage());
+        }
+
+        return imageNames;
     }
 
-    public String lsContainers() throws IOException {
-        /*
-        containers = []
-        for container in self._client.containers.list():
-            for tag in container.image.tags:
-                for image_from_config in images_from_config:
-                    if image_from_config == tag:
-                        containers.append({'image': tag,
-                                           'id': container.id,
-                                           'container': container})
-        return containers
-         */
-        Request request = new Request.Builder()
-                .url("http://127.0.0.1/v1.39/images/containers")
-                .build();
+    public ArrayList<Map<String, Object>> lsContainers(ConfigurationAccessor configurationAccessor) throws IOException, IllegalStateException {
+        ArrayList<Map<String, Object>> containersThatMatchConfiguration = new ArrayList<>();
 
-        String jsonResponse = client.newCall(request).execute().body().string();
-        log.debug(jsonResponse);
+        try {
+            ArrayList<Container> dockerContainers = gson.fromJson(
+                    callDockerEngine("http://127.0.0.1/v1.39/containers/json"),
+                    new TypeToken<Collection<Container>>() {
+                    }.getType());
 
-        return jsonResponse;
+            for (Container dockerContainer : dockerContainers)
+                for (String containerName : dockerContainer.getNames())
+                    for (String image : configurationAccessor.images())
+                        if (configurationAccessor.images().contains(containerName)) {
+                            Map<String, Object> container = new HashMap<>();
+                            container.put("image", dockerContainer.getImage());
+                            container.put("id", dockerContainer.getId());
+                            container.put("container", dockerContainer);
+                            containersThatMatchConfiguration.add(container);
+                        }
+        } catch (JsonSyntaxException jsonSyntaxException) {
+            logger.warn(jsonSyntaxException.getMessage());
+        }
+
+        return containersThatMatchConfiguration;
     }
 
     public void rmImages(ArrayList<String> images) {
-        for (String image: images)
+        for (String image : images)
             rmImage(image);
     }
 
@@ -96,11 +122,7 @@ public class DockerHttpWrapper {
          */
 
         /*
-        curl --unix-socket /var/run/com.github.jameshnsears.docker.sock -X POST "http:/v1.39/images/create?fromImage=alpine"
-
         POST /v1.39/images/create?tag=latest&fromImage=alpine
-
-        GET /v1.39/images/json?only_ids=0&all=0
 
         DELETE /v1.39/images/alpine:latest?force=True&noprune=False
 
@@ -114,13 +136,7 @@ public class DockerHttpWrapper {
 
         POST /v1.39/containers/prune
 
-        curl --unix-socket /var/run/com.github.jameshnsears.docker.sock http:/v1.39/containers/json
-[{
-  "Id":"ae63e8b89a26f01f6b4b2c9a7817c31a1b6196acf560f66586fbc8809ffcd772",
-  "Names":["/tender_wing"],
-  "Image":"bfirsh/reticulate-splines",
-  ...
-}]
+        GET http:/v1.39/containers/json
 
         POST /v1.39/networks/prune
 
