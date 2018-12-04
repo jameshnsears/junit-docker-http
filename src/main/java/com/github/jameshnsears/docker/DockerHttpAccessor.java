@@ -8,6 +8,7 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
 import okhttp3.unixdomainsockets.UnixDomainSocketFactory;
@@ -39,10 +40,44 @@ public class DockerHttpAccessor {
         gson = new Gson();
     }
 
-    private String callDockerEngine(String endpoint) throws IOException {
-        Request request = new Request.Builder()
-                .url(endpoint)
-                .build();
+    private enum HttpVerb {
+        GET, POST, DELETE
+    }
+
+    private String callDockerEngine(String endpoint, HttpVerb httpVerb) throws IOException {
+        /*
+        HttpUrl url = new HttpUrl.Builder()
+            .host(host).addQueryParameter(name, value).build();
+
+Request request = new Request.Builder()
+            .url(url).post(RequestBody.create(mediaType, body)).addHeader(type, header).build();
+
+okhttpClient.newCall(request).enqueue(new Callback() {
+    ...
+});
+         */
+        Request request;
+
+        switch (httpVerb) {
+            case GET:
+                request = new Request.Builder()
+                        .url(endpoint)
+                        .build();
+                break;
+
+            case POST:
+                request = new Request.Builder()
+                        .url(endpoint)
+                        .post(RequestBody.create())
+                        .build();
+                break;
+
+            case DELETE:
+                request = new Request.Builder()
+                        .url(endpoint)
+                        .build();
+                break;
+        }
 
         String jsonResponse = okHttpClient.newCall(request).execute().body().string();
         logger.debug(String.format("jsonResponse=%s", jsonResponse));
@@ -99,6 +134,7 @@ public class DockerHttpAccessor {
     }
 
     private void rmImage(String image) {
+        // DELETE /v1.39/images/alpine:latest?force=True&noprune=False
         /*
         if image_to_rm in self.ls_images():
             logging.debug(image_to_rm)
@@ -123,8 +159,6 @@ public class DockerHttpAccessor {
 
         /*
         POST /v1.39/images/create?tag=latest&fromImage=alpine
-
-        DELETE /v1.39/images/alpine:latest?force=True&noprune=False
 
         POST /v1.39/images/create?tag=latest&fromImage=alpine
 
