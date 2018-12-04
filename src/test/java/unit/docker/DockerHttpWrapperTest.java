@@ -13,19 +13,11 @@ public class DockerHttpWrapperTest {
     DockerHttpWrapper dockerHttp = new DockerHttpWrapper();
 
     @Test
-    public void configuration(ConfigurationAccessor configurationAccessor) {
-        Assert.assertEquals(
-                configurationAccessor.images(),
-                "");
-        /*
-        assert configuration.images() == ['alpine:latest', 'busybox:latest']
-        assert configuration.networks() == ['docker_py_wrapper']
-        */
-    }
-
-
-    @Test
     public void pullImages(ConfigurationAccessor configurationAccessor) {
+        dockerHttp.lsImages();
+
+//        dockerHttp.rmImages(configurationAccessor.images());
+
         /*
         docker_py_wrapper.rm_images(configuration.images())
         for configuration_image in configuration.images():

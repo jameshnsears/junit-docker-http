@@ -3,7 +3,6 @@ package com.github.jameshnsears;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
 import java.util.Map;
 
 public class Configuration {
@@ -21,7 +20,7 @@ public class Configuration {
 
     @SerializedName("volumes")
     @Expose
-    private List<String> volumes = null;
+    private Map<String, Map<String, String>> volumes = null;
 
     @SerializedName("command")
     @Expose
@@ -55,11 +54,11 @@ public class Configuration {
         this.ports = ports;
     }
 
-    public List<String> getVolumes() {
+    public Map<String, Map<String, String>> getVolumes() {
         return volumes;
     }
 
-    public void setVolumes(List<String> volumes) {
+    public void setVolumes(Map<String, Map<String, String>> volumes) {
         this.volumes = volumes;
     }
 

@@ -5,7 +5,6 @@ import com.google.gson.reflect.TypeToken;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;

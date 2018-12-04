@@ -5,6 +5,7 @@ import com.google.common.base.Preconditions;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Map;
 
 public class ConfigurationAccessor {
     private Collection<Configuration> configurationCollection;
@@ -16,43 +17,36 @@ public class ConfigurationAccessor {
 
     public ArrayList<String> images() {
         ArrayList<String> images = new ArrayList<>();
-        for (Configuration configuration: this.configurationCollection) {
-            images.add(configuration.getImage());
+        for (Configuration configuration : this.configurationCollection) {
+            if (configuration.getImage() != null)
+                images.add(configuration.getImage());
         }
         Collections.sort(images);
         return images;
     }
 
-    public void containers() {
-        /*
-        def containers(self):
-                return self.configurationCollection
-
-        def networks(self):
-        networks = []
-                for configuration in self.configurationCollection:
-                try:
-                if configuration['network'] not in networks:
-                networks.append(configuration['network'])
-        except KeyError:
-            pass
-        return sorted(networks)
-        */
+    public Collection<Configuration> containers() {
+        return this.configurationCollection;
     }
 
-    public void volumes() {
-        /*
-        def volumes(self):
-        volumes = []
-                for configuration in self.configurationCollection:
-                try:
-                for image_volume in configuration['volumes']:
-                if image_volume not in volumes:
-                volumes.append(image_volume)
-        except KeyError:
-        pass
-        return sorted(volumes)
-        */
+    public ArrayList<String> networks() {
+        ArrayList<String> networks = new ArrayList<>();
+        for (Configuration configuration : this.configurationCollection) {
+            if (configuration.getNetwork() != null)
+                networks.add(configuration.getNetwork());
+        }
+        Collections.sort(networks);
+        return networks;
+    }
+
+    public ArrayList<Map<String, Map<String, String>>> volumes() {
+        ArrayList<Map<String, Map<String, String>>> volumes = new ArrayList<>();
+        for (Configuration configuration : this.configurationCollection) {
+            if (configuration.getVolumes() != null) {
+                volumes.add(configuration.getVolumes());
+            }
+        }
+        return volumes;
     }
 
     public void containerKwargs() {

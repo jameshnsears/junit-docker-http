@@ -31,7 +31,7 @@ public class JuntDockerHttpExtension implements BeforeTestExecutionCallback, Aft
     }
 
     @Override
-    public void beforeTestExecution(ExtensionContext context) throws Exception {
+    public void beforeTestExecution(ExtensionContext context) {
         Method testMethod = context.getRequiredTestMethod();
         readProps();
         logger.info(String.format("%s", testMethod.getName()));
@@ -51,7 +51,7 @@ public class JuntDockerHttpExtension implements BeforeTestExecutionCallback, Aft
     }
 
     @Override
-    public void afterTestExecution(ExtensionContext context) throws Exception {
+    public void afterTestExecution(ExtensionContext context) {
         Method testMethod = context.getRequiredTestMethod();
         logger.info(String.format("%s", testMethod.getName()));
 

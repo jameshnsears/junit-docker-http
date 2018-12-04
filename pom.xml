@@ -141,11 +141,6 @@
             <artifactId>okhttp-testing-support</artifactId>
             <version>3.12.0</version>
         </dependency>
-        <!--<dependency>-->
-        <!--<groupId>org.bouncycastle</groupId>-->
-        <!--<artifactId>bcprov-jdk15on</artifactId>-->
-        <!--<version>1.60</version>-->
-        <!--</dependency>-->
 
         <dependency>
             <groupId>com.github.jnr</groupId>
@@ -160,4 +155,16 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.sonarsource.scanner.maven</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>3.5.0.1254</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>

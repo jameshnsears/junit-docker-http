@@ -1,4 +1,4 @@
-use configurationAccessor in DockerHttpWrapperTest
+work on DockerHttpWrapperTest
 
 use coverage to rm as much as possible - especially in Models
 
@@ -6,7 +6,9 @@ look at structure of swaggar.yaml - for clues as to how to call
 
 work on JunitDockerHttpExtensionTest to actually use the extension
 
-incoporate maven processes - i.e. jaccomo
+incoporate maven processes - i.e. jaccomo + sonarcube
+
+check volumes created correctly in pytest-docker-py
 
 --
 

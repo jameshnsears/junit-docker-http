@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class DockerHttpWrapper {
@@ -26,7 +27,7 @@ public class DockerHttpWrapper {
                 .build();
     }
 
-    public String lsImages() throws IOException {
+    public ArrayList<String> lsImages() throws IOException {
         /*
         image_tags = []
         for image in self._client.images.list():
@@ -66,14 +67,12 @@ public class DockerHttpWrapper {
         return jsonResponse;
     }
 
-    public void rmImages() {
-        /*
-        for image_to_rm in images_to_rm:
-            self._rm_image(image_to_rm)
-        */
+    public void rmImages(ArrayList<String> images) {
+        for (String image: images)
+            rmImage(image);
     }
 
-    private void rmImage() {
+    private void rmImage(String image) {
         /*
         if image_to_rm in self.ls_images():
             logging.debug(image_to_rm)
