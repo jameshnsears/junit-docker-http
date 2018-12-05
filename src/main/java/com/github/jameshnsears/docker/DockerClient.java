@@ -95,7 +95,7 @@ public class DockerClient {
         }
     }
 
-    public void startContainers() {
+    public void startContainers(ConfigurationAccessor configurationAccessor) {
 
 
         /*
@@ -143,7 +143,7 @@ public class DockerClient {
          */
     }
 
-    public void rmContainers() {
+    public void rmContainers(ConfigurationAccessor configurationAccessor) {
         /*
         for docker_container in self.ls_containers(containers_to_stop):
             for container_to_stop in containers_to_stop:
@@ -167,7 +167,7 @@ public class DockerClient {
          */
     }
 
-    public void lsNetworks() {
+    public ArrayList lsNetworks(ConfigurationAccessor configurationAccessor) {
         /*
         networks = []
         for network in self._client.networks.list():
@@ -177,6 +177,7 @@ public class DockerClient {
                     networks.append(network.name)
         return networks
          */
+        return new ArrayList<String>();
     }
 
     private void startNetwork() {
@@ -187,7 +188,7 @@ public class DockerClient {
          */
     }
 
-    public void lsVolumes() {
+    public ArrayList lsVolumes(ConfigurationAccessor configurationAccessor) {
         /*
         self._client.volumes.prune()
         volumes = []
@@ -198,7 +199,7 @@ public class DockerClient {
                     volumes.append(config_volume)
         return sorted(volumes)
          */
-        return;
+        return new ArrayList<String>();
     }
 
     private void stopContainer() {

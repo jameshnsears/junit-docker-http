@@ -8,6 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
 @ExtendWith(ConfigurationAccessorParameterResolver.class)
 public class DockerClientTest {
@@ -28,23 +29,22 @@ public class DockerClientTest {
     }
 
     @Test
-    public void stopStartContainers(ConfigurationAccessor configurationAccessor) {
-//        ArrayList<String> images = dockerClient.lsImages();
-//
-//        ArrayList<Map<String, Object>> containers = dockerClient.lsContainers(configurationAccessor);
-
-
-
+    public void stopStartContainers(ConfigurationAccessor configurationAccessor) throws IOException {
         /*
         docker_py_wrapper.start_containers(configuration)
         assert len(docker_py_wrapper.ls_containers(configuration.images())) == 2
         assert docker_py_wrapper.ls_networks(configuration.networks()) == ['docker_py_wrapper']
         assert docker_py_wrapper.ls_volumes(configuration.volumes()) == ['alpine-01:/tmp']
-
-        docker_py_wrapper.rm_containers(configuration.images())
-        assert docker_py_wrapper.ls_containers(configuration.images()) == []
-        assert docker_py_wrapper.ls_networks(configuration.networks()) == []
-        assert docker_py_wrapper.ls_volumes(configuration.volumes()) == []
          */
+
+        dockerClient.startContainers(configurationAccessor);
+        Assert.assertTrue(dockerClient.lsContainers(configurationAccessor).size() == 2);
+//        Assert.assertTrue(dockerClient.lsNetworks(configurationAccessor).size() == 0);
+//        Assert.assertTrue(dockerClient.lsVolumes(configurationAccessor).size() == 0);
+
+        dockerClient.rmContainers(configurationAccessor);
+        Assert.assertTrue(dockerClient.lsContainers(configurationAccessor).size() == 0);
+        Assert.assertTrue(dockerClient.lsNetworks(configurationAccessor).size() == 0);
+        Assert.assertTrue(dockerClient.lsVolumes(configurationAccessor).size() == 0);
     }
 }
