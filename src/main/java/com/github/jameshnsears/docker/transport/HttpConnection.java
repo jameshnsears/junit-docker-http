@@ -2,9 +2,7 @@ package com.github.jameshnsears.docker.transport;
 
 import com.github.jameshnsears.docker.DockerClient;
 import com.google.common.base.Preconditions;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.*;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.unixdomainsockets.UnixDomainSocketFactory;
 import org.slf4j.Logger;
@@ -12,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
 public class HttpConnection {
     private static final Logger logger = LoggerFactory.getLogger(DockerClient.class);
@@ -28,7 +27,7 @@ public class HttpConnection {
     }
 
     public String get(String endpoint) throws IOException {
-        Preconditions.checkArgument(endpoint != null);
+        Preconditions.checkNotNull(endpoint);
 
         logger.debug(endpoint);
 
@@ -42,26 +41,31 @@ public class HttpConnection {
         return jsonResponse;
     }
 
-    public String post(String endpoint) throws IOException {
-        Preconditions.checkArgument(endpoint != null);
+    public String post(String endpoint, Map<String, String> formMap) throws IOException {
+        Preconditions.checkNotNull(endpoint);
+        Preconditions.checkNotNull(formMap);
 
         logger.debug(endpoint);
-                /*
-        HttpUrl url = new HttpUrl.Builder()
-            .host(host).addQueryParameter(name, value).build();
 
-Request request = new Request.Builder()
-            .url(url).post(RequestBody.create(mediaType, body)).addHeader(type, header).build();
+        FormBody.Builder formBodyBuilder = new FormBody.Builder();
 
-okhttpClient.newCall(request).enqueue(new Callback() {
-    ...
-});
-         */
+        for ( Map.Entry<String, String> entry : formMap.entrySet() )
+            formBodyBuilder.add( entry.getKey(), entry.getValue() );
+
+        RequestBody formBody = formBodyBuilder.build();
+
+        Request request = new Request.Builder()
+                .url(endpoint)
+                .post(formBody)
+                .build();
+
+        Response response = okHttpClient.newCall(request).execute();
+        logger.debug(String.format("%s", response.code()));
         return "";
     }
 
     public void delete(String endpoint) throws IOException {
-        Preconditions.checkArgument(endpoint != null);
+        Preconditions.checkNotNull(endpoint);
 
         logger.debug(endpoint);
 

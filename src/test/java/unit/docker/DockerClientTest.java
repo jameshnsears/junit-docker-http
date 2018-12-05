@@ -2,6 +2,7 @@ package unit.docker;
 
 import com.github.jameshnsears.ConfigurationAccessor;
 import com.github.jameshnsears.docker.DockerClient;
+import junit.framework.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -20,11 +21,13 @@ public class DockerClientTest {
 //        ArrayList<Map<String, Object>> containers = dockerClient.lsContainers(configurationAccessor);
 
         dockerClient.rmImages(configurationAccessor.images());
+        ArrayList<String> dockerImages = dockerClient.lsImages();
+        for (String image: configurationAccessor.images())
+            Assert.assertFalse(dockerImages.contains(image));
 
+
+        dockerClient.pull(configurationAccessor.images());
         /*
-        docker_py_wrapper.rm_images(configuration.images())
-        for configuration_image in configuration.images():
-            assert configuration_image not in docker_py_wrapper.ls_images()
 
         docker_py_wrapper.pull(configuration.images())
         for configuration_image in configuration.images():

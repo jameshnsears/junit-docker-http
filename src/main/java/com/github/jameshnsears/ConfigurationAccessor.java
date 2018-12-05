@@ -11,7 +11,7 @@ public class ConfigurationAccessor {
     private Collection<Configuration> configurationCollection;
 
     public ConfigurationAccessor(Collection<Configuration> configurationCollection) {
-        Preconditions.checkArgument(configurationCollection != null);
+        Preconditions.checkNotNull(configurationCollection);
         this.configurationCollection = configurationCollection;
     }
 

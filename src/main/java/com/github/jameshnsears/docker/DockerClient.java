@@ -5,6 +5,7 @@ import com.github.jameshnsears.docker.models.Container;
 import com.github.jameshnsears.docker.models.Image;
 import com.github.jameshnsears.docker.transport.HttpConnection;
 import com.github.jameshnsears.docker.utils.ResponseMapper;
+import com.google.common.base.Preconditions;
 import com.google.gson.JsonSyntaxException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +39,8 @@ public class DockerClient {
     }
 
     public ArrayList<Map<String, Object>> lsContainers(ConfigurationAccessor configurationAccessor) throws IOException, IllegalStateException {
+        Preconditions.checkNotNull(configurationAccessor);
+
         ArrayList<Map<String, Object>> containersThatMatchConfiguration = new ArrayList<>();
 
         try {
@@ -62,14 +65,18 @@ public class DockerClient {
     }
 
     public void rmImages(ArrayList<String> configurationImages) throws IOException {
+        Preconditions.checkNotNull(configurationImages );
+
         ArrayList<String> dockerImages = lsImages();
         for (String configurationImage : configurationImages)
             rmImage(configurationImage, dockerImages);
     }
 
     private void rmImage(String configurationImage, ArrayList<String> dockerImages) throws IOException {
-        logger.debug(configurationImage);
-        // DELETE /v1.39/images/alpine:latest?force=True&noprune=False
+        Preconditions.checkNotNull(configurationImage);
+        Preconditions.checkNotNull(dockerImages);
+
+        logger.info(configurationImage);
 
         if (dockerImages.contains(configurationImage)) {
             logger.debug(configurationImage);
@@ -78,7 +85,20 @@ public class DockerClient {
         }
     }
 
-    public void pull() {
+    public void pull(ArrayList<String> configurationImages) throws IOException {
+        Preconditions.checkNotNull(configurationImages);
+
+        ArrayList<String> dockerImages = lsImages();
+        for (String configurationImage : configurationImages)
+          if (dockerImages.contains(configurationImage)) {
+              logger.debug(configurationImage);
+              //         POST /v1.39/images/create?tag=latest&fromImage=alpine
+              httpConnection.post(String.format(
+                      "http://127.0.0.1/v1.39/images/create?fromImage=%s", configurationImage));
+          }
+
+        // some sort of callback?
+
         /*
         for image_to_pull in images_to_pull:
             if image_to_pull not in self.ls_images():
@@ -94,10 +114,6 @@ public class DockerClient {
          */
 
         /*
-        POST /v1.39/images/create?tag=latest&fromImage=alpine
-
-        POST /v1.39/images/create?tag=latest&fromImage=alpine
-
         GET /v1.39/images/alpine:latest/json
 
         POST /v1.39/containers/create?name=alpine-01
@@ -105,8 +121,6 @@ public class DockerClient {
         DELETE /v1.39/containers/75fd619ebb6623448df989816e337fb80910e4a7e9aa5db496662e96a0b217b6?v=False&link=False&force=True
 
         POST /v1.39/containers/prune
-
-        GET http:/v1.39/containers/json
 
         POST /v1.39/networks/prune
 
