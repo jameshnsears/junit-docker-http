@@ -65,7 +65,7 @@ public class DockerClient {
     }
 
     public void rmImages(ArrayList<String> configurationImages) throws IOException {
-        Preconditions.checkNotNull(configurationImages );
+        Preconditions.checkNotNull(configurationImages);
 
         ArrayList<String> dockerImages = lsImages();
         for (String configurationImage : configurationImages)

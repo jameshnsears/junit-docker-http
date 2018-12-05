@@ -2,7 +2,10 @@ package com.github.jameshnsears.docker.transport;
 
 import com.github.jameshnsears.docker.DockerClient;
 import com.google.common.base.Preconditions;
-import okhttp3.*;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.unixdomainsockets.UnixDomainSocketFactory;
 import org.slf4j.Logger;

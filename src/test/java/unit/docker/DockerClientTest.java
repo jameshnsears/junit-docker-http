@@ -2,14 +2,12 @@ package unit.docker;
 
 import com.github.jameshnsears.ConfigurationAccessor;
 import com.github.jameshnsears.docker.DockerClient;
-
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
 
 @ExtendWith(ConfigurationAccessorParameterResolver.class)
 public class DockerClientTest {
@@ -19,13 +17,13 @@ public class DockerClientTest {
     public void pullImages(ConfigurationAccessor configurationAccessor) throws IOException {
         dockerClient.rmImages(configurationAccessor.images());
         ArrayList<String> dockerImages = dockerClient.lsImages();
-        for (String image: configurationAccessor.images())
+        for (String image : configurationAccessor.images())
             Assert.assertFalse(dockerImages.contains(image));
 
 
         dockerClient.pull(configurationAccessor.images());
         dockerImages = dockerClient.lsImages();
-        for (String image: configurationAccessor.images())
+        for (String image : configurationAccessor.images())
             Assert.assertTrue(dockerImages.contains(image));
     }
 
