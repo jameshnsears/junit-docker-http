@@ -61,18 +61,21 @@ public class DockerClient {
         return containersThatMatchConfiguration;
     }
 
-    public void rmImages(ArrayList<String> images) {
-        for (String image : images)
-            rmImage(image);
+    public void rmImages(ArrayList<String> configurationImages) throws IOException {
+        ArrayList<String> dockerImages = lsImages();
+        for (String configurationImage : configurationImages)
+            rmImage(configurationImage, dockerImages);
     }
 
-    private void rmImage(String image) {
+    private void rmImage(String configurationImage, ArrayList<String> dockerImages) throws IOException {
+        logger.debug(configurationImage);
         // DELETE /v1.39/images/alpine:latest?force=True&noprune=False
-        /*
-        if image_to_rm in self.ls_images():
-            logging.debug(image_to_rm)
-            self._client.images.remove(image_to_rm, force=True)
-         */
+
+        if (dockerImages.contains(configurationImage)) {
+            logger.debug(configurationImage);
+            httpConnection.delete(String.format(
+                    "http://127.0.0.1/v1.39/images/%s?force=True&noprune=False", configurationImage));
+        }
     }
 
     public void pull() {

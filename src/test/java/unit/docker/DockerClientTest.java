@@ -15,9 +15,9 @@ public class DockerClientTest {
 
     @Test
     public void pullImages(ConfigurationAccessor configurationAccessor) throws IOException {
-        ArrayList<String> images = dockerClient.lsImages();
-
-        ArrayList<Map<String, Object>> containers = dockerClient.lsContainers(configurationAccessor);
+//        ArrayList<String> images = dockerClient.lsImages();
+//
+//        ArrayList<Map<String, Object>> containers = dockerClient.lsContainers(configurationAccessor);
 
         dockerClient.rmImages(configurationAccessor.images());
 
