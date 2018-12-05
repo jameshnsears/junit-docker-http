@@ -10,17 +10,15 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
 
 public class HttpConnection {
     private static final Logger logger = LoggerFactory.getLogger(DockerClient.class);
-    private OkHttpClient okHttpClient;
 
-    public HttpConnection() {
+    private OkHttpClient okHttpClient() {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
 
-        okHttpClient = new OkHttpClient.Builder()
+        return new OkHttpClient.Builder()
                 .socketFactory(new UnixDomainSocketFactory(new File("/var/run/docker.sock")))
                 .addInterceptor(httpLoggingInterceptor)
                 .build();
@@ -29,52 +27,47 @@ public class HttpConnection {
     public String get(String endpoint) throws IOException {
         Preconditions.checkNotNull(endpoint);
 
-        logger.debug(endpoint);
+        logger.info(endpoint);
 
         Request request = new Request.Builder()
                 .url(endpoint)
                 .build();
 
-        Response response = okHttpClient.newCall(request).execute();
+        Response response = okHttpClient().newCall(request).execute();
         String jsonResponse = response.body().string();
-        logger.debug(String.format("%s: jsonResponse=%s", response.code(), jsonResponse));
+        logger.debug(jsonResponse.replace("\n", ""));
+        logger.debug(String.format("%s", response.code()));
+
         return jsonResponse;
     }
 
-    public String post(String endpoint, Map<String, String> formMap) throws IOException {
+    public void post(String endpoint) throws IOException {
         Preconditions.checkNotNull(endpoint);
-        Preconditions.checkNotNull(formMap);
 
-        logger.debug(endpoint);
-
-        FormBody.Builder formBodyBuilder = new FormBody.Builder();
-
-        for ( Map.Entry<String, String> entry : formMap.entrySet() )
-            formBodyBuilder.add( entry.getKey(), entry.getValue() );
-
-        RequestBody formBody = formBodyBuilder.build();
+        logger.info(endpoint);
 
         Request request = new Request.Builder()
                 .url(endpoint)
-                .post(formBody)
+                .post(RequestBody.create(null, new byte[0]))
+                .header("Content-Length", "0")
                 .build();
 
-        Response response = okHttpClient.newCall(request).execute();
+        Response response = okHttpClient().newCall(request).execute();
+        logger.debug(response.body().string());
         logger.debug(String.format("%s", response.code()));
-        return "";
     }
 
     public void delete(String endpoint) throws IOException {
         Preconditions.checkNotNull(endpoint);
 
-        logger.debug(endpoint);
+        logger.info(endpoint);
 
         Request request = new Request.Builder()
                 .url(endpoint)
                 .delete()
                 .build();
 
-        Response response = okHttpClient.newCall(request).execute();
+        Response response = okHttpClient().newCall(request).execute();
         logger.debug(String.format("%s", response.code()));
     }
 }

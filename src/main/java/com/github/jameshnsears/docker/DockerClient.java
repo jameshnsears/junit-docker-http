@@ -76,10 +76,8 @@ public class DockerClient {
         Preconditions.checkNotNull(configurationImage);
         Preconditions.checkNotNull(dockerImages);
 
-        logger.info(configurationImage);
-
         if (dockerImages.contains(configurationImage)) {
-            logger.debug(configurationImage);
+            logger.info(configurationImage);
             httpConnection.delete(String.format(
                     "http://127.0.0.1/v1.39/images/%s?force=True&noprune=False", configurationImage));
         }
@@ -89,29 +87,16 @@ public class DockerClient {
         Preconditions.checkNotNull(configurationImages);
 
         ArrayList<String> dockerImages = lsImages();
-        for (String configurationImage : configurationImages)
-          if (dockerImages.contains(configurationImage)) {
-              logger.debug(configurationImage);
-              //         POST /v1.39/images/create?tag=latest&fromImage=alpine
-              httpConnection.post(String.format(
-                      "http://127.0.0.1/v1.39/images/create?fromImage=%s", configurationImage));
-          }
+        for (String configurationImage : configurationImages) {
+            if (dockerImages.contains(configurationImage) == false) {
+                logger.debug(configurationImage);
+                httpConnection.post(String.format("http://127.0.0.1/v1.39/images/create?fromImage=%s", configurationImage));
+            }
+        }
+    }
 
-        // some sort of callback?
+    public void startContainers() {
 
-        /*
-        for image_to_pull in images_to_pull:
-            if image_to_pull not in self.ls_images():
-                logging.debug(image_to_pull)
-                try:
-                    self._client.images.pull(image_to_pull)
-                except com.github.jameshnsears.docker.errors.ImageNotFound as exception:
-                    logging.error(str(exception))
-                    return False
-            else:
-                logging.debug('skipped: %s', image_to_pull)
-        return True
-         */
 
         /*
         GET /v1.39/images/alpine:latest/json
@@ -130,9 +115,7 @@ public class DockerClient {
 
         POST /v1.39/volumes/prune
          */
-    }
 
-    public void startContainers() {
         /*
         self.rm_containers(config.images())
         for container in config.containers():

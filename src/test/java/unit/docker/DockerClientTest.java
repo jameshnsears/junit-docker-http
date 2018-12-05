@@ -2,7 +2,8 @@ package unit.docker;
 
 import com.github.jameshnsears.ConfigurationAccessor;
 import com.github.jameshnsears.docker.DockerClient;
-import junit.framework.Assert;
+
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -16,10 +17,6 @@ public class DockerClientTest {
 
     @Test
     public void pullImages(ConfigurationAccessor configurationAccessor) throws IOException {
-//        ArrayList<String> images = dockerClient.lsImages();
-//
-//        ArrayList<Map<String, Object>> containers = dockerClient.lsContainers(configurationAccessor);
-
         dockerClient.rmImages(configurationAccessor.images());
         ArrayList<String> dockerImages = dockerClient.lsImages();
         for (String image: configurationAccessor.images())
@@ -27,16 +24,19 @@ public class DockerClientTest {
 
 
         dockerClient.pull(configurationAccessor.images());
-        /*
-
-        docker_py_wrapper.pull(configuration.images())
-        for configuration_image in configuration.images():
-            assert configuration_image in docker_py_wrapper.ls_images()
-         */
+        dockerImages = dockerClient.lsImages();
+        for (String image: configurationAccessor.images())
+            Assert.assertTrue(dockerImages.contains(image));
     }
 
     @Test
     public void stopStartContainers(ConfigurationAccessor configurationAccessor) {
+//        ArrayList<String> images = dockerClient.lsImages();
+//
+//        ArrayList<Map<String, Object>> containers = dockerClient.lsContainers(configurationAccessor);
+
+
+
         /*
         docker_py_wrapper.start_containers(configuration)
         assert len(docker_py_wrapper.ls_containers(configuration.images())) == 2
