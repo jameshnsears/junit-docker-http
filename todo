@@ -25,7 +25,7 @@ https://stackoverflow.com/questions/52666284/pmd-options-not-visible-in-spring-t
 
 --
 
-mvn clean test spotbugs:check checkstyle:check jacoco:report
+mvn clean test spotbugs:check checkstyle:check jacoco:report pmd:cpd-check pmd:pmd-check
 
 mvn clean jacoco:report checkstyle:checkstyle pmd:check
 = target/site/jacoco/index.html
