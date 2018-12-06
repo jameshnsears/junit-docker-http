@@ -1,3 +1,5 @@
+mccabe!?
+
 work on DockerClientTest
 
 use coverage + other static analsys tools to rm as much as possible - especially in Models
@@ -16,6 +18,10 @@ in configurationaccessor use more Models!?
 update pom.xml in all projects!
 
 https://github.com/kyriosdata/exemplo/blob/master/pom.xml
+
+https://pmd.github.io/
+https://stackoverflow.com/questions/52666284/pmd-options-not-visible-in-spring-tool-suite-3-9-6
+    https://dl.bintray.com/pmd/pmd-eclipse-plugin/snapshots/updates/
 
 --
 
