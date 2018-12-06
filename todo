@@ -29,15 +29,11 @@ update pom.xml in all projects!
 
 --
 
-mvn clean test jacoco:report checkstyle:checkstyle
+mvn clean test spotbugs:check checkstyle:check jacoco:report
+
+mvn clean checkstyle:checkstyle jacoco:report
 = target/site/jacoco/index.html
 = target/site/checkstyle.html
-
-mvn clean checkstyle:check
-= console output
-
-mvn clean spotbugs:check
-= console output
 
 --
 
