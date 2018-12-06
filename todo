@@ -23,6 +23,8 @@ https://pmd.github.io/
 https://stackoverflow.com/questions/52666284/pmd-options-not-visible-in-spring-tool-suite-3-9-6
     https://dl.bintray.com/pmd/pmd-eclipse-plugin/snapshots/updates/
 
+https://www.codemr.co.uk/downloads
+
 --
 
 mvn clean test spotbugs:check checkstyle:check jacoco:report pmd:cpd-check pmd:pmd-check

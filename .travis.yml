@@ -15,13 +15,11 @@ cache:
   directories:
   - $HOME/.m2
 
+before_script:
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+
 script:
-  - mvn clean
-  - mvn test
-  - mvn checkstyle:check
-  - mvn spotbugs:check
-  - mvn pmd:cpd-check
-  # - mvn pmd:check
+  - mvn clean test checkstyle:check potbugs:check pmd:cpd-check
 
 after_success:
   - mvn  coveralls:report
