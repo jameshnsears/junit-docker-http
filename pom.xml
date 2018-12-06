@@ -115,7 +115,6 @@
                         <ruleset>/category/java/errorprone.xml</ruleset>
                         <ruleset>/category/java/multithreading.xml</ruleset>
                         <ruleset>/category/java/performance.xml</ruleset>
-                        <ruleset>/category/java/security.xml</ruleset>
                     </rulesets>
                 </configuration>
                 <executions>
