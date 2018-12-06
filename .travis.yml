@@ -15,9 +15,14 @@ cache:
   directories:
   - $HOME/.m2
 
+before_script:
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+
 script:
   - mvn clean
   - mvn test
-  - mvn jacoco:report coveralls:report
   - mvn checkstyle:check
   - mvn spotbugs:check
+
+after_success:
+  - mvn jacoco:report coveralls:report
