@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
-public class ConfigurationTest extends GsonCommon {
+class ConfigurationTest extends GsonCommon {
     @Test
-    public void loadConfig() {
+    void loadConfig() {
         Collection<Configuration> configurationCollection = gson.fromJson(
                 getInputStreamReader("/fixtures/config.json"),
                 new TypeToken<Collection<Configuration>>() {

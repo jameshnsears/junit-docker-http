@@ -12,9 +12,9 @@ import unit.GsonCommon;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class ModelsTest extends GsonCommon {
+class ModelsTest extends GsonCommon {
     @Test
-    public void lsImages() {
+    void lsImages() {
         ArrayList<Image> images = gson.fromJson(
                 getInputStreamReader("/fixtures/docker/images.json"),
                 new TypeToken<Collection<Image>>() {
@@ -26,7 +26,7 @@ public class ModelsTest extends GsonCommon {
     }
 
     @Test
-    public void lsContainers() {
+    void lsContainers() {
         ArrayList<Container> containers = gson.fromJson(
                 getInputStreamReader("/fixtures/docker/containers.json"),
                 new TypeToken<Collection<Container>>() {
@@ -44,7 +44,7 @@ public class ModelsTest extends GsonCommon {
     }
 
     @Test
-    public void lsNetworks() {
+    void lsNetworks() {
         ArrayList<Network> networks = gson.fromJson(
                 getInputStreamReader("/fixtures/docker/networks.json"),
                 new TypeToken<Collection<Network>>() {
@@ -56,7 +56,7 @@ public class ModelsTest extends GsonCommon {
     }
 
     @Test
-    public void lsVolumes() {
+    void lsVolumes() {
         Volume volume = gson.fromJson(getInputStreamReader("/fixtures/docker/volumes.json"), Volume.class);
 
         Assertions.assertEquals(

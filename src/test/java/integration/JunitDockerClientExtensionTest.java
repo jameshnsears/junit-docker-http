@@ -1,6 +1,6 @@
 package integration;
 
-public class JunitDockerClientExtensionTest {
+class JunitDockerClientExtensionTest {
     /*
 import com.github.jameshnsears.docker
 import pytest

@@ -18,8 +18,8 @@ import java.util.Map;
 
 public class DockerClient {
     private static final Logger logger = LoggerFactory.getLogger(DockerClient.class);
-    HttpConnection httpConnection = new HttpConnection();
-    ResponseMapper responseMapper = new ResponseMapper();
+    private final HttpConnection httpConnection = new HttpConnection();
+    private final ResponseMapper responseMapper = new ResponseMapper();
 
     public ArrayList<String> lsImages() throws IOException {
         ArrayList<String> imageNames = new ArrayList<>();
@@ -29,8 +29,7 @@ public class DockerClient {
             ArrayList<Image> dockerImages = responseMapper.mapJsonIntoImageList(json);
 
             for (Image dockerImage : dockerImages)
-                for (String repoTag : dockerImage.getRepoTags())
-                    imageNames.add(repoTag);
+                imageNames.addAll(dockerImage.getRepoTags());
         } catch (JsonSyntaxException jsonSyntaxException) {
             logger.warn(jsonSyntaxException.getMessage());
         }
@@ -38,7 +37,7 @@ public class DockerClient {
         return imageNames;
     }
 
-    public ArrayList<Map<String, Object>> lsContainers(ConfigurationAccessor configurationAccessor)
+    private ArrayList<Map<String, Object>> lsContainers(ConfigurationAccessor configurationAccessor)
             throws IOException, IllegalStateException {
         Preconditions.checkNotNull(configurationAccessor);
 
@@ -89,7 +88,7 @@ public class DockerClient {
 
         ArrayList<String> dockerImages = lsImages();
         for (String configurationImage : configurationImages) {
-            if (dockerImages.contains(configurationImage) == false) {
+            if (!dockerImages.contains(configurationImage)) {
                 logger.debug(configurationImage);
                 httpConnection.post(
                         String.format("http://127.0.0.1/v1.39/images/create?fromImage=%s", configurationImage));
@@ -129,7 +128,7 @@ DELETE /v1.39/containers/75fd619ebb6623448df989816e337fb80910e4a7e9aa5db496662e9
 //                startContainer(container);
     }
 
-    public void rmContainers(ConfigurationAccessor configurationAccessor) throws IOException {
+    private void rmContainers(ConfigurationAccessor configurationAccessor) throws IOException {
         Preconditions.checkNotNull(configurationAccessor);
 
         ArrayList<Map<String, Object>> dockerContainers = lsContainers(configurationAccessor);
@@ -221,6 +220,5 @@ DELETE /v1.39/containers/75fd619ebb6623448df989816e337fb80910e4a7e9aa5db496662e9
     }
 
     private void stopContainer() {
-        return;
     }
 }

@@ -7,11 +7,11 @@ import java.io.InputStreamReader;
 public class GsonCommon {
     protected final Gson gson;
 
-    public GsonCommon() {
+    protected GsonCommon() {
         gson = new Gson();
     }
 
-    public InputStreamReader getInputStreamReader(String s) {
+    protected InputStreamReader getInputStreamReader(String s) {
         return new InputStreamReader(getClass().getResourceAsStream(s));
     }
 }

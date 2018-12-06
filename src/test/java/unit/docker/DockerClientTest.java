@@ -8,14 +8,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
 
 @ExtendWith(ConfigurationAccessorParameterResolver.class)
-public class DockerClientTest {
-    DockerClient dockerClient = new DockerClient();
+class DockerClientTest {
+    private final DockerClient dockerClient = new DockerClient();
 
-    //@Test
-    public void pullImages(ConfigurationAccessor configurationAccessor) throws IOException {
+    @Test
+    void pullImages(ConfigurationAccessor configurationAccessor) throws IOException {
         dockerClient.rmImages(configurationAccessor.images());
         ArrayList<String> dockerImages = dockerClient.lsImages();
         for (String image : configurationAccessor.images())
@@ -29,7 +28,7 @@ public class DockerClientTest {
     }
 
     @Test
-    public void stopStartContainers(ConfigurationAccessor configurationAccessor) throws IOException {
+    void stopStartContainers(ConfigurationAccessor configurationAccessor) throws IOException {
         /*
         docker_py_wrapper.start_containers(configuration)
         assert len(docker_py_wrapper.ls_containers(configuration.images())) == 2

@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.Map;
 
 public class ConfigurationAccessor {
-    private Collection<Configuration> configurationCollection;
+    private final Collection<Configuration> configurationCollection;
 
     public ConfigurationAccessor(Collection<Configuration> configurationCollection) {
         Preconditions.checkNotNull(configurationCollection);
@@ -77,7 +77,7 @@ public class ConfigurationAccessor {
         */
     }
 
-    public class ConfigException extends Exception {
+    private class ConfigException extends Exception {
         public ConfigException(String message) {
             super(message);
         }

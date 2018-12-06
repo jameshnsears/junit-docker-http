@@ -33,7 +33,7 @@ import jnr.unixsocket.UnixSocketChannel;
 /**
  * Impersonate TCP-style ServerSocketFactory over UNIX domain sockets.
  */
-public final class UnixDomainServerSocketFactory extends ServerSocketFactory {
+final class UnixDomainServerSocketFactory extends ServerSocketFactory {
     private final File path;
 
     public UnixDomainServerSocketFactory(File path) {

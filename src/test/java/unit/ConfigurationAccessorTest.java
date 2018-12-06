@@ -12,10 +12,10 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ConfigurationAccessorTest extends GsonCommon {
-    private ConfigurationAccessor configurationAccessor;
+class ConfigurationAccessorTest extends GsonCommon {
+    private final ConfigurationAccessor configurationAccessor;
 
-    public ConfigurationAccessorTest() {
+    ConfigurationAccessorTest() {
         Type collectionType = new TypeToken<Collection<Configuration>>() {
         }.getType();
 
@@ -23,7 +23,7 @@ public class ConfigurationAccessorTest extends GsonCommon {
     }
 
     @Test
-    public void images() {
+    void images() {
         ArrayList<String> expectation = new ArrayList<>();
         expectation.add("alpine:latest");
         expectation.add("busybox:latest");
@@ -31,12 +31,12 @@ public class ConfigurationAccessorTest extends GsonCommon {
     }
 
     @Test
-    public void networks() {
+    void networks() {
         Assertions.assertArrayEquals(configurationAccessor.networks().toArray(), new String[]{"dev"});
     }
 
     @Test
-    public void volumes() {
+    void volumes() {
         ArrayList<Map<String, Map<String, String>>> volumes = new ArrayList<>();
         Map<String, Map<String, String>> volume = new HashMap<>();
 

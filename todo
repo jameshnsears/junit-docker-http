@@ -1,12 +1,5 @@
 install:
-spotbugs
-
 sonar
-
-
-rm dependencies that I do not use!
-
-check all dependencies are up to date9
 
 ==
 

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 @ExtendWith(JuntDockerClientExtension.class)
-public class JunitDockerClientExtensionTest {
+class JunitDockerClientExtensionTest {
 
     @Test
     void testExtension() {

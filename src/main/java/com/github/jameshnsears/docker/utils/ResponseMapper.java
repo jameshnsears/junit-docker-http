@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class ResponseMapper {
-    private Gson gson = new Gson();
+    private final Gson gson = new Gson();
     // private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     public ArrayList<Image> mapJsonIntoImageList(String json) {
