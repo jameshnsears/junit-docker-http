@@ -36,7 +36,7 @@ import jnr.unixsocket.UnixSocketChannel;
 final class UnixDomainServerSocketFactory extends ServerSocketFactory {
     private final File path;
 
-    public UnixDomainServerSocketFactory(File path) {
+    UnixDomainServerSocketFactory(File path) {
         this.path = path;
     }
 

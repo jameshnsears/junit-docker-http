@@ -78,7 +78,7 @@ public class ConfigurationAccessor {
     }
 
     private class ConfigException extends Exception {
-        public ConfigException(String message) {
+        ConfigException(String message) {
             super(message);
         }
     }

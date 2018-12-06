@@ -18,8 +18,6 @@ cache:
 script:
   - mvn clean
   - mvn test
+  - mvn jacoco:report coveralls:report
   - mvn checkstyle:check
   - mvn spotbugs:check
-
-after_success:
-  - mvn jacoco:report coveralls:report
