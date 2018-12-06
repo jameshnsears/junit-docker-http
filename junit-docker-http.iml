@@ -102,43 +102,43 @@
     <orderEntry type="library" name="Maven: commons-lang:commons-lang:2.1" level="project" />
     <orderEntry type="library" name="Maven: oro:oro:2.0.8" level="project" />
     <orderEntry type="library" name="Maven: commons-collections:commons-collections:3.2.1" level="project" />
-    <orderEntry type="library" name="Maven: org.jacoco:jacoco-maven-plugin:0.8.2" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven:maven-project:2.2.1" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven:maven-profile:2.2.1" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven:maven-artifact-manager:2.2.1" level="project" />
-    <orderEntry type="library" name="Maven: backport-util-concurrent:backport-util-concurrent:3.1" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven:maven-plugin-registry:2.2.1" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven.shared:file-management:1.2.1" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven.shared:maven-shared-io:1.1" level="project" />
-    <orderEntry type="library" name="Maven: org.jacoco:org.jacoco.agent:runtime:0.8.2" level="project" />
-    <orderEntry type="library" name="Maven: org.jacoco:org.jacoco.core:0.8.2" level="project" />
-    <orderEntry type="library" name="Maven: org.jacoco:org.jacoco.report:0.8.2" level="project" />
-    <orderEntry type="library" name="Maven: com.github.spotbugs:spotbugs-maven-plugin:3.1.9" level="project" />
-    <orderEntry type="library" name="Maven: com.github.spotbugs:spotbugs:3.1.9" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.bcel:bcel:6.2" level="project" />
-    <orderEntry type="library" name="Maven: net.jcip:jcip-annotations:1.0" level="project" />
-    <orderEntry type="library" name="Maven: org.dom4j:dom4j:2.1.0" level="project" />
-    <orderEntry type="library" name="Maven: jaxen:jaxen:1.1.6" level="project" />
-    <orderEntry type="library" name="Maven: com.github.spotbugs:spotbugs-annotations:3.1.9" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.ant:ant:1.10.5" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.ant:ant-launcher:1.10.5" level="project" />
-    <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-dateutil:indy:2.5.4" level="project" />
-    <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy:2.5.4" level="project" />
-    <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-ant:2.5.4" level="project" />
-    <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-groovydoc:2.5.4" level="project" />
-    <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-xml:2.5.4" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven:maven-compat:3.5.0" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven:maven-resolver-provider:3.5.0" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven.resolver:maven-resolver-spi:1.0.3" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven.resolver:maven-resolver-api:1.0.3" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven.resolver:maven-resolver-util:1.0.3" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven.resolver:maven-resolver-impl:1.0.3" level="project" />
-    <orderEntry type="library" name="Maven: org.eclipse.sisu:org.eclipse.sisu.plexus:0.3.3" level="project" />
-    <orderEntry type="library" name="Maven: javax.enterprise:cdi-api:1.0" level="project" />
-    <orderEntry type="library" name="Maven: javax.annotation:jsr250-api:1.0" level="project" />
-    <orderEntry type="library" name="Maven: javax.inject:javax.inject:1" level="project" />
-    <orderEntry type="library" name="Maven: org.eclipse.sisu:org.eclipse.sisu.inject:0.3.3" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven.wagon:wagon-provider-api:2.12" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jacoco:jacoco-maven-plugin:0.8.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.maven:maven-project:2.2.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.maven:maven-profile:2.2.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.maven:maven-artifact-manager:2.2.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: backport-util-concurrent:backport-util-concurrent:3.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.maven:maven-plugin-registry:2.2.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.maven.shared:file-management:1.2.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.maven.shared:maven-shared-io:1.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jacoco:org.jacoco.agent:runtime:0.8.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jacoco:org.jacoco.core:0.8.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jacoco:org.jacoco.report:0.8.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: com.github.spotbugs:spotbugs-maven-plugin:3.1.9" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: com.github.spotbugs:spotbugs:3.1.9" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.bcel:bcel:6.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: net.jcip:jcip-annotations:1.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.dom4j:dom4j:2.1.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: jaxen:jaxen:1.1.6" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: com.github.spotbugs:spotbugs-annotations:3.1.9" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.ant:ant:1.10.5" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.ant:ant-launcher:1.10.5" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.codehaus.groovy:groovy-dateutil:indy:2.5.4" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.codehaus.groovy:groovy:2.5.4" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.codehaus.groovy:groovy-ant:2.5.4" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.codehaus.groovy:groovy-groovydoc:2.5.4" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.codehaus.groovy:groovy-xml:2.5.4" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.maven:maven-compat:3.5.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.maven:maven-resolver-provider:3.5.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.maven.resolver:maven-resolver-spi:1.0.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.maven.resolver:maven-resolver-api:1.0.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.maven.resolver:maven-resolver-util:1.0.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.maven.resolver:maven-resolver-impl:1.0.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.eclipse.sisu:org.eclipse.sisu.plexus:0.3.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: javax.enterprise:cdi-api:1.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: javax.annotation:jsr250-api:1.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: javax.inject:javax.inject:1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.eclipse.sisu:org.eclipse.sisu.inject:0.3.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.maven.wagon:wagon-provider-api:2.12" level="project" />
     <orderEntry type="library" name="Maven: org.apache.maven.doxia:doxia-core:1.8" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.0.2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.0.1" level="project" />

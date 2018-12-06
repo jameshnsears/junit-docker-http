@@ -17,7 +17,7 @@ cache:
   - $HOME/.m2
 
 script:
-  - mvn clean test
+  - mvn clean checkstyle:check spotbugs:check test
 
 after_success:
   - mvn jacoco:report coveralls:report

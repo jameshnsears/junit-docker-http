@@ -27,24 +27,17 @@ in configurationaccessor use more Models!?
 
 update pom.xml in all projects!
 
-script:
-  - mvn clean test checkstyle:check
-
-after_success:
-  - mvn jacoco:report coveralls:report
-
 --
 
-mvn clean test jacoco:report
+mvn clean test jacoco:report checkstyle:checkstyle
 = target/site/jacoco/index.html
-
-// http://checkstyle.sourceforge.net/checks.html
-mvn clean checkstyle:checkstyle
 = target/site/checkstyle.html
 
 mvn clean checkstyle:check
 = console output
 
+mvn clean spotbugs:check
+= console output
 
 --
 

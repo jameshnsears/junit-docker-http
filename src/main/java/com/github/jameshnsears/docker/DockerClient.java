@@ -136,7 +136,9 @@ DELETE /v1.39/containers/75fd619ebb6623448df989816e337fb80910e4a7e9aa5db496662e9
         for (String configurationImage : configurationAccessor.images()) {
             if (dockerContainers.contains(configurationImage)) {
                 logger.debug(configurationImage);
-                //httpConnection.post(String.format("http://127.0.0.1/v1.39/images/create?fromImage=%s", configurationImage));
+//                httpConnection.post(
+//                        String.format("http://127.0.0.1/v1.39/images/create?fromImage=%s",
+//                                configurationImage));
             }
         }
 
