@@ -40,8 +40,10 @@ mvn clean test jacoco:report
 = target/site/jacoco/index.html
 
 // http://checkstyle.sourceforge.net/checks.html
-mvn clean test checkstyle:checkstyle
+mvn clean checkstyle:checkstyle
 = target/site/checkstyle.html
+or
+mvn clean checkstyle:check
 
 --
 
