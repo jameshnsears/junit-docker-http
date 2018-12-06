@@ -38,7 +38,8 @@ public class DockerClient {
         return imageNames;
     }
 
-    public ArrayList<Map<String, Object>> lsContainers(ConfigurationAccessor configurationAccessor) throws IOException, IllegalStateException {
+    public ArrayList<Map<String, Object>> lsContainers(ConfigurationAccessor configurationAccessor)
+            throws IOException, IllegalStateException {
         Preconditions.checkNotNull(configurationAccessor);
 
         ArrayList<Map<String, Object>> containersThatMatchConfiguration = new ArrayList<>();
@@ -90,7 +91,8 @@ public class DockerClient {
         for (String configurationImage : configurationImages) {
             if (dockerImages.contains(configurationImage) == false) {
                 logger.debug(configurationImage);
-                httpConnection.post(String.format("http://127.0.0.1/v1.39/images/create?fromImage=%s", configurationImage));
+                httpConnection.post(
+                        String.format("http://127.0.0.1/v1.39/images/create?fromImage=%s", configurationImage));
             }
         }
     }
@@ -102,7 +104,7 @@ public class DockerClient {
 
         POST /v1.39/containers/create?name=alpine-01
 
-        DELETE /v1.39/containers/75fd619ebb6623448df989816e337fb80910e4a7e9aa5db496662e96a0b217b6?v=False&link=False&force=True
+DELETE /v1.39/containers/75fd619ebb6623448df989816e337fb80910e4a7e9aa5db496662e96a0b217b6?v=False&link=False&force=True
 
         POST /v1.39/containers/prune
 
@@ -130,7 +132,7 @@ public class DockerClient {
     public void rmContainers(ConfigurationAccessor configurationAccessor) throws IOException {
         Preconditions.checkNotNull(configurationAccessor);
 
-        ArrayList<Map<String, Object>>dockerContainers = lsContainers(configurationAccessor);
+        ArrayList<Map<String, Object>> dockerContainers = lsContainers(configurationAccessor);
         for (String configurationImage : configurationAccessor.images()) {
             if (dockerContainers.contains(configurationImage)) {
                 logger.debug(configurationImage);

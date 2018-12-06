@@ -2,7 +2,7 @@ package unit;
 
 import com.github.jameshnsears.Configuration;
 import com.google.gson.reflect.TypeToken;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -17,13 +17,13 @@ public class ConfigurationTest extends GsonCommon {
                 new TypeToken<Collection<Configuration>>() {
                 }.getType());
 
-        Assert.assertEquals(
+        Assertions.assertEquals(
                 configurationCollection.size(),
                 2);
 
         Configuration configuration = (Configuration) ((ArrayList) configurationCollection).get(0);
         Map<String, Integer> portMap = configuration.getPorts();
-        Assert.assertEquals(
+        Assertions.assertEquals(
                 portMap.get("1234/tcp").intValue(),
                 1234);
     }

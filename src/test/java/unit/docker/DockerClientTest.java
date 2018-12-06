@@ -2,7 +2,7 @@ package unit.docker;
 
 import com.github.jameshnsears.ConfigurationAccessor;
 import com.github.jameshnsears.docker.DockerClient;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -19,13 +19,13 @@ public class DockerClientTest {
         dockerClient.rmImages(configurationAccessor.images());
         ArrayList<String> dockerImages = dockerClient.lsImages();
         for (String image : configurationAccessor.images())
-            Assert.assertFalse(dockerImages.contains(image));
+            Assertions.assertFalse(dockerImages.contains(image));
 
 
         dockerClient.pull(configurationAccessor.images());
         dockerImages = dockerClient.lsImages();
         for (String image : configurationAccessor.images())
-            Assert.assertTrue(dockerImages.contains(image));
+            Assertions.assertTrue(dockerImages.contains(image));
     }
 
     @Test

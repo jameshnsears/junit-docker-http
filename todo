@@ -1,5 +1,4 @@
 install:
-checkstyle
 spotbugs
 
 sonar
@@ -29,7 +28,7 @@ in configurationaccessor use more Models!?
 update pom.xml in all projects!
 
 script:
-  - mvn clean test
+  - mvn clean test checkstyle:check
 
 after_success:
   - mvn jacoco:report coveralls:report
@@ -42,8 +41,10 @@ mvn clean test jacoco:report
 // http://checkstyle.sourceforge.net/checks.html
 mvn clean checkstyle:checkstyle
 = target/site/checkstyle.html
-or
+
 mvn clean checkstyle:check
+= console output
+
 
 --
 

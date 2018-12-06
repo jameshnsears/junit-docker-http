@@ -65,15 +65,5 @@
             <property name="arrayInitIndent" value="4"/>
             <property name="lineWrappingIndentation" value="4"/>
         </module>
-
-        <module name="IllegalImport">
-            <property name="illegalPkgs" value="junit.framework"/>
-        </module>
-
-        <module name="WriteTag">
-            <property name="tag" value="@author"/>
-            <property name="tagSeverity" value="error"/>
-            <property name="severity" value="ignore"/>
-        </module>
     </module>
 </module>

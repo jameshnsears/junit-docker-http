@@ -19,7 +19,7 @@ public class HttpConnection {
 
     private OkHttpClient okHttpClient() {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
-        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         return new OkHttpClient.Builder()
                 .socketFactory(new UnixDomainSocketFactory(new File("/var/run/docker.sock")))

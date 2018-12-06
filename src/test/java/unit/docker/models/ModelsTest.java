@@ -5,7 +5,7 @@ import com.github.jameshnsears.docker.models.Image;
 import com.github.jameshnsears.docker.models.Network;
 import com.github.jameshnsears.docker.models.Volume;
 import com.google.gson.reflect.TypeToken;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import unit.GsonCommon;
 
@@ -20,7 +20,7 @@ public class ModelsTest extends GsonCommon {
                 new TypeToken<Collection<Image>>() {
                 }.getType());
 
-        Assert.assertEquals(
+        Assertions.assertEquals(
                 images.size(),
                 12);
     }
@@ -32,13 +32,13 @@ public class ModelsTest extends GsonCommon {
                 new TypeToken<Collection<Container>>() {
                 }.getType());
 
-        Assert.assertEquals(
+        Assertions.assertEquals(
                 containers.size(),
                 7);
-        Assert.assertEquals(
+        Assertions.assertEquals(
                 ((Container) ((java.util.ArrayList) containers).get(0)).getId(),
                 "60cb5bc7fa7f5ac26a48520f8bd68decd8307af1b114f25b29827120ba4d4c16");
-        Assert.assertEquals(
+        Assertions.assertEquals(
                 ((java.util.ArrayList) ((Container) ((java.util.ArrayList) containers).get(0)).getNames()).get(0),
                 "/xqa-ingest");
     }
@@ -50,7 +50,7 @@ public class ModelsTest extends GsonCommon {
                 new TypeToken<Collection<Network>>() {
                 }.getType());
 
-        Assert.assertEquals(
+        Assertions.assertEquals(
                 networks.size(),
                 4);
     }
@@ -59,7 +59,7 @@ public class ModelsTest extends GsonCommon {
     public void lsVolumes() {
         Volume volume = gson.fromJson(getInputStreamReader("/fixtures/docker/volumes.json"), Volume.class);
 
-        Assert.assertEquals(
+        Assertions.assertEquals(
                 volume.getVolumes().size(),
                 3);
     }

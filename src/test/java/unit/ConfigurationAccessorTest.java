@@ -3,7 +3,7 @@ package unit;
 import com.github.jameshnsears.Configuration;
 import com.github.jameshnsears.ConfigurationAccessor;
 import com.google.gson.reflect.TypeToken;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Type;
@@ -27,12 +27,12 @@ public class ConfigurationAccessorTest extends GsonCommon {
         ArrayList<String> expectation = new ArrayList<>();
         expectation.add("alpine:latest");
         expectation.add("busybox:latest");
-        Assert.assertArrayEquals(configurationAccessor.images().toArray(), expectation.toArray());
+        Assertions.assertArrayEquals(configurationAccessor.images().toArray(), expectation.toArray());
     }
 
     @Test
     public void networks() {
-        Assert.assertArrayEquals(configurationAccessor.networks().toArray(), new String[]{"dev"});
+        Assertions.assertArrayEquals(configurationAccessor.networks().toArray(), new String[]{"dev"});
     }
 
     @Test
@@ -48,7 +48,7 @@ public class ConfigurationAccessorTest extends GsonCommon {
 
         volumes.add(volume);
 
-        Assert.assertEquals(
+        Assertions.assertEquals(
                 configurationAccessor.volumes().size(),
                 volumes.size());
     }
