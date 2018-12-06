@@ -15,13 +15,16 @@ in configurationaccessor use more Models!?
 
 update pom.xml in all projects!
 
+https://github.com/kyriosdata/exemplo/blob/master/pom.xml
+
 --
 
 mvn clean test spotbugs:check checkstyle:check jacoco:report
 
-mvn clean checkstyle:checkstyle jacoco:report
+mvn clean jacoco:report checkstyle:checkstyle pmd:check
 = target/site/jacoco/index.html
 = target/site/checkstyle.html
+= target/site/pmd.html
 
 --
 

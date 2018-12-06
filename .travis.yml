@@ -23,6 +23,7 @@ script:
   - mvn test
   - mvn checkstyle:check
   - mvn spotbugs:check
+  # - mvn pmd:cpd-check pmd:pmd-check
 
 after_success:
   - mvn jacoco:report coveralls:report
