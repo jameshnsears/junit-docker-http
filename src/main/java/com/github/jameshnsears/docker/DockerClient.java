@@ -95,9 +95,8 @@ public class DockerClient {
         }
     }
 
-    public void startContainers(ConfigurationAccessor configurationAccessor) {
-
-
+    public void startContainers(ConfigurationAccessor configurationAccessor) throws IOException {
+        Preconditions.checkNotNull(configurationAccessor);
         /*
         GET /v1.39/images/alpine:latest/json
 
@@ -116,14 +115,53 @@ public class DockerClient {
         POST /v1.39/volumes/prune
          */
 
+        rmContainers(configurationAccessor);
+
         /*
         self.rm_containers(config.images())
         for container in config.containers():
             self._start_container(config, container)
          */
+//        rmContainerArtefacts(configurationAccessor.images());
+//            for (Container container: configurationAccessor.containers())
+//                startContainer(container);
     }
 
-    private void startContainer() {
+    public void rmContainers(ConfigurationAccessor configurationAccessor) throws IOException {
+        Preconditions.checkNotNull(configurationAccessor);
+
+        ArrayList<Map<String, Object>>dockerContainers = lsContainers(configurationAccessor);
+        for (String configurationImage : configurationAccessor.images()) {
+            if (dockerContainers.contains(configurationImage)) {
+                logger.debug(configurationImage);
+                //httpConnection.post(String.format("http://127.0.0.1/v1.39/images/create?fromImage=%s", configurationImage));
+            }
+        }
+
+        /*
+        for docker_container in self.ls_containers(containers_to_stop):
+            for container_to_stop in containers_to_stop:
+                if docker_container['image'] == container_to_stop:
+                    self._rm_container_artefacts(docker_container)
+
+        self._client.containers.prune()
+        self._client.networks.prune()
+         */
+    }
+
+    private void rmContainerArtefacts(ArrayList<String> images) {
+        /*
+        logging.debug(docker_container['id'])
+        try:
+            docker_container['container'].stop(timeout=1)
+            docker_container['container'].remove(force=True)
+        except com.github.jameshnsears.docker.errors.NotFound:
+            pass
+        self._client.volumes.prune()
+         */
+    }
+
+    private void startContainer(ConfigurationAccessor configurationAccessor, String container) {
         /*
         try:
             logging.debug(container['image'])
@@ -140,30 +178,6 @@ public class DockerClient {
         except KeyError:
             logging.error('missing: image')
             pass
-         */
-    }
-
-    public void rmContainers(ConfigurationAccessor configurationAccessor) {
-        /*
-        for docker_container in self.ls_containers(containers_to_stop):
-            for container_to_stop in containers_to_stop:
-                if docker_container['image'] == container_to_stop:
-                    self._rm_container_artefacts(docker_container)
-
-        self._client.containers.prune()
-        self._client.networks.prune()
-         */
-    }
-
-    private void rmContainerArtefacts() {
-        /*
-        logging.debug(docker_container['id'])
-        try:
-            docker_container['container'].stop(timeout=1)
-            docker_container['container'].remove(force=True)
-        except com.github.jameshnsears.docker.errors.NotFound:
-            pass
-        self._client.volumes.prune()
          */
     }
 

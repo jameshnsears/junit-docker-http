@@ -15,15 +15,20 @@
  */
 package okhttp3.unixdomainsockets;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.SocketAddress;
+
+import javax.net.ServerSocketFactory;
+
 import jnr.unixsocket.UnixServerSocketChannel;
 import jnr.unixsocket.UnixSocket;
 import jnr.unixsocket.UnixSocketAddress;
 import jnr.unixsocket.UnixSocketChannel;
-
-import javax.net.ServerSocketFactory;
-import java.io.File;
-import java.io.IOException;
-import java.net.*;
 
 /**
  * Impersonate TCP-style ServerSocketFactory over UNIX domain sockets.
@@ -55,8 +60,7 @@ public final class UnixDomainServerSocketFactory extends ServerSocketFactory {
     }
 
     @Override
-    public ServerSocket createServerSocket(
-            int port, int backlog, InetAddress inetAddress) throws IOException {
+    public ServerSocket createServerSocket(int port, int backlog, InetAddress inetAddress) throws IOException {
         return createUnixDomainSocket();
     }
 

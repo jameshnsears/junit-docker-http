@@ -1,19 +1,47 @@
-move okhttp stuff from DockerHttpAccessor into HttpConnection
+install:
+checkstyle
+spotbugs
+
+sonar
+
+
+rm dependencies that I do not use!
+
+check all dependencies are up to date9
+
+==
 
 work on DockerClientTest
 
 use coverage + other static analsys tools to rm as much as possible - especially in Models
 = +incoproate more pre-condition tests
 
-look at structure of swaggar.yaml - for clues as to how to call
-
-work on JunitDockerHttpExtensionTest to actually use the extension
+'work on JunitDockerHttpExtensionTest to actually use the extension
 
 incoporate maven processes - i.e. jaccomo + sonarcube
 
 check volumes created correctly in pytest-docker-py
 
 rename project / repo from "junit-docker-http" to "junit-docker_client-extension"
+
+in configurationaccessor use more Models!?
+
+update pom.xml in all projects!
+
+script:
+  - mvn clean test
+
+after_success:
+  - mvn jacoco:report coveralls:report
+
+--
+
+mvn clean test jacoco:report
+= target/site/jacoco/index.html
+
+// http://checkstyle.sourceforge.net/checks.html
+mvn clean test checkstyle:checkstyle
+= target/site/checkstyle.html
 
 --
 
