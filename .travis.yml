@@ -14,6 +14,10 @@ addons:
     token:
       secure: "dWBy76ouo0BzXZtiwQydmoc2DDBGrcXR1qhgTG0xNdaP2opEFjvrxVH0NtFIwEj2SnS3P2eb4FOIEHa6p5kbdtgkVveZqeZOhm8TOfL9Ty9SncJ3ZCLNaTOm7nyUCVnYIRlDmakuZfyJLh+sFdah2RlFMSPvHqKuOuOaMHGnYeermj+lU06LIhXpGqtVwMCRId+SZ79L5/nOjFL1aiMpj44OWlvYj5BOHzoP1lFqChwPP4U+OlZ0inl6sfVm/KeEIPJlG44QaNKItIMZ1rXAAuTOi5vcvE6oUHAxDKHOLcKo880soCkdhNeLjRmViRPx5+j7nSYcuLe/+plrhE2MBoU+msZTi8nAzrnyt7exK3garh2eQPKZj6cjj0Qf9gBUu8rLDxAmwaeyoqRYJ8cJ4qLgi4b3lGc+w0c6UR6H4bF2+ZKR93HGihudkegLPQKFFecstmmQG2uAh99bwmcOD2r1I4kGt37pdmKg+IscVHwN/s/jKARlDLShASR1pWy6QnfksVZL3CcNLJoe48UHx7gJ3jqpe79mL3RElQ9vPDXrIskoE/HcnXX3nVBmk1R3w1JNvHXhM4i44lZvHkUVNyTF33FjlrhyE/OKynXUXU0jjPKilDUTiMhqws/Nh0xFIGs7R3uS6Ca0KBUGX1AB3ieTPf2rb9wmyBBmSQmthos="
 
+env:
+  global:
+    - secure: "EDcNb/Q4Kp2WiTPBuhlRsZ2anz2TQ38+Ovw5+ybfFfs+zVbBPo0kFhNSwvB/oy+Tc1m/aGwZdZt+3nGlF1wn+VBtrLZM9+KvuN3XCpM1bI38rn2Er1zyvTpa9cVPdp3JiWfWRYl+x7f3dJA+jZqbi5m0pzx9xmSOlOi73Csdtkb1fdEsVFEx13q4Xu/ElI171HnHtLN9cE4U8Cs90Y58M4OaP53FmCW0s7Z54B973w1YmXoadJugGg6blouKxQB52c+HiSGqYCCRM0JNP7RE+yWKudAaoj3mx8jyC1nuayEJg5k9DiRDE4L0l0BYW3qwy1lwbb2PPQIwm0kRsYf/Sh6VgxBuvvDIgtgDmCa5aGIQCxA6B2cVDoOEOArtULjP0q+li+qWMj5XJukB8IY/DeLcagrTfL4BlY9kHyvnykch+aEtjXViaylYTCt0bwcfgC/haQwRNOzMYl4qSvdKjvdzan5ThVrNFoZrDU8bf564g7UJ5Jzsr++tkFFC1k7SPtQ4PnrmPadqHX54kOWj++1qrprA5Gy8V6qARY4L8BR+7S9EGya2At3aElIgLVAOc0bQovEqJcSQNOJ3LT8AB7FlOW6Jg+qurNayiX8QMQPAYjU24o1lSnYTwSaJEyTqTNo9/6RMi63SMhy2+rz82mmeJjcrcwEkKgxdtx45YYM="
+
 jdk:
   - openjdk10
 
@@ -23,6 +27,6 @@ cache:
   - $HOME/.sonar/cache
 
 script:
-  - mvn clean test jacoco:report coveralls:report
+  - mvn clean test jacoco:report org.eluder.coveralls:coveralls-maven-plugin:report
   - mvn checkstyle:check spotbugs:check pmd:pmd
   - sonar-scanner
