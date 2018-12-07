@@ -5,9 +5,6 @@ sudo: required
 notifications:
 email: james.hn.sears@gmail.com
 
-services:
-  - docker
-
 addons:
   sonarcloud:
     organization: "jameshnsears-github"
