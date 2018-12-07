@@ -17,7 +17,9 @@ in configurationaccessor use more Models!?
 
 update pom.xml in all projects!
 
-https://github.com/kyriosdata/exemplo/blob/master/pom.xml
+--
+
+https://sonarcloud.io/dashboard?id=jameshnsears_junit-docker-http
 
 https://pmd.github.io/
 https://stackoverflow.com/questions/52666284/pmd-options-not-visible-in-spring-tool-suite-3-9-6
