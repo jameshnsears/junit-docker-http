@@ -1,9 +1,4 @@
-# junit-docker-http 
-[![Build Status](https://travis-ci.org/jameshnsears/junit-docker-http.svg?branch=master)](https://travis-ci.org/jameshnsears/junit-docker-http) 
-[![Coverage Status](https://coveralls.io/repos/github/jameshnsears/junit-docker-http/badge.svg)](https://coveralls.io/github/jameshnsears/junit-docker-http) 
-[![sonarcloud.io](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/dashboard?id=jameshnsears_junit-docker-http) 
-
-
+# junit-docker-http [![Build Status](https://travis-ci.org/jameshnsears/junit-docker-http.svg?branch=master)](https://travis-ci.org/jameshnsears/junit-docker-http)  [![Coverage Status](https://coveralls.io/repos/github/jameshnsears/junit-docker-http/badge.svg)](https://coveralls.io/github/jameshnsears/junit-docker-http)  [![sonarcloud.io](https://sonarcloud.io/api/project_badges/measure?project=jameshnsears_junit-docker-http&metric=alert_status)](https://sonarcloud.io/dashboard?id=jameshnsears_junit-docker-http) 
 
 * [Junit 5](https://junit.org/junit5/docs/current/user-guide/#extensions) extension that minimally leverages the [Docker Engine API](https://docs.docker.com/engine/api/v1.39/).
 
