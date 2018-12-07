@@ -44,7 +44,8 @@ public class DockerClient {
         ArrayList<Map<String, String>> containersThatMatchConfiguration = new ArrayList<>();
 
         try {
-            String json = httpConnection.get("http://127.0.0.1/v1.39/containers/json?limit=-1&all=0&size=0&trunc_cmd=0");
+            String json = httpConnection.get(
+                    "http://127.0.0.1/v1.39/containers/json?limit=-1&all=0&size=0&trunc_cmd=0");
             ArrayList<Container> dockerContainers = responseMapper.mapJsonIntoContainerList(json);
 
             for (Container dockerContainer : dockerContainers)
@@ -106,7 +107,10 @@ POST /v1.35/networks/create
 
 
 POST /v1.35/containers/create?name=alpine-01
-> {"ExposedPorts": {"1234/tcp": {}}, "Tty": false, "OpenStdin": false, "StdinOnce": false, "AttachStdin": false, "AttachStdout": false, "AttachStderr": false, "Cmd": ["sleep", "12345"], "Image": "alpine:latest", "Volumes": {"/tmp": {}}, "NetworkDisabled": false, "HostConfig": {"NetworkMode": "default", "Binds": ["alpine-01:/tmp:rw"], "PortBindings": {"1234/tcp": [{"HostIp": "", "HostPort": "1234"}]}}}
+> {"ExposedPorts": {"1234/tcp": {}}, "Tty": false, "OpenStdin": false, "StdinOnce": false, "AttachStdin": false,
+ "AttachStdout": false, "AttachStderr": false, "Cmd": ["sleep", "12345"], "Image": "alpine:latest",
+ "Volumes": {"/tmp": {}}, "NetworkDisabled": false, "HostConfig": {"NetworkMode": "default",
+ "Binds": ["alpine-01:/tmp:rw"], "PortBindings": {"1234/tcp": [{"HostIp": "", "HostPort": "1234"}]}}}
 < {"Id":"e0f5f5110f92b661839470adfadf55755caedee0c84fd3119d2e6a2dfc7a1fe8","Warnings":null}.
 
 POST /v1.35/containers/2976e872fae3cd6614a81926ef6c67b95d2cdda02179661694fc55cc252ee9f5/start
@@ -114,7 +118,9 @@ POST /v1.35/containers/2976e872fae3cd6614a81926ef6c67b95d2cdda02179661694fc55cc2
 --
 
 POST /v1.35/containers/create?name=busybox-01
-> {"Tty": false, "OpenStdin": false, "StdinOnce":false, "AttachStdin": false, "AttachStdout": false, "AttachStderr": false, "Image": "busybox:latest", "NetworkDisabled": false,"HostConfig": {"NetworkMode": "docker_py_wrapper"}, "NetworkingConfig": {"docker_py_wrapper": null}}
+> {"Tty": false, "OpenStdin": false, "StdinOnce":false, "AttachStdin": false, "AttachStdout": false,
+"AttachStderr": false, "Image": "busybox:latest", "NetworkDisabled": false,
+"HostConfig": {"NetworkMode": "docker_py_wrapper"}, "NetworkingConfig": {"docker_py_wrapper": null}}
 < {"Id":"2976e872fae3cd6614a81926ef6c67b95d2cdda02179661694fc55cc252ee9f5","Warnings":null}
 
 POST /v1.35/containers/2976e872fae3cd6614a81926ef6c67b95d2cdda02179661694fc55cc252ee9f5/start
@@ -183,7 +189,11 @@ POST /v1.35/containers/2976e872fae3cd6614a81926ef6c67b95d2cdda02179661694fc55cc2
     private void startNetwork() {
         /*
         GET /v1.35/networks/f0319c779d0b5b01532d093abfd54010b2a671e210d3070286d38cc2b7450ebe
-        < {"Name":"docker_py_wrapper","Id":"f0319c779d0b5b01532d093abfd54010b2a671e210d3070286d38cc2b7450ebe","Created":"2018-12-07T14:38:22.73110316Z","Scope":"local","Driver":"bridge","EnableIPv6":false,"IPAM":{"Driver":"default","Options":null,"Config":[{"Subnet":"172.25.0.0/16","Gateway":"172.25.0.1"}]},"Internal":false,"Attachable":false,"Ingress":false,"ConfigFrom":{"Network":""},"ConfigOnly":false,"Containers":{},"Options":{},"Labels":{}}.
+        < {"Name":"docker_py_wrapper","Id":"f0319c779d0b5b01532d093abfd54010b2a671e210d3070286d38cc2b7450ebe",
+        "Created":"2018-12-07T14:38:22.73110316Z","Scope":"local","Driver":"bridge","EnableIPv6":false,
+        "IPAM":{"Driver":"default","Options":null,"Config":[{"Subnet":"172.25.0.0/16","Gateway":"172.25.0.1"}]},
+        "Internal":false,"Attachable":false,"Ingress":false,
+        "ConfigFrom":{"Network":""},"ConfigOnly":false,"Containers":{},"Options":{},"Labels":{}}.
 
 
         if network_to_start not in self.ls_networks(config.networks()):
