@@ -19,7 +19,7 @@ public class HttpConnection {
 
     private OkHttpClient okHttpClient() {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
-        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
 
         return new OkHttpClient.Builder()
                 .socketFactory(new UnixDomainSocketFactory(new File("/var/run/docker.sock")))
@@ -39,7 +39,7 @@ public class HttpConnection {
         Response response = okHttpClient().newCall(request).execute();
         String jsonResponse = response.body().string();
         logger.debug(jsonResponse.replace("\n", ""));
-        logger.debug(String.format("%s", response.code()));
+        logger.info(String.format("%s", response.code()));
 
         return jsonResponse;
     }
@@ -56,8 +56,8 @@ public class HttpConnection {
                 .build();
 
         Response response = okHttpClient().newCall(request).execute();
-        logger.debug(response.body().string());
-        logger.debug(String.format("%s", response.code()));
+        logger.debug(response.body().string().replace("\n", ""));
+        logger.info(String.format("%s", response.code()));
     }
 
     public void delete(String endpoint) throws IOException {
@@ -71,6 +71,6 @@ public class HttpConnection {
                 .build();
 
         Response response = okHttpClient().newCall(request).execute();
-        logger.debug(String.format("%s", response.code()));
+        logger.info(String.format("%s", response.code()));
     }
 }

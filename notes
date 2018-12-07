@@ -13,6 +13,8 @@ in configurationaccessor use more Models!?
 
 update pom.xml in all projects!
 
+alt + enter = exception
+
 --
 
 https://pmd.github.io/
@@ -27,3 +29,16 @@ mvn clean jacoco:report checkstyle:checkstyle pmd:check
 = target/site/jacoco/index.html
 = target/site/checkstyle.html
 = target/site/pmd.html
+
+--
+
+cd /var/run
+
+sudo mv /var/run/docker.sock /var/run/hidden.socket
+
+sudo socat -t100 -x -v UNIX-LISTEN:/var/run/docker.sock,mode=777,reuseaddr,fork UNIX-CONNECT:/var/run/hidden.socket
+
+sudo mv /var/run/hidden.socket /var/run/docker.sock
+
+--
+

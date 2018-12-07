@@ -37,24 +37,23 @@ public class DockerClient {
         return imageNames;
     }
 
-    private ArrayList<Map<String, Object>> lsContainers(ConfigurationAccessor configurationAccessor)
+    private ArrayList<Map<String, String>> lsContainers(ConfigurationAccessor configurationAccessor)
             throws IOException, IllegalStateException {
         Preconditions.checkNotNull(configurationAccessor);
 
-        ArrayList<Map<String, Object>> containersThatMatchConfiguration = new ArrayList<>();
+        ArrayList<Map<String, String>> containersThatMatchConfiguration = new ArrayList<>();
 
         try {
-            String json = httpConnection.get("http://127.0.0.1/v1.39/containers/json");
+            String json = httpConnection.get("http://127.0.0.1/v1.39/containers/json?limit=-1&all=0&size=0&trunc_cmd=0");
             ArrayList<Container> dockerContainers = responseMapper.mapJsonIntoContainerList(json);
 
             for (Container dockerContainer : dockerContainers)
                 for (String containerName : dockerContainer.getNames())
                     for (String image : configurationAccessor.images())
                         if (configurationAccessor.images().contains(containerName)) {
-                            Map<String, Object> container = new HashMap<>();
+                            Map<String, String> container = new HashMap<>();
                             container.put("image", dockerContainer.getImage());
                             container.put("id", dockerContainer.getId());
-                            container.put("container", dockerContainer);
                             containersThatMatchConfiguration.add(container);
                         }
         } catch (JsonSyntaxException jsonSyntaxException) {
@@ -98,70 +97,31 @@ public class DockerClient {
 
     public void startContainers(ConfigurationAccessor configurationAccessor) throws IOException {
         Preconditions.checkNotNull(configurationAccessor);
-        /*
-        GET /v1.39/images/alpine:latest/json
-
-        POST /v1.39/containers/create?name=alpine-01
-
-DELETE /v1.39/containers/75fd619ebb6623448df989816e337fb80910e4a7e9aa5db496662e96a0b217b6?v=False&link=False&force=True
-
-        POST /v1.39/containers/prune
-
-        POST /v1.39/networks/prune
-
-        GET /v1.39/networks?filters=%7B%7D
-
-        GET /v1.39/volumes
-
-        POST /v1.39/volumes/prune
-         */
 
         rmContainers(configurationAccessor);
-
         /*
-        self.rm_containers(config.images())
-        for container in config.containers():
-            self._start_container(config, container)
-         */
-//        rmContainerArtefacts(configurationAccessor.images());
-//            for (Container container: configurationAccessor.containers())
-//                startContainer(container);
-    }
+POST /v1.35/networks/create
+< {"Name": "docker_py_wrapper"}
+< {"Id":"f0319c779d0b5b01532d093abfd54010b2a671e210d3070286d38cc2b7450ebe","Warning":""}.
 
-    private void rmContainers(ConfigurationAccessor configurationAccessor) throws IOException {
-        Preconditions.checkNotNull(configurationAccessor);
 
-        ArrayList<Map<String, Object>> dockerContainers = lsContainers(configurationAccessor);
-        for (String configurationImage : configurationAccessor.images()) {
-            if (dockerContainers.contains(configurationImage)) {
-                logger.debug(configurationImage);
-//                httpConnection.post(
-//                        String.format("http://127.0.0.1/v1.39/images/create?fromImage=%s",
-//                                configurationImage));
-            }
-        }
+POST /v1.35/containers/create?name=alpine-01
+> {"ExposedPorts": {"1234/tcp": {}}, "Tty": false, "OpenStdin": false, "StdinOnce": false, "AttachStdin": false, "AttachStdout": false, "AttachStderr": false, "Cmd": ["sleep", "12345"], "Image": "alpine:latest", "Volumes": {"/tmp": {}}, "NetworkDisabled": false, "HostConfig": {"NetworkMode": "default", "Binds": ["alpine-01:/tmp:rw"], "PortBindings": {"1234/tcp": [{"HostIp": "", "HostPort": "1234"}]}}}
+< {"Id":"e0f5f5110f92b661839470adfadf55755caedee0c84fd3119d2e6a2dfc7a1fe8","Warnings":null}.
 
-        /*
-        for docker_container in self.ls_containers(containers_to_stop):
-            for container_to_stop in containers_to_stop:
-                if docker_container['image'] == container_to_stop:
-                    self._rm_container_artefacts(docker_container)
+POST /v1.35/containers/2976e872fae3cd6614a81926ef6c67b95d2cdda02179661694fc55cc252ee9f5/start
 
-        self._client.containers.prune()
-        self._client.networks.prune()
-         */
-    }
+--
 
-    private void rmContainerArtefacts(ArrayList<String> images) {
-        /*
-        logging.debug(docker_container['id'])
-        try:
-            docker_container['container'].stop(timeout=1)
-            docker_container['container'].remove(force=True)
-        except com.github.jameshnsears.docker.errors.NotFound:
-            pass
-        self._client.volumes.prune()
-         */
+POST /v1.35/containers/create?name=busybox-01
+> {"Tty": false, "OpenStdin": false, "StdinOnce":false, "AttachStdin": false, "AttachStdout": false, "AttachStderr": false, "Image": "busybox:latest", "NetworkDisabled": false,"HostConfig": {"NetworkMode": "docker_py_wrapper"}, "NetworkingConfig": {"docker_py_wrapper": null}}
+< {"Id":"2976e872fae3cd6614a81926ef6c67b95d2cdda02179661694fc55cc252ee9f5","Warnings":null}
+
+POST /v1.35/containers/2976e872fae3cd6614a81926ef6c67b95d2cdda02179661694fc55cc252ee9f5/start
+
+*/
+
+        // rm old containers first!
     }
 
     private void startContainer(ConfigurationAccessor configurationAccessor, String container) {
@@ -184,8 +144,31 @@ DELETE /v1.39/containers/75fd619ebb6623448df989816e337fb80910e4a7e9aa5db496662e9
          */
     }
 
+    public void rmContainers(ConfigurationAccessor configurationAccessor) throws IOException {
+        Preconditions.checkNotNull(configurationAccessor);
+
+        ArrayList<Map<String, String>> dockerContainers = lsContainers(configurationAccessor);
+        ArrayList<String> dockerImages = lsImages();
+
+        for (Map<String, String> dockerCointainer: dockerContainers) {
+            if (dockerImages.contains(dockerCointainer.get("image"))) {
+                logger.debug(String.format("%s - %s"), dockerCointainer.get("image"), dockerCointainer.get("id"));
+                httpConnection.delete(
+                        String.format("http://127.0.0.1/v1.39/containers/%s?v=False&link=False&force=True",
+                                dockerCointainer.get("id")));
+            }
+        }
+
+        httpConnection.post("http://127.0.0.1/v1.39/containers/prune");
+        httpConnection.post("http://127.0.0.1/v1.39/networks/prune");
+        httpConnection.post("http://127.0.0.1/v1.39/volumes/prune");
+    }
+
     public ArrayList lsNetworks(ConfigurationAccessor configurationAccessor) {
         /*
+        GET /v1.35/networks?filters=%7B%7D
+
+
         networks = []
         for network in self._client.networks.list():
             for config_network in config_networks:
@@ -199,6 +182,10 @@ DELETE /v1.39/containers/75fd619ebb6623448df989816e337fb80910e4a7e9aa5db496662e9
 
     private void startNetwork() {
         /*
+        GET /v1.35/networks/f0319c779d0b5b01532d093abfd54010b2a671e210d3070286d38cc2b7450ebe
+        < {"Name":"docker_py_wrapper","Id":"f0319c779d0b5b01532d093abfd54010b2a671e210d3070286d38cc2b7450ebe","Created":"2018-12-07T14:38:22.73110316Z","Scope":"local","Driver":"bridge","EnableIPv6":false,"IPAM":{"Driver":"default","Options":null,"Config":[{"Subnet":"172.25.0.0/16","Gateway":"172.25.0.1"}]},"Internal":false,"Attachable":false,"Ingress":false,"ConfigFrom":{"Network":""},"ConfigOnly":false,"Containers":{},"Options":{},"Labels":{}}.
+
+
         if network_to_start not in self.ls_networks(config.networks()):
             logging.debug('%s', network_to_start)
             self._client.networks.create(network_to_start)
@@ -217,8 +204,5 @@ DELETE /v1.39/containers/75fd619ebb6623448df989816e337fb80910e4a7e9aa5db496662e9
         return sorted(volumes)
          */
         return new ArrayList<String>();
-    }
-
-    private void stopContainer() {
     }
 }
