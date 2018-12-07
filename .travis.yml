@@ -27,4 +27,4 @@ script:
   - sonar-scanner
 
 after_success:
-  - mvn coveralls:report
+  - mvn clean test jacoco:report coveralls:report
