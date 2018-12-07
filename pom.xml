@@ -177,7 +177,6 @@
                 <executions>
                     <execution>
                         <id>jacoco-prepare</id>
-                        <phase>validate</phase>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
