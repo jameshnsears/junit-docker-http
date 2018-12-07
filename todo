@@ -1,13 +1,9 @@
-mccabe!?
-
 work on DockerClientTest
 
 use coverage + other static analsys tools to rm as much as possible - especially in Models
 = +incoproate more pre-condition tests
 
 'work on JunitDockerHttpExtensionTest to actually use the extension
-
-incoporate maven processes - i.e. jaccomo + sonarcube
 
 check volumes created correctly in pytest-docker-py
 
