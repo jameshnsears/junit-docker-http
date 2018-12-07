@@ -13,7 +13,7 @@ addons:
 
 env:
   global:
-    - secure: "Ys34LcqC766CU7aVeLt0QBpGE4PIuVDKcgsi0CND4T514c1ghjf3CozZxhpXUPX8dbb76z/tiFt3/05DWn1GY5D5W2cOoM0IZ/emjSAfukeIDVEjORl6b3V7CfoXOsa1dpGVpeE6OANCEckLavuFDJBOARIlzbwC9FDW0AE8CnSynZvEo3Vb7luYD7yJncL/twGs7xe/owDFtqCivw26B1+AwyhqlMNPrTmIhG3a+mh0FAiKhYkbyVKqE2xjDbnB7SzgnkJPRn6b5/IgO3tHdc7NK6xuAvrNDq9CDRMluI4ABd5n98YwYIU5qoBLxHUAHimOv+YOF0mJaBuTZrzFTZaqr8GANlywvqtMtrqSA9HlBr2DHD2d6yDnelmoiZay7+WXZsiWFAK0mboeCzZoB3Dy38CUYe1X9kwyAfWEGSyROfuo7eXAPIhoz2UW/Ue/Xxz065k6V50maSxMRiCQ1EDrMvHX9au9m5Rrfhnl+pC5m/vek1Yzkbivrwv3O4/ckJvjyGluuLbiop24BkebniXm6C2/z/AS1UNgAJWw75jpvo/3vSE4+CIX1B/XjLkTe5FLULePaa4qs6CJt1T7A4Wc2El2lEjtLQDWmTqcHVN2P/52js0NND2DEpvu/agCvn6r1xxo6dgX2dj65FFu9DF4cPe+xmw6nKuTU97FdUE="
+    - secure: "YwTYFY1rnJ2DjF9Ip2f8vkz2n8iIqHJQ0SiDzjDrPotgvZ95vGFEOs8BhRUFZ1VQdjzjfZHglrZS94ENcYc09EKm0rgv1uV0UzzqUabjJhHXaf3YhcLehElIQoI9uZU/UebtOWmRW/+2yt+S2VVplNteidprYYTrIl1fi4I+EleIzysGJHX7x68vG+8EbU5At64hC2Hogjx5HxE4ambyIxHQXsUnd3ugN8kNVLcrZGGSwnT11LhcQtaci+ho3aLuM/d8O7tkdLNOrOiUUyTpIoHakI1xo8MHrFrdA9csh0XtSivoX0wHYD8LZP8JswO6dkX5ZW2tme9ky67Fq0UOJNG66tExTYwD4m7yJT/e0DDv57OxRvDT4s8E2ObDWx4nJlMKyHTYcgtkWAETRpYZ8W2A/umF8NDvozy6eXCldPaew3FUK2kwM4TpzlJO0mOpMEJfqLYdMJm7OHTkMJP0NAxfyVw4ZG2DYasT2JleonBWLrG6HKord+g0jEI64pR4Xuxd0ankw1dwEgL2ZXtKxOrIz9ci8SH5ewUMHgD+vXtHINFPMo+R9MJmPug+pnwLmyoeAhoSYanZc4/dXmfsoEm2z9DlugtycNvrcKweVnEgmjTG+XGiEhl87Ircvook08QyGXAKrJZXYYLdPEUEY8NOq//dymho/Ujvg7/NzCA="
 
 jdk:
   - openjdk10
@@ -24,6 +24,9 @@ cache:
   - $HOME/.sonar/cache
 
 script:
-  - mvn clean test jacoco:report org.eluder.coveralls:coveralls-maven-plugin:report
+  - mvn clean test jacoco:report
   - mvn checkstyle:check spotbugs:check pmd:pmd
+
+after_success:
+  - mvn coveralls:report
   - sonar-scanner
