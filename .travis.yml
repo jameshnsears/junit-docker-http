@@ -1,5 +1,3 @@
-language: java
-
 sudo: required
 
 notifications:
@@ -8,18 +6,20 @@ email: james.hn.sears@gmail.com
 services:
   - docker
 
+addons:
+  sonarcloud:
+    organization: "jameshnsears-github"
+    token:
+      secure: "dWBy76ouo0BzXZtiwQydmoc2DDBGrcXR1qhgTG0xNdaP2opEFjvrxVH0NtFIwEj2SnS3P2eb4FOIEHa6p5kbdtgkVveZqeZOhm8TOfL9Ty9SncJ3ZCLNaTOm7nyUCVnYIRlDmakuZfyJLh+sFdah2RlFMSPvHqKuOuOaMHGnYeermj+lU06LIhXpGqtVwMCRId+SZ79L5/nOjFL1aiMpj44OWlvYj5BOHzoP1lFqChwPP4U+OlZ0inl6sfVm/KeEIPJlG44QaNKItIMZ1rXAAuTOi5vcvE6oUHAxDKHOLcKo880soCkdhNeLjRmViRPx5+j7nSYcuLe/+plrhE2MBoU+msZTi8nAzrnyt7exK3garh2eQPKZj6cjj0Qf9gBUu8rLDxAmwaeyoqRYJ8cJ4qLgi4b3lGc+w0c6UR6H4bF2+ZKR93HGihudkegLPQKFFecstmmQG2uAh99bwmcOD2r1I4kGt37pdmKg+IscVHwN/s/jKARlDLShASR1pWy6QnfksVZL3CcNLJoe48UHx7gJ3jqpe79mL3RElQ9vPDXrIskoE/HcnXX3nVBmk1R3w1JNvHXhM4i44lZvHkUVNyTF33FjlrhyE/OKynXUXU0jjPKilDUTiMhqws/Nh0xFIGs7R3uS6Ca0KBUGX1AB3ieTPf2rb9wmyBBmSQmthos="
+
 jdk:
   - oraclejdk11
 
 cache:
   directories:
   - $HOME/.m2
+  - $HOME/.sonar/cache
 
-addons:
-  sonarcloud:
-    organization: "jameshnsears-github"
-    token:
-      secure: "dWBy76ouo0BzXZtiwQydmoc2DDBGrcXR1qhgTG0xNdaP2opEFjvrxVH0NtFIwEj2SnS3P2eb4FOIEHa6p5kbdtgkVveZqeZOhm8TOfL9Ty9SncJ3ZCLNaTOm7nyUCVnYIRlDmakuZfyJLh+sFdah2RlFMSPvHqKuOuOaMHGnYeermj+lU06LIhXpGqtVwMCRId+SZ79L5/nOjFL1aiMpj44OWlvYj5BOHzoP1lFqChwPP4U+OlZ0inl6sfVm/KeEIPJlG44QaNKItIMZ1rXAAuTOi5vcvE6oUHAxDKHOLcKo880soCkdhNeLjRmViRPx5+j7nSYcuLe/+plrhE2MBoU+msZTi8nAzrnyt7exK3garh2eQPKZj6cjj0Qf9gBUu8rLDxAmwaeyoqRYJ8cJ4qLgi4b3lGc+w0c6UR6H4bF2+ZKR93HGihudkegLPQKFFecstmmQG2uAh99bwmcOD2r1I4kGt37pdmKg+IscVHwN/s/jKARlDLShASR1pWy6QnfksVZL3CcNLJoe48UHx7gJ3jqpe79mL3RElQ9vPDXrIskoE/HcnXX3nVBmk1R3w1JNvHXhM4i44lZvHkUVNyTF33FjlrhyE/OKynXUXU0jjPKilDUTiMhqws/Nh0xFIGs7R3uS6Ca0KBUGX1AB3ieTPf2rb9wmyBBmSQmthos="
 
 script:
   - mvn clean test checkstyle:check spotbugs:check
