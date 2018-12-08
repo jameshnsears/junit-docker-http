@@ -114,21 +114,18 @@ public class DockerClient {
         for (final Configuration configurationContainer : configurationContainers) {
             httpConnection.post(
                     String.format("http://127.0.0.1/v1.39/containers/create?name=%s", configurationContainer.getName()),
-                    String.format(""));
+                    jsonForContainerCreation(configurationContainer));
 
 //            configurationContainer.getImage();  // alpine:latest
 //            configurationContainer.getCommand(); // to split into white space seperated values
 
+            // TODO start container
         }
+    }
 
-        // start container
-
-//        for (Container container: configurationAccessor.containers()) {
-//
-//            startContainer();
-//        }
+    private String jsonForContainerCreation(final Configuration configurationContainer) {
+        String json = null;
         /*
-
 POST /v1.35/containers/create?name=alpine-01
 {
 "ExposedPorts": {"1234/tcp": {}},
@@ -171,27 +168,7 @@ POST /v1.35/containers/create?name=busybox-01
 POST /v1.35/containers/2976e872fae3cd6614a81926ef6c67b95d2cdda02179661694fc55cc252ee9f5/start
 
 */
-
-    }
-
-    private void startContainer(final ConfigurationAccessor configurationAccessor, final String container) {
-        /*
-        try:
-            logging.debug(container['image'])
-
-            try:
-                self._start_network(config, container['network'])
-            except KeyError:
-                pass
-
-            detached_container = self._client.containers.run(container['image'],
-                                                             ** config.container_kwargs(container),
-                                                             detach=True)
-            logging.debug(detached_container.attrs['Id'])
-        except KeyError:
-            logging.error('missing: image')
-            pass
-         */
+        return json;
     }
 
     public void rmContainers(final ConfigurationAccessor configurationAccessor) throws IOException {
