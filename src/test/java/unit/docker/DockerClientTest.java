@@ -16,13 +16,13 @@ class DockerClientTest {
     //@Test
     void pullImages(ConfigurationAccessor configurationAccessor) throws IOException {
         dockerClient.rmImages(configurationAccessor.images());
-        ArrayList<String> dockerImages = dockerClient.lsImages();
+        ArrayList<String> dockerImages = (ArrayList) dockerClient.lsImages();
         for (String image : configurationAccessor.images())
             Assertions.assertFalse(dockerImages.contains(image));
 
 
         dockerClient.pull(configurationAccessor.images());
-        dockerImages = dockerClient.lsImages();
+        dockerImages = (ArrayList) dockerClient.lsImages();
         for (String image : configurationAccessor.images())
             Assertions.assertTrue(dockerImages.contains(image));
     }
@@ -30,13 +30,13 @@ class DockerClientTest {
     @Test
     void stopStartContainers(ConfigurationAccessor configurationAccessor) throws IOException {
         dockerClient.startContainers(configurationAccessor);
-//        Assert.assertTrue(dockerClient.lsContainers(configurationAccessor).size() == 2);
-////        Assert.assertTrue(dockerClient.lsNetworks(configurationAccessor).size() == ['docker_py_wrapper');
-////        Assert.assertTrue(dockerClient.lsVolumes(configurationAccessor).size() == ['alpine-01:/tmp');
+//        Assertions.assertTrue(dockerClient.lsContainers(configurationAccessor).size() == 2);
+////        Assertions.assertTrue(dockerClient.lsNetworks(configurationAccessor).size() == ['docker_py_wrapper');
+////        Assertions.assertTrue(dockerClient.lsVolumes(configurationAccessor).size() == ['alpine-01:/tmp');
 //
         dockerClient.rmContainers(configurationAccessor);
-//        Assert.assertTrue(dockerClient.lsContainers(configurationAccessor).size() == 0);
-//        Assert.assertTrue(dockerClient.lsNetworks(configurationAccessor).size() == 0);
-//        Assert.assertTrue(dockerClient.lsVolumes(configurationAccessor).size() == 0);
+//        Assertions.assertTrue(dockerClient.lsContainers(configurationAccessor).size() == 0);
+//        Assertions.assertTrue(dockerClient.lsNetworks(configurationAccessor).size() == 0);
+//        Assertions.assertTrue(dockerClient.lsVolumes(configurationAccessor).size() == 0);
     }
 }

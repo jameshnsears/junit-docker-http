@@ -12,7 +12,7 @@ public class Image {
 
     @SerializedName("RepoTags")
     @Expose
-    private List<String> repoTags = null;
+    private List<String> repoTags;
 
     public String getId() {
         return id;

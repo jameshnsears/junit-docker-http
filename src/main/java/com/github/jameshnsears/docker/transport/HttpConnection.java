@@ -2,10 +2,7 @@ package com.github.jameshnsears.docker.transport;
 
 import com.github.jameshnsears.docker.DockerClient;
 import com.google.common.base.Preconditions;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
+import okhttp3.*;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.unixdomainsockets.UnixDomainSocketFactory;
 import org.slf4j.Logger;
@@ -55,6 +52,24 @@ public class HttpConnection {
                 .header("Content-Length", "0")
                 .build();
 
+        executePost(request);
+    }
+
+    public void post(String endpoint, String json) throws IOException {
+        Preconditions.checkNotNull(endpoint);
+
+        logger.info(endpoint);
+
+        Request request = new Request.Builder()
+                .url(endpoint)
+                .post(RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json))
+                .header("Content-Length", "0")
+                .build();
+
+        executePost(request);
+    }
+
+    private void executePost(Request request) throws IOException {
         Response response = okHttpClient().newCall(request).execute();
         logger.debug(response.body().string().replace("\n", ""));
         logger.info(String.format("%s", response.code()));

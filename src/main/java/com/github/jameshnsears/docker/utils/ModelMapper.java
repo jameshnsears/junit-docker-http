@@ -7,14 +7,14 @@ import com.google.common.base.Preconditions;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.util.ArrayList;
+import java.util.AbstractList;
 import java.util.Collection;
 
 public class ModelMapper {
     private final Gson gson = new Gson();
     // private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-    public ArrayList<Image> mapJsonIntoImages(String json) {
+    public AbstractList<Image> mapJsonIntoImages(String json) {
         Preconditions.checkNotNull(json);
 
         return gson.fromJson(
@@ -23,7 +23,7 @@ public class ModelMapper {
                 }.getType());
     }
 
-    public ArrayList<Container> mapJsonIntoContainers(String json) {
+    public AbstractList<Container> mapJsonIntoContainers(String json) {
         Preconditions.checkNotNull(json);
 
         return gson.fromJson(
@@ -32,7 +32,7 @@ public class ModelMapper {
                 }.getType());
     }
 
-    public ArrayList<Network> mapJsonIntoNetworks(String json) {
+    public AbstractList<Network> mapJsonIntoNetworks(String json) {
         Preconditions.checkNotNull(json);
 
         return gson.fromJson(

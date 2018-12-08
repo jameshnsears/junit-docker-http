@@ -1,7 +1,7 @@
 [
   {
     "image": "xqa-message-broker:latest",
-    "name": "/xqa-message-broker",
+    "name": "xqa-message-broker",
     "ports": {
       "5672/tcp": 5672,
       "8161/tcp": 8161
@@ -10,7 +10,7 @@
   },
   {
     "image": "xqa-db:latest",
-    "name": "/xqa-db",
+    "name": "xqa-db",
     "ports": {
       "5432/tcp": 5432
     },
@@ -18,7 +18,7 @@
   },
   {
     "image": "xqa-shard:latest",
-    "name": "/xqa-shard-01",
+    "name": "xqa-shard-01",
     "ports": {
       "1984/tcp": ""
     },
@@ -30,7 +30,7 @@
   },
   {
     "image": "xqa-shard:latest",
-    "name": "/xqa-shard-02",
+    "name": "xqa-shard-02",
     "ports": {
       "1984/tcp": ""
     },
@@ -42,7 +42,7 @@
   },
   {
     "image": "xqa-ingest-balancer:latest",
-    "name": "/xqa-ingest-balancer",
+    "name": "xqa-ingest-balancer",
     "command": [
       "-message_broker_host",
       "xqa-message-broker",
@@ -55,7 +55,7 @@
   },
   {
     "image": "xqa-db-amqp:latest",
-    "name": "/xqa-db-amqp",
+    "name": "xqa-db-amqp",
     "command": [
       "-message_broker_host",
       "xqa-message-broker",
@@ -68,7 +68,7 @@
   },
   {
     "image": "xqa-ingest:latest",
-    "name": "/xqa-ingest",
+    "name": "xqa-ingest",
     "command": [
       "-message_broker_host",
       "xqa-message-broker",

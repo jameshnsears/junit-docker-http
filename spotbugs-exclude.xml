@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <FindBugsFilter>
-  <Class name="com.github.jameshnsears.docker.DockerClient"/>
-  <And>
-    <Bug category="PERFORMANCE"/>
-    <Bug code="SIC"/>
-    <Bug pattern="SIC_INNER_SHOULD_BE_STATIC"/>
-  </And>
-  <And>
-    <Bug category="STYLE"/>
-    <Bug code="DMI"/>
-    <Bug pattern="DMI_HARDCODED_ABSOLUTE_FILENAME"/>
-  </And>
+    <Class name="com.github.jameshnsears.docker.DockerClient"/>
+    <And>
+        <Bug category="PERFORMANCE"/>
+        <Bug code="SIC"/>
+        <Bug pattern="SIC_INNER_SHOULD_BE_STATIC"/>
+    </And>
+    <And>
+        <Bug category="STYLE"/>
+        <Bug code="DMI"/>
+        <Bug pattern="DMI_HARDCODED_ABSOLUTE_FILENAME"/>
+    </And>
 </FindBugsFilter>

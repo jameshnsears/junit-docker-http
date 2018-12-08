@@ -20,7 +20,7 @@ public class Configuration {
 
     @SerializedName("volumes")
     @Expose
-    private Map<String, Map<String, String>> volumes = null;
+    private Map<String, Map<String, String>> volumes;
 
     @SerializedName("command")
     @Expose

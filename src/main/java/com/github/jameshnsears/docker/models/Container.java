@@ -17,7 +17,7 @@ public class Container {
 
     @SerializedName("Names")
     @Expose
-    private List<String> names = null;
+    private List<String> names;
 
     public String getId() {
         return id;

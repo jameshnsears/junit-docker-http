@@ -2,10 +2,7 @@ package com.github.jameshnsears;
 
 import com.google.common.base.Preconditions;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
+import java.util.*;
 
 public class ConfigurationAccessor {
     private final Collection<Configuration> configurationCollection;
@@ -15,7 +12,7 @@ public class ConfigurationAccessor {
         this.configurationCollection = configurationCollection;
     }
 
-    public ArrayList<String> images() {
+    public AbstractList<String> images() {
         ArrayList<String> images = new ArrayList<>();
         for (Configuration configuration : this.configurationCollection) {
             if (configuration.getImage() != null)
@@ -29,7 +26,7 @@ public class ConfigurationAccessor {
         return this.configurationCollection;
     }
 
-    public ArrayList<String> networks() {
+    public AbstractList<String> networks() {
         ArrayList<String> networks = new ArrayList<>();
         for (Configuration configuration : this.configurationCollection) {
             if (configuration.getNetwork() != null)
@@ -39,7 +36,7 @@ public class ConfigurationAccessor {
         return networks;
     }
 
-    public ArrayList<Map<String, Map<String, String>>> volumes() {
+    public AbstractList<Map<String, Map<String, String>>> volumes() {
         ArrayList<Map<String, Map<String, String>>> volumes = new ArrayList<>();
         for (Configuration configuration : this.configurationCollection) {
             if (configuration.getVolumes() != null) {
@@ -47,34 +44,6 @@ public class ConfigurationAccessor {
             }
         }
         return volumes;
-    }
-
-    public void containerKwargs() {
-        /*
-        def container_kwargs(self, container):
-        container_dict = {}
-
-        self._container_kwarg(container_dict, container, 'name')
-                self._container_kwarg(container_dict, container, 'ports')
-                self._container_kwarg(container_dict, container, 'network')
-                self._container_kwarg(container_dict, container, 'volumes')
-                self._container_kwarg(container_dict, container, 'command')
-                self._container_kwarg(container_dict, container, 'environment')
-
-                return container_dict
-        */
-    }
-
-    private void _container_kwarg() {
-        /*
-        def _container_kwarg(self, container_dict, container, key):
-                try:
-        container_dict[key] = container[key]
-        except KeyError:
-                logging.warning('%s - missing: %s' % (container['image'], key))
-        pass
-        return container_dict
-        */
     }
 
     private class ConfigException extends Exception {
