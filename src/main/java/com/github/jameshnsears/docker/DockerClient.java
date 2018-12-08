@@ -3,8 +3,9 @@ package com.github.jameshnsears.docker;
 import com.github.jameshnsears.ConfigurationAccessor;
 import com.github.jameshnsears.docker.models.Container;
 import com.github.jameshnsears.docker.models.Image;
+import com.github.jameshnsears.docker.models.Network;
 import com.github.jameshnsears.docker.transport.HttpConnection;
-import com.github.jameshnsears.docker.utils.ResponseMapper;
+import com.github.jameshnsears.docker.utils.ModelMapper;
 import com.google.common.base.Preconditions;
 import com.google.gson.JsonSyntaxException;
 import org.slf4j.Logger;
@@ -19,14 +20,14 @@ import java.util.Map;
 public class DockerClient {
     private static final Logger logger = LoggerFactory.getLogger(DockerClient.class);
     private final HttpConnection httpConnection = new HttpConnection();
-    private final ResponseMapper responseMapper = new ResponseMapper();
+    private final ModelMapper modelMapper = new ModelMapper();
 
     public ArrayList<String> lsImages() throws IOException {
         ArrayList<String> imageNames = new ArrayList<>();
 
         try {
             String json = httpConnection.get("http://127.0.0.1/v1.39/images/json");
-            ArrayList<Image> dockerImages = responseMapper.mapJsonIntoImageList(json);
+            ArrayList<Image> dockerImages = modelMapper.mapJsonIntoImages(json);
 
             for (Image dockerImage : dockerImages)
                 imageNames.addAll(dockerImage.getRepoTags());
@@ -41,12 +42,12 @@ public class DockerClient {
             throws IOException, IllegalStateException {
         Preconditions.checkNotNull(configurationAccessor);
 
-        ArrayList<Map<String, String>> containersThatMatchConfiguration = new ArrayList<>();
+        ArrayList<Map<String, String>> dockerContainersThatMatchConfiguration = new ArrayList<>();
 
         try {
             String json = httpConnection.get(
                     "http://127.0.0.1/v1.39/containers/json?limit=-1&all=0&size=0&trunc_cmd=0");
-            ArrayList<Container> dockerContainers = responseMapper.mapJsonIntoContainerList(json);
+            ArrayList<Container> dockerContainers = modelMapper.mapJsonIntoContainers(json);
 
             for (Container dockerContainer : dockerContainers)
                 for (String containerName : dockerContainer.getNames())
@@ -55,13 +56,13 @@ public class DockerClient {
                             Map<String, String> container = new HashMap<>();
                             container.put("image", dockerContainer.getImage());
                             container.put("id", dockerContainer.getId());
-                            containersThatMatchConfiguration.add(container);
+                            dockerContainersThatMatchConfiguration.add(container);
                         }
         } catch (JsonSyntaxException jsonSyntaxException) {
             logger.warn(jsonSyntaxException.getMessage());
         }
 
-        return containersThatMatchConfiguration;
+        return dockerContainersThatMatchConfiguration;
     }
 
     public void rmImages(ArrayList<String> configurationImages) throws IOException {
@@ -100,6 +101,12 @@ public class DockerClient {
         Preconditions.checkNotNull(configurationAccessor);
 
         rmContainers(configurationAccessor);
+        createNetworks(configurationAccessor);
+
+//        for (Container container: configurationAccessor.containers()) {
+//
+//            startContainer();
+//        }
         /*
 POST /v1.35/networks/create
 < {"Name": "docker_py_wrapper"}
@@ -127,7 +134,6 @@ POST /v1.35/containers/2976e872fae3cd6614a81926ef6c67b95d2cdda02179661694fc55cc2
 
 */
 
-        // rm old containers first!
     }
 
     private void startContainer(ConfigurationAccessor configurationAccessor, String container) {
@@ -165,28 +171,16 @@ POST /v1.35/containers/2976e872fae3cd6614a81926ef6c67b95d2cdda02179661694fc55cc2
             }
         }
 
+        pruneEnvironment();
+    }
+
+    private void pruneEnvironment() throws IOException {
         httpConnection.post("http://127.0.0.1/v1.39/containers/prune");
         httpConnection.post("http://127.0.0.1/v1.39/networks/prune");
         httpConnection.post("http://127.0.0.1/v1.39/volumes/prune");
     }
 
-    public ArrayList lsNetworks(ConfigurationAccessor configurationAccessor) {
-        /*
-        GET /v1.35/networks?filters=%7B%7D
-
-
-        networks = []
-        for network in self._client.networks.list():
-            for config_network in config_networks:
-                if config_network == network.name:
-                    logging.debug(network.name)
-                    networks.append(network.name)
-        return networks
-         */
-        return new ArrayList<String>();
-    }
-
-    private void startNetwork() {
+    private void createNetworks(ConfigurationAccessor configurationAccessor) throws IOException {
         /*
         GET /v1.35/networks/f0319c779d0b5b01532d093abfd54010b2a671e210d3070286d38cc2b7450ebe
         < {"Name":"docker_py_wrapper","Id":"f0319c779d0b5b01532d093abfd54010b2a671e210d3070286d38cc2b7450ebe",
@@ -200,9 +194,33 @@ POST /v1.35/containers/2976e872fae3cd6614a81926ef6c67b95d2cdda02179661694fc55cc2
             logging.debug('%s', network_to_start)
             self._client.networks.create(network_to_start)
          */
+        ArrayList<String> configurationNetworks = configurationAccessor.networks();
+        ArrayList<String> dockerNetworks = lsNetworks();
+        for (String configurationNetwork: configurationNetworks) {
+            if (!dockerNetworks.contains(configurationNetwork)) {
+                logger.info(configurationNetwork);
+            }
+        }
     }
 
-    public ArrayList lsVolumes(ConfigurationAccessor configurationAccessor) {
+    private void createNetwork(ConfigurationAccessor configurationAccessor, String networkToCreate) {
+
+    }
+
+    public ArrayList<String> lsNetworks() throws IOException {
+        String json = httpConnection.get(
+                "http://127.0.0.1/v1.39/networks?filters=%7B%7D");
+        ArrayList<Network> dockerNetworks = modelMapper.mapJsonIntoNetworks(json);
+
+        ArrayList<String> networks = new ArrayList<>();
+        for (Network dockerNetwork: dockerNetworks) {
+            networks.add(dockerNetwork.getName());
+        }
+
+        return networks;
+    }
+
+    public ArrayList<String> lsVolumes(ConfigurationAccessor configurationAccessor) {
         /*
         self._client.volumes.prune()
         volumes = []
