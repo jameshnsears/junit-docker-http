@@ -15,7 +15,7 @@ import java.util.Collection;
 class ModelsTest extends GsonCommon {
     @Test
     void lsImages() {
-        ArrayList<Image> images = gson.fromJson(
+        final ArrayList<Image> images = gson.fromJson(
                 getInputStreamReader("/fixtures/docker/images.json"),
                 new TypeToken<Collection<Image>>() {
                 }.getType());
@@ -27,7 +27,7 @@ class ModelsTest extends GsonCommon {
 
     @Test
     void lsContainers() {
-        ArrayList<Container> containers = gson.fromJson(
+        final ArrayList<Container> containers = gson.fromJson(
                 getInputStreamReader("/fixtures/docker/containers.json"),
                 new TypeToken<Collection<Container>>() {
                 }.getType());
@@ -45,7 +45,7 @@ class ModelsTest extends GsonCommon {
 
     @Test
     void lsNetworks() {
-        ArrayList<Network> networks = gson.fromJson(
+        final ArrayList<Network> networks = gson.fromJson(
                 getInputStreamReader("/fixtures/docker/networks.json"),
                 new TypeToken<Collection<Network>>() {
                 }.getType());
@@ -57,7 +57,7 @@ class ModelsTest extends GsonCommon {
 
     @Test
     void lsVolumes() {
-        Volume volume = gson.fromJson(getInputStreamReader("/fixtures/docker/volumes.json"), Volume.class);
+        final Volume volume = gson.fromJson(getInputStreamReader("/fixtures/docker/volumes.json"), Volume.class);
 
         Assertions.assertEquals(
                 volume.getVolumes().size(),

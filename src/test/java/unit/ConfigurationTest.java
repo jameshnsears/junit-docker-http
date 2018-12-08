@@ -12,7 +12,7 @@ import java.util.Map;
 class ConfigurationTest extends GsonCommon {
     @Test
     void loadConfig() {
-        Collection<Configuration> configurationCollection = gson.fromJson(
+        final Collection<Configuration> configurationCollection = gson.fromJson(
                 getInputStreamReader("/fixtures/config.json"),
                 new TypeToken<Collection<Configuration>>() {
                 }.getType());
@@ -21,8 +21,8 @@ class ConfigurationTest extends GsonCommon {
                 configurationCollection.size(),
                 2);
 
-        Configuration configuration = (Configuration) ((ArrayList) configurationCollection).get(0);
-        Map<String, Integer> portMap = configuration.getPorts();
+        final Configuration configuration = (Configuration) ((ArrayList) configurationCollection).get(0);
+        final Map<String, Integer> portMap = configuration.getPorts();
         Assertions.assertEquals(
                 portMap.get("1234/tcp").intValue(),
                 1234);

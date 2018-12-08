@@ -22,14 +22,15 @@ public class DockerClient {
     private final ModelMapper modelMapper = new ModelMapper();
 
     public AbstractList<String> lsImages() throws IOException {
-        ArrayList<String> imageNames = new ArrayList<>();
+        final ArrayList<String> imageNames = new ArrayList<>();
 
         try {
-            String json = httpConnection.get("http://127.0.0.1/v1.39/images/json");
-            ArrayList<Image> dockerImages = (ArrayList) modelMapper.mapJsonIntoImages(json);
+            final String json = httpConnection.get("http://127.0.0.1/v1.39/images/json");
+            final ArrayList<Image> dockerImages = (ArrayList) modelMapper.mapJsonIntoImages(json);
 
-            for (Image dockerImage : dockerImages)
+            for (final Image dockerImage : dockerImages) {
                 imageNames.addAll(dockerImage.getRepoTags());
+            }
         } catch (JsonSyntaxException jsonSyntaxException) {
             logger.warn(jsonSyntaxException.getMessage());
         }
@@ -37,25 +38,27 @@ public class DockerClient {
         return imageNames;
     }
 
-    public AbstractList<Map<String, String>> lsContainers(ConfigurationAccessor configurationAccessor)
+    public AbstractList<Map<String, String>> lsContainers(final ConfigurationAccessor configurationAccessor)
             throws IOException, IllegalStateException {
         Preconditions.checkNotNull(configurationAccessor);
 
-        ArrayList<Map<String, String>> dockerContainersThatMatchConfiguration = new ArrayList<>();
+        final ArrayList<Map<String, String>> dockerContainersThatMatchConfiguration = new ArrayList<>();
 
         try {
-            String json = httpConnection.get(
+            final String json = httpConnection.get(
                     "http://127.0.0.1/v1.39/containers/json?limit=-1&all=0&size=0&trunc_cmd=0");
-            ArrayList<Container> dockerContainers = (ArrayList) modelMapper.mapJsonIntoContainers(json);
+            final ArrayList<Container> dockerContainers = (ArrayList) modelMapper.mapJsonIntoContainers(json);
 
-            for (Container dockerContainer : dockerContainers)
-                for (String containerName : dockerContainer.getNames())
+            for (final Container dockerContainer : dockerContainers) {
+                for (final String containerName : dockerContainer.getNames()) {
                     if (configurationAccessor.images().contains(containerName)) {
-                        Map<String, String> container = new HashMap<>();
+                        final Map<String, String> container = new HashMap<>();
                         container.put("image", dockerContainer.getImage());
                         container.put("id", dockerContainer.getId());
                         dockerContainersThatMatchConfiguration.add(container);
                     }
+                }
+            }
         } catch (JsonSyntaxException jsonSyntaxException) {
             logger.warn(jsonSyntaxException.getMessage());
         }
@@ -63,15 +66,15 @@ public class DockerClient {
         return dockerContainersThatMatchConfiguration;
     }
 
-    public void rmImages(AbstractList<String> configurationImages) throws IOException {
+    public void rmImages(final AbstractList<String> configurationImages) throws IOException {
         Preconditions.checkNotNull(configurationImages);
 
-        ArrayList<String> dockerImages = (ArrayList<String>) lsImages();
-        for (String configurationImage : configurationImages)
+        final ArrayList<String> dockerImages = (ArrayList<String>) lsImages();
+        for (final String configurationImage : configurationImages)
             rmImage(configurationImage, dockerImages);
     }
 
-    private void rmImage(String configurationImage, AbstractList<String> dockerImages) throws IOException {
+    private void rmImage(final String configurationImage, final AbstractList<String> dockerImages) throws IOException {
         Preconditions.checkNotNull(configurationImage);
         Preconditions.checkNotNull(dockerImages);
 
@@ -85,8 +88,8 @@ public class DockerClient {
     public void pull(AbstractList<String> configurationImages) throws IOException {
         Preconditions.checkNotNull(configurationImages);
 
-        ArrayList<String> dockerImages = (ArrayList) lsImages();
-        for (String configurationImage : configurationImages) {
+        final ArrayList<String> dockerImages = (ArrayList) lsImages();
+        for (final String configurationImage : configurationImages) {
             if (!dockerImages.contains(configurationImage)) {
                 logger.debug(configurationImage);
                 httpConnection.post(
@@ -102,10 +105,10 @@ public class DockerClient {
         createNetworks(configurationAccessor);
 
         // create container
-        Collection<Configuration> configurationContainers = configurationAccessor.containers();
-        for (Configuration configurationContainer: configurationContainers) {
+        final Collection<Configuration> configurationContainers = configurationAccessor.containers();
+        for (final Configuration configurationContainer: configurationContainers) {
             httpConnection.post(
-                    String.format("containers/create?name=%s", configurationContainer.getName()),
+                    String.format("http://127.0.0.1/v1.39/containers/create?name=%s", configurationContainer.getName()),
                     String.format(""));
 
 //            configurationContainer.getImage();  // alpine:latest
@@ -177,10 +180,10 @@ POST /v1.35/containers/2976e872fae3cd6614a81926ef6c67b95d2cdda02179661694fc55cc2
     public void rmContainers(ConfigurationAccessor configurationAccessor) throws IOException {
         Preconditions.checkNotNull(configurationAccessor);
 
-        ArrayList<Map<String, String>> dockerContainers = (ArrayList) lsContainers(configurationAccessor);
-        ArrayList<String> dockerImages = (ArrayList) lsImages();
+        final ArrayList<Map<String, String>> dockerContainers = (ArrayList) lsContainers(configurationAccessor);
+        final ArrayList<String> dockerImages = (ArrayList) lsImages();
 
-        for (Map<String, String> dockerCointainer : dockerContainers) {
+        for (final Map<String, String> dockerCointainer : dockerContainers) {
             if (dockerImages.contains(dockerCointainer.get("image"))) {
                 logger.debug(String.format("%s - %s"), dockerCointainer.get("image"), dockerCointainer.get("id"));
                 httpConnection.delete(
@@ -201,9 +204,9 @@ POST /v1.35/containers/2976e872fae3cd6614a81926ef6c67b95d2cdda02179661694fc55cc2
     private void createNetworks(ConfigurationAccessor configurationAccessor) throws IOException {
         Preconditions.checkNotNull(configurationAccessor);
 
-        ArrayList<String> configurationNetworks = (ArrayList) configurationAccessor.networks();
-        ArrayList<String> dockerNetworks = (ArrayList) lsNetworks();
-        for (String configurationNetwork : configurationNetworks) {
+        final ArrayList<String> configurationNetworks = (ArrayList) configurationAccessor.networks();
+        final ArrayList<String> dockerNetworks = (ArrayList) lsNetworks();
+        for (final String configurationNetwork : configurationNetworks) {
             if (!dockerNetworks.contains(configurationNetwork)) {
                 createNetwork(configurationAccessor, configurationNetwork);
             }
@@ -221,12 +224,12 @@ POST /v1.35/containers/2976e872fae3cd6614a81926ef6c67b95d2cdda02179661694fc55cc2
     }
 
     public AbstractList<String> lsNetworks() throws IOException {
-        String json = httpConnection.get(
+        final String json = httpConnection.get(
                 "http://127.0.0.1/v1.39/networks?filters=%7B%7D");
-        ArrayList<Network> dockerNetworks = (ArrayList) modelMapper.mapJsonIntoNetworks(json);
+        final ArrayList<Network> dockerNetworks = (ArrayList) modelMapper.mapJsonIntoNetworks(json);
 
-        ArrayList<String> networks = new ArrayList<>();
-        for (Network dockerNetwork : dockerNetworks) {
+        final ArrayList<String> networks = new ArrayList<>();
+        for (final Network dockerNetwork : dockerNetworks) {
             networks.add(dockerNetwork.getName());
         }
 

@@ -38,7 +38,7 @@ public final class UnixDomainSocketFactory extends SocketFactory {
     }
 
     private Socket createUnixDomainSocket() throws IOException {
-        UnixSocketChannel channel = UnixSocketChannel.open();
+        final UnixSocketChannel channel = UnixSocketChannel.open();
 
         return new UnixSocket(channel) {
             private InetSocketAddress inetSocketAddress;

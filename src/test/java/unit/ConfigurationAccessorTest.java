@@ -16,7 +16,7 @@ class ConfigurationAccessorTest extends GsonCommon {
     private final ConfigurationAccessor configurationAccessor;
 
     ConfigurationAccessorTest() {
-        Type collectionType = new TypeToken<Collection<Configuration>>() {
+        final Type collectionType = new TypeToken<Collection<Configuration>>() {
         }.getType();
 
         configurationAccessor = new ConfigurationAccessor(gson.fromJson(getInputStreamReader("/fixtures/config.json"), collectionType));
@@ -24,7 +24,7 @@ class ConfigurationAccessorTest extends GsonCommon {
 
     @Test
     void images() {
-        ArrayList<String> expectation = new ArrayList<>();
+        final ArrayList<String> expectation = new ArrayList<>();
         expectation.add("alpine:latest");
         expectation.add("busybox:latest");
         Assertions.assertArrayEquals(configurationAccessor.images().toArray(), expectation.toArray());
@@ -37,10 +37,10 @@ class ConfigurationAccessorTest extends GsonCommon {
 
     @Test
     void volumes() {
-        ArrayList<Map<String, Map<String, String>>> volumes = new ArrayList<>();
-        Map<String, Map<String, String>> volume = new HashMap<>();
+        final ArrayList<Map<String, Map<String, String>>> volumes = new ArrayList<>();
+        final Map<String, Map<String, String>> volume = new HashMap<>();
 
-        Map<String, String> volumeBindings = new HashMap<>();
+        final Map<String, String> volumeBindings = new HashMap<>();
         volumeBindings.put("bind", "/tmp");
         volumeBindings.put("mode", "/rw");
 

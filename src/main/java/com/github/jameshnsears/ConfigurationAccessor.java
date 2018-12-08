@@ -7,16 +7,17 @@ import java.util.*;
 public class ConfigurationAccessor {
     private final Collection<Configuration> configurationCollection;
 
-    public ConfigurationAccessor(Collection<Configuration> configurationCollection) {
+    public ConfigurationAccessor(final Collection<Configuration> configurationCollection) {
         Preconditions.checkNotNull(configurationCollection);
         this.configurationCollection = configurationCollection;
     }
 
     public AbstractList<String> images() {
-        ArrayList<String> images = new ArrayList<>();
-        for (Configuration configuration : this.configurationCollection) {
-            if (configuration.getImage() != null)
+        final ArrayList<String> images = new ArrayList<>();
+        for (final Configuration configuration : this.configurationCollection) {
+            if (configuration.getImage() != null) {
                 images.add(configuration.getImage());
+            }
         }
         Collections.sort(images);
         return images;
@@ -27,18 +28,19 @@ public class ConfigurationAccessor {
     }
 
     public AbstractList<String> networks() {
-        ArrayList<String> networks = new ArrayList<>();
-        for (Configuration configuration : this.configurationCollection) {
-            if (configuration.getNetwork() != null)
+        final ArrayList<String> networks = new ArrayList<>();
+        for (final Configuration configuration : this.configurationCollection) {
+            if (configuration.getNetwork() != null) {
                 networks.add(configuration.getNetwork());
+            }
         }
         Collections.sort(networks);
         return networks;
     }
 
     public AbstractList<Map<String, Map<String, String>>> volumes() {
-        ArrayList<Map<String, Map<String, String>>> volumes = new ArrayList<>();
-        for (Configuration configuration : this.configurationCollection) {
+        final ArrayList<Map<String, Map<String, String>>> volumes = new ArrayList<>();
+        for (final Configuration configuration : this.configurationCollection) {
             if (configuration.getVolumes() != null) {
                 volumes.add(configuration.getVolumes());
             }
@@ -47,7 +49,7 @@ public class ConfigurationAccessor {
     }
 
     private class ConfigException extends Exception {
-        ConfigException(String message) {
+        ConfigException(final String message) {
             super(message);
         }
     }

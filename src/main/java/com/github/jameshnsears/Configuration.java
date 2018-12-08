@@ -34,7 +34,7 @@ public class Configuration {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(final String image) {
         this.image = image;
     }
 
@@ -42,7 +42,7 @@ public class Configuration {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -50,7 +50,7 @@ public class Configuration {
         return ports;
     }
 
-    public void setPorts(Map<String, Integer> ports) {
+    public void setPorts(final Map<String, Integer> ports) {
         this.ports = ports;
     }
 
@@ -58,7 +58,7 @@ public class Configuration {
         return volumes;
     }
 
-    public void setVolumes(Map<String, Map<String, String>> volumes) {
+    public void setVolumes(final Map<String, Map<String, String>> volumes) {
         this.volumes = volumes;
     }
 
@@ -66,7 +66,7 @@ public class Configuration {
         return command;
     }
 
-    public void setCommand(String command) {
+    public void setCommand(final String command) {
         this.command = command;
     }
 
@@ -74,7 +74,7 @@ public class Configuration {
         return network;
     }
 
-    public void setNetwork(String network) {
+    public void setNetwork(final String network) {
         this.network = network;
     }
 }

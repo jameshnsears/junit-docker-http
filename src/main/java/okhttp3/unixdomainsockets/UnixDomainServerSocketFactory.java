@@ -70,7 +70,7 @@ final class UnixDomainServerSocketFactory extends ServerSocketFactory {
         public void bind(SocketAddress endpoint, int backlog) throws IOException {
             this.endpoint = (InetSocketAddress) endpoint;
 
-            UnixSocketAddress address = new UnixSocketAddress(path);
+            final UnixSocketAddress address = new UnixSocketAddress(path);
             serverSocketChannel = UnixServerSocketChannel.open();
             serverSocketChannel.configureBlocking(true);
             serverSocketChannel.socket().bind(address);
@@ -88,7 +88,7 @@ final class UnixDomainServerSocketFactory extends ServerSocketFactory {
 
         @Override
         public Socket accept() throws IOException {
-            UnixSocketChannel socketChannel = serverSocketChannel.accept();
+            final UnixSocketChannel socketChannel = serverSocketChannel.accept();
 
             return new UnixSocket(socketChannel) {
                 @Override

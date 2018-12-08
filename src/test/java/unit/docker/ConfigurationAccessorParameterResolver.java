@@ -24,10 +24,10 @@ class ConfigurationAccessorParameterResolver implements ParameterResolver {
     public Object resolveParameter(ParameterContext parameterContext,
                                    ExtensionContext extensionContext) throws ParameterResolutionException {
 
-        Gson gson = new Gson();
-        Type collectionType = new TypeToken<Collection<Configuration>>() {
+        final Gson gson = new Gson();
+        final Type collectionType = new TypeToken<Collection<Configuration>>() {
         }.getType();
-        Collection<Configuration> configurationCollection = gson.fromJson(getInputStreamReader(), collectionType);
+        final Collection<Configuration> configurationCollection = gson.fromJson(getInputStreamReader(), collectionType);
 
         return new ConfigurationAccessor(configurationCollection);
     }

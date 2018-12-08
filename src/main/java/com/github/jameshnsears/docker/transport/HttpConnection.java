@@ -15,7 +15,7 @@ public class HttpConnection {
     private static final Logger logger = LoggerFactory.getLogger(DockerClient.class);
 
     private OkHttpClient okHttpClient() {
-        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        final HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
 
         return new OkHttpClient.Builder()
@@ -29,12 +29,12 @@ public class HttpConnection {
 
         logger.info(endpoint);
 
-        Request request = new Request.Builder()
+        final Request request = new Request.Builder()
                 .url(endpoint)
                 .build();
 
-        Response response = okHttpClient().newCall(request).execute();
-        String jsonResponse = response.body().string();
+        final Response response = okHttpClient().newCall(request).execute();
+        final String jsonResponse = response.body().string();
         logger.debug(jsonResponse.replace("\n", ""));
         logger.info(String.format("%s", response.code()));
 
@@ -46,7 +46,7 @@ public class HttpConnection {
 
         logger.info(endpoint);
 
-        Request request = new Request.Builder()
+        final Request request = new Request.Builder()
                 .url(endpoint)
                 .post(RequestBody.create(null, new byte[0]))
                 .header("Content-Length", "0")
@@ -60,7 +60,7 @@ public class HttpConnection {
 
         logger.info(endpoint);
 
-        Request request = new Request.Builder()
+        final Request request = new Request.Builder()
                 .url(endpoint)
                 .post(RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json))
                 .header("Content-Length", "0")
@@ -70,7 +70,7 @@ public class HttpConnection {
     }
 
     private void executePost(Request request) throws IOException {
-        Response response = okHttpClient().newCall(request).execute();
+        final Response response = okHttpClient().newCall(request).execute();
         logger.debug(response.body().string().replace("\n", ""));
         logger.info(String.format("%s", response.code()));
     }
@@ -80,12 +80,12 @@ public class HttpConnection {
 
         logger.info(endpoint);
 
-        Request request = new Request.Builder()
+        final Request request = new Request.Builder()
                 .url(endpoint)
                 .delete()
                 .build();
 
-        Response response = okHttpClient().newCall(request).execute();
+        final Response response = okHttpClient().newCall(request).execute();
         logger.info(String.format("%s", response.code()));
     }
 }

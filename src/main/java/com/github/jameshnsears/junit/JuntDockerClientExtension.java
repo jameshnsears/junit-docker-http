@@ -16,7 +16,7 @@ public class JuntDockerClientExtension implements BeforeTestExecutionCallback, A
     private static final Logger logger = LoggerFactory.getLogger(JuntDockerClientExtension.class.getName());
 
     private void readProps() {
-        Properties prop = new Properties();
+        final Properties prop = new Properties();
         try (InputStream inputStream = JuntDockerClientExtension.class.getResourceAsStream("/config.properties")) {
 
             prop.load(inputStream);
@@ -29,7 +29,7 @@ public class JuntDockerClientExtension implements BeforeTestExecutionCallback, A
 
     @Override
     public void beforeTestExecution(ExtensionContext context) {
-        Method testMethod = context.getRequiredTestMethod();
+        final Method testMethod = context.getRequiredTestMethod();
         readProps();
         logger.info(String.format("%s", testMethod.getName()));
         // use json key value with name of test being a key into the configuration
@@ -49,7 +49,7 @@ public class JuntDockerClientExtension implements BeforeTestExecutionCallback, A
 
     @Override
     public void afterTestExecution(ExtensionContext context) {
-        Method testMethod = context.getRequiredTestMethod();
+        final Method testMethod = context.getRequiredTestMethod();
         logger.info(String.format("%s", testMethod.getName()));
 
         /*
