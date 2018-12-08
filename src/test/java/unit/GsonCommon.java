@@ -11,7 +11,7 @@ public class GsonCommon {
         gson = new Gson();
     }
 
-    protected InputStreamReader getInputStreamReader(String s) {
+    protected InputStreamReader getInputStreamReader(final String s) {
         return new InputStreamReader(getClass().getResourceAsStream(s));
     }
 }

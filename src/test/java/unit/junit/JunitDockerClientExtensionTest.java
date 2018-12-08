@@ -10,6 +10,6 @@ class JunitDockerClientExtensionTest {
 
     @Test
     void testExtension() {
-        Assertions.assertFalse(true);
+        Assertions.fail();
     }
 }

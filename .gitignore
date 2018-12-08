@@ -1,6 +1,5 @@
 .idea/*
 *.iml
-tags
 .vscode/
 target/
 /bin/

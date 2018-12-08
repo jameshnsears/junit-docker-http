@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 class ConfigurationAccessorTest extends GsonCommon {
     private final ConfigurationAccessor configurationAccessor;
@@ -38,9 +38,9 @@ class ConfigurationAccessorTest extends GsonCommon {
     @Test
     void volumes() {
         final ArrayList<Map<String, Map<String, String>>> volumes = new ArrayList<>();
-        final Map<String, Map<String, String>> volume = new HashMap<>();
+        final Map<String, Map<String, String>> volume = new ConcurrentHashMap<>();
 
-        final Map<String, String> volumeBindings = new HashMap<>();
+        final Map<String, String> volumeBindings = new ConcurrentHashMap<>();
         volumeBindings.put("bind", "/tmp");
         volumeBindings.put("mode", "/rw");
 

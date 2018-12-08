@@ -14,7 +14,7 @@ public class Volume {
         return volumes;
     }
 
-    public void setVolumes(List<VolumeName> volumes) {
+    public void setVolumes(final List<VolumeName> volumes) {
         this.volumes = volumes;
     }
 
@@ -27,7 +27,7 @@ public class Volume {
             return name;
         }
 
-        public void setName(String name) {
+        public void setName(final String name) {
             this.name = name;
         }
     }

@@ -23,7 +23,7 @@ public class Container {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(final String id) {
         this.id = id;
     }
 
@@ -31,17 +31,21 @@ public class Container {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(final String image) {
         this.image = image;
     }
 
     public List<String> getNames() {
-        if (names == null)
-            return new ArrayList<>();
-        return names;
+        List<String> response;
+        if (names == null) {
+            response = new ArrayList<>();
+        } else {
+            response = names;
+        }
+        return response;
     }
 
-    public void setNames(List<String> names) {
+    public void setNames(final List<String> names) {
         this.names = names;
     }
 }

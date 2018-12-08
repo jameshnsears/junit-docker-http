@@ -14,28 +14,30 @@ class DockerClientTest {
     private final DockerClient dockerClient = new DockerClient();
 
     //@Test
-    void pullImages(ConfigurationAccessor configurationAccessor) throws IOException {
+    void pullImages(final ConfigurationAccessor configurationAccessor) throws IOException {
         dockerClient.rmImages(configurationAccessor.images());
         ArrayList<String> dockerImages = (ArrayList) dockerClient.lsImages();
-        for (final String image : configurationAccessor.images())
+        for (final String image : configurationAccessor.images()) {
             Assertions.assertFalse(dockerImages.contains(image));
+        }
 
 
         dockerClient.pull(configurationAccessor.images());
         dockerImages = (ArrayList) dockerClient.lsImages();
-        for (final String image : configurationAccessor.images())
+        for (final String image : configurationAccessor.images()) {
             Assertions.assertTrue(dockerImages.contains(image));
+        }
     }
 
     @Test
-    void stopStartContainers(ConfigurationAccessor configurationAccessor) throws IOException {
+    void stopStartContainers(final ConfigurationAccessor configurationAccessor) throws IOException {
         dockerClient.startContainers(configurationAccessor);
 //        Assertions.assertTrue(dockerClient.lsContainers(configurationAccessor).size() == 2);
 ////        Assertions.assertTrue(dockerClient.lsNetworks(configurationAccessor).size() == ['docker_py_wrapper');
 ////        Assertions.assertTrue(dockerClient.lsVolumes(configurationAccessor).size() == ['alpine-01:/tmp');
 //
         dockerClient.rmContainers(configurationAccessor);
-        Assertions.assertFalse(true);
+        Assertions.fail();
 //        Assertions.assertTrue(dockerClient.lsContainers(configurationAccessor).size() == 0);
 //        Assertions.assertTrue(dockerClient.lsNetworks(configurationAccessor).size() == 0);
 //        Assertions.assertTrue(dockerClient.lsVolumes(configurationAccessor).size() == 0);

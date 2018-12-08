@@ -15,14 +15,14 @@ import java.util.Collection;
 
 class ConfigurationAccessorParameterResolver implements ParameterResolver {
     @Override
-    public boolean supportsParameter(ParameterContext parameterContext,
-                                     ExtensionContext extensionContext) throws ParameterResolutionException {
+    public boolean supportsParameter(final ParameterContext parameterContext,
+                                     final ExtensionContext extensionContext) throws ParameterResolutionException {
         return parameterContext.getParameter().getType() == ConfigurationAccessor.class;
     }
 
     @Override
-    public Object resolveParameter(ParameterContext parameterContext,
-                                   ExtensionContext extensionContext) throws ParameterResolutionException {
+    public Object resolveParameter(final ParameterContext parameterContext,
+                                   final ExtensionContext extensionContext) throws ParameterResolutionException {
 
         final Gson gson = new Gson();
         final Type collectionType = new TypeToken<Collection<Configuration>>() {

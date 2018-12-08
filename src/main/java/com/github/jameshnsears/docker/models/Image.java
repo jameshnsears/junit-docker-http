@@ -18,7 +18,7 @@ public class Image {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(final String id) {
         this.id = id;
     }
 
@@ -26,7 +26,7 @@ public class Image {
         return repoTags;
     }
 
-    public void setRepoTags(List<String> repoTags) {
+    public void setRepoTags(final List<String> repoTags) {
         this.repoTags = repoTags;
     }
 }

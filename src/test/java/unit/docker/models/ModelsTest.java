@@ -36,10 +36,10 @@ class ModelsTest extends GsonCommon {
                 containers.size(),
                 7);
         Assertions.assertEquals(
-                ((Container) ((java.util.ArrayList) containers).get(0)).getId(),
+                ((Container) ((ArrayList) containers).get(0)).getId(),
                 "60cb5bc7fa7f5ac26a48520f8bd68decd8307af1b114f25b29827120ba4d4c16");
         Assertions.assertEquals(
-                ((java.util.ArrayList) ((Container) ((java.util.ArrayList) containers).get(0)).getNames()).get(0),
+                ((ArrayList) ((Container) ((ArrayList) containers).get(0)).getNames()).get(0),
                 "/xqa-ingest");
     }
 

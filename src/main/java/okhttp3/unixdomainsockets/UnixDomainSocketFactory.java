@@ -33,7 +33,7 @@ import java.net.SocketAddress;
 public final class UnixDomainSocketFactory extends SocketFactory {
     private final File path;
 
-    public UnixDomainSocketFactory(File path) {
+    public UnixDomainSocketFactory(final File path) {
         this.path = path;
     }
 
@@ -44,17 +44,17 @@ public final class UnixDomainSocketFactory extends SocketFactory {
             private InetSocketAddress inetSocketAddress;
 
             @Override
-            public void connect(SocketAddress endpoint) throws IOException {
+            public void connect(final SocketAddress endpoint) throws IOException {
                 connect(endpoint, Integer.valueOf(0));
             }
 
             @Override
-            public void connect(SocketAddress endpoint, int timeout) throws IOException {
+            public void connect(final SocketAddress endpoint, final int timeout) throws IOException {
                 connect(endpoint, Integer.valueOf(timeout));
             }
 
             @Override
-            public void connect(SocketAddress endpoint, Integer timeout) throws IOException {
+            public void connect(final SocketAddress endpoint, final Integer timeout) throws IOException {
                 this.inetSocketAddress = (InetSocketAddress) endpoint;
                 super.connect(new UnixSocketAddress(path), timeout);
             }
@@ -72,24 +72,24 @@ public final class UnixDomainSocketFactory extends SocketFactory {
     }
 
     @Override
-    public Socket createSocket(String host, int port) throws IOException {
+    public Socket createSocket(final String host, final int port) throws IOException {
         return createUnixDomainSocket();
     }
 
     @Override
     public Socket createSocket(
-            String host, int port, InetAddress localHost, int localPort) throws IOException {
+            final String host, final int port, final InetAddress localHost, final int localPort) throws IOException {
         return createUnixDomainSocket();
     }
 
     @Override
-    public Socket createSocket(InetAddress host, int port) throws IOException {
+    public Socket createSocket(final InetAddress host, final int port) throws IOException {
         return createUnixDomainSocket();
     }
 
     @Override
     public Socket createSocket(
-            InetAddress address, int port, InetAddress localAddress, int localPort) throws IOException {
+            final InetAddress address, final int port, final InetAddress localAddress, final int localPort) throws IOException {
         return createUnixDomainSocket();
     }
 }

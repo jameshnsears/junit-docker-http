@@ -31,7 +31,7 @@ import java.net.*;
 final class UnixDomainServerSocketFactory extends ServerSocketFactory {
     private final File path;
 
-    UnixDomainServerSocketFactory(File path) {
+    UnixDomainServerSocketFactory(final File path) {
         this.path = path;
     }
 
@@ -45,17 +45,17 @@ final class UnixDomainServerSocketFactory extends ServerSocketFactory {
     }
 
     @Override
-    public ServerSocket createServerSocket(int port) throws IOException {
+    public ServerSocket createServerSocket(final int port) throws IOException {
         return createUnixDomainSocket();
     }
 
     @Override
-    public ServerSocket createServerSocket(int port, int backlog) throws IOException {
+    public ServerSocket createServerSocket(final int port, final int backlog) throws IOException {
         return createUnixDomainSocket();
     }
 
     @Override
-    public ServerSocket createServerSocket(int port, int backlog, InetAddress inetAddress) throws IOException {
+    public ServerSocket createServerSocket(final int port, final int backlog, final InetAddress inetAddress) throws IOException {
         return createUnixDomainSocket();
     }
 
@@ -67,7 +67,7 @@ final class UnixDomainServerSocketFactory extends ServerSocketFactory {
         }
 
         @Override
-        public void bind(SocketAddress endpoint, int backlog) throws IOException {
+        public void bind(final SocketAddress endpoint, final int backlog) throws IOException {
             this.endpoint = (InetSocketAddress) endpoint;
 
             final UnixSocketAddress address = new UnixSocketAddress(path);

@@ -14,7 +14,7 @@ public class ModelMapper {
     private final Gson gson = new Gson();
     // private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-    public AbstractList<Image> mapJsonIntoImages(String json) {
+    public AbstractList<Image> mapJsonIntoImages(final String json) {
         Preconditions.checkNotNull(json);
 
         return gson.fromJson(
@@ -23,7 +23,7 @@ public class ModelMapper {
                 }.getType());
     }
 
-    public AbstractList<Container> mapJsonIntoContainers(String json) {
+    public AbstractList<Container> mapJsonIntoContainers(final String json) {
         Preconditions.checkNotNull(json);
 
         return gson.fromJson(
@@ -32,7 +32,7 @@ public class ModelMapper {
                 }.getType());
     }
 
-    public AbstractList<Network> mapJsonIntoNetworks(String json) {
+    public AbstractList<Network> mapJsonIntoNetworks(final String json) {
         Preconditions.checkNotNull(json);
 
         return gson.fromJson(
