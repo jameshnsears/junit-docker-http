@@ -3,7 +3,7 @@ work on DockerClientTest
 use coverage + other static analsys tools to rm as much as possible - especially in Models
 = +incoproate more pre-condition tests
 
-'work on JunitDockerHttpExtensionTest to actually use the extension
+work on JunitDockerHttpExtensionTest to actually use the extension
 
 check volumes created correctly in pytest-docker-py
 

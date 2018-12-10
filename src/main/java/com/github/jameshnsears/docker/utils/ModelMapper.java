@@ -1,6 +1,7 @@
 package com.github.jameshnsears.docker.utils;
 
 import com.github.jameshnsears.docker.models.Container;
+import com.github.jameshnsears.docker.models.ContainerCreate;
 import com.github.jameshnsears.docker.models.Image;
 import com.github.jameshnsears.docker.models.Network;
 import com.google.common.base.Preconditions;
@@ -39,5 +40,18 @@ public class ModelMapper {
                 json,
                 new TypeToken<Collection<Network>>() {
                 }.getType());
+    }
+
+    public AbstractList<Network> mapJsonInto(final String json) {
+        Preconditions.checkNotNull(json);
+
+        return gson.fromJson(
+                json,
+                new TypeToken<Collection<Network>>() {
+                }.getType());
+    }
+
+    public String mapContainerStartIntoJson(ContainerCreate containerCreate) {
+        return "";
     }
 }

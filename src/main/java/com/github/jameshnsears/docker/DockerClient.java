@@ -3,12 +3,14 @@ package com.github.jameshnsears.docker;
 import com.github.jameshnsears.Configuration;
 import com.github.jameshnsears.ConfigurationAccessor;
 import com.github.jameshnsears.docker.models.Container;
+import com.github.jameshnsears.docker.models.ContainerCreate;
 import com.github.jameshnsears.docker.models.Image;
 import com.github.jameshnsears.docker.models.Network;
 import com.github.jameshnsears.docker.transport.HttpConnection;
 import com.github.jameshnsears.docker.utils.ModelMapper;
 import com.google.common.base.Preconditions;
 import com.google.gson.JsonSyntaxException;
+import okhttp3.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -112,29 +114,25 @@ public class DockerClient {
         // create container
         final Collection<Configuration> configurationContainers = configurationAccessor.containers();
         for (final Configuration configurationContainer : configurationContainers) {
-            httpConnection.post(
+            Response response = httpConnection.post(
                     String.format("http://127.0.0.1/v1.39/containers/create?name=%s", configurationContainer.getName()),
                     jsonForContainerCreation(configurationContainer));
 
 //            configurationContainer.getImage();  // alpine:latest
 //            configurationContainer.getCommand(); // to split into white space seperated values
 
-            // TODO start container
+//            httpConnection.post(
+//                    String.format("http://127.0.0.1/v1.39/containers/%s/start", response.body("Id"));
+            // {"Id":"e0f5f5110f92b661839470adfadf55755caedee0c84fd3119d2e6a2dfc7a1fe8","Warnings":null}.
         }
     }
 
-    private String jsonForContainerCreation(final Configuration configurationContainer) {
+    public String jsonForContainerCreation(final Configuration configurationContainer40) {
         String json = null;
         /*
 POST /v1.35/containers/create?name=alpine-01
 {
 "ExposedPorts": {"1234/tcp": {}},
-"Tty": false,
-"OpenStdin": false,
-"StdinOnce": false,
-"AttachStdin": false,
-"AttachStdout": false,
-"AttachStderr": false,
 "Cmd": ["sleep", "12345"],
 "Image": "alpine:latest",
 "Volumes": {"/tmp": {}},
@@ -142,26 +140,17 @@ POST /v1.35/containers/create?name=alpine-01
 "HostConfig": {
     "NetworkMode": "default",
     "Binds": ["alpine-01:/tmp:rw"],
-    "PortBindings": {"1234/tcp": [{"HostIp": "", "HostPort": "1234"}]}}}
-
-< {"Id":"e0f5f5110f92b661839470adfadf55755caedee0c84fd3119d2e6a2dfc7a1fe8","Warnings":null}.
-
-POST /v1.35/containers/2976e872fae3cd6614a81926ef6c67b95d2cdda02179661694fc55cc252ee9f5/start
+    "PortBindings": {
+        "1234/tcp": [{
+            "HostIp": "", "HostPort": "1234"}
+            ]}
+        }
+    }
 
 --
 
 POST /v1.35/containers/create?name=busybox-01
 >
-{"Tty": false,
-"OpenStdin": false,
-"StdinOnce":false,
-"AttachStdin": false,
-"AttachStdout": false,
-"AttachStderr": false,
-"Image": "busybox:latest",
-"NetworkDisabled": false,
-"HostConfig": {"NetworkMode": "docker_py_wrapper"},
-"NetworkingConfig": {"docker_py_wrapper": null}}
 
 < {"Id":"2976e872fae3cd6614a81926ef6c67b95d2cdda02179661694fc55cc252ee9f5","Warnings":null}
 

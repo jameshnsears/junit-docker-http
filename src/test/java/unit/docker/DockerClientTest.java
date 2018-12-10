@@ -1,13 +1,18 @@
 package unit.docker;
 
+import com.github.jameshnsears.Configuration;
 import com.github.jameshnsears.ConfigurationAccessor;
 import com.github.jameshnsears.docker.DockerClient;
+import com.github.jameshnsears.docker.models.ContainerCreate;
+import com.github.jameshnsears.docker.utils.ModelMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @ExtendWith(ConfigurationAccessorParameterResolver.class)
 class DockerClientTest {
@@ -30,11 +35,49 @@ class DockerClientTest {
     }
 
     @Test
+    void jsonForStartingContainer(ConfigurationAccessor configurationAccessor) {
+        final List<Configuration> configurationContainers = (List) configurationAccessor.containers();
+
+        ContainerCreate containerCreate = new ContainerCreate();
+
+        ModelMapper modelMapper = new ModelMapper();
+        String json = modelMapper.mapContainerStartIntoJson(((List<Configuration>) configurationAccessor.containers()).get(0));
+
+        /*
+        {
+"ExposedPorts": {"1234/tcp": {}},
+"Tty": false,
+"OpenStdin": false,
+"StdinOnce": false,
+"AttachStdin": false,
+"AttachStdout": false,
+"AttachStderr": false,
+"Cmd": ["sleep", "12345"],
+"Image": "alpine:latest",
+"Volumes": {"/tmp": {}},
+"NetworkDisabled": false,
+"HostConfig": {
+    "NetworkMode": "default",
+    "Binds": ["alpine-01:/tmp:rw"],
+    "PortBindings": {
+        "1234/tcp": [{
+            "HostIp": "", "HostPort": "1234"}
+            ]}
+        }
+    }
+
+         */
+        Assertions.assertEquals(
+                "",
+                dockerClient.jsonForContainerCreation(configurationContainers.get(0));
+    }
+
+    //@Test
     void stopStartContainers(final ConfigurationAccessor configurationAccessor) throws IOException {
         dockerClient.startContainers(configurationAccessor);
 //        Assertions.assertTrue(dockerClient.lsContainers(configurationAccessor).size() == 2);
-////        Assertions.assertTrue(dockerClient.lsNetworks(configurationAccessor).size() == ['docker_py_wrapper');
-////        Assertions.assertTrue(dockerClient.lsVolumes(configurationAccessor).size() == ['alpine-01:/tmp');
+//        Assertions.assertTrue(dockerClient.lsNetworks(configurationAccessor).size() == ['docker_py_wrapper');
+//        Assertions.assertTrue(dockerClient.lsVolumes(configurationAccessor).size() == ['alpine-01:/tmp');
 //
         dockerClient.rmContainers(configurationAccessor);
         Assertions.fail();
