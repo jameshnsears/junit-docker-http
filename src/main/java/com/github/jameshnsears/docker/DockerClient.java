@@ -127,7 +127,7 @@ public class DockerClient {
         }
     }
 
-    public String jsonForContainerCreation(final Configuration configurationContainer40) {
+    public String jsonForContainerCreation(final Configuration configurationContainer4) {
         String json = null;
         /*
 POST /v1.35/containers/create?name=alpine-01

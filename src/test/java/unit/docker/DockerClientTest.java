@@ -3,7 +3,6 @@ package unit.docker;
 import com.github.jameshnsears.Configuration;
 import com.github.jameshnsears.ConfigurationAccessor;
 import com.github.jameshnsears.docker.DockerClient;
-import com.github.jameshnsears.docker.models.ContainerCreate;
 import com.github.jameshnsears.docker.utils.ModelMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -11,7 +10,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @ExtendWith(ConfigurationAccessorParameterResolver.class)
@@ -36,13 +34,11 @@ class DockerClientTest {
 
     @Test
     void jsonForStartingContainer(ConfigurationAccessor configurationAccessor) {
-        final List<Configuration> configurationContainers = (List) configurationAccessor.containers();
-
-        ContainerCreate containerCreate = new ContainerCreate();
-
         ModelMapper modelMapper = new ModelMapper();
-        String json = modelMapper.mapContainerStartIntoJson(((List<Configuration>) configurationAccessor.containers()).get(0));
+        final List<Configuration> configurationContainers = (List) configurationAccessor.containers();
+        String json = modelMapper.mapConfigurationContainerIntoJson(configurationContainers.get(0));
 
+        String expectedJson = "";
         /*
         {
 "ExposedPorts": {"1234/tcp": {}},
@@ -65,11 +61,8 @@ class DockerClientTest {
             ]}
         }
     }
-
          */
-        Assertions.assertEquals(
-                "",
-                dockerClient.jsonForContainerCreation(configurationContainers.get(0));
+        Assertions.assertEquals( expectedJson, json);
     }
 
     //@Test
