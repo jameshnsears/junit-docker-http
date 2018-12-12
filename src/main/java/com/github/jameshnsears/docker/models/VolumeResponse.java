@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Volume {
+public class VolumeResponse {
     @SerializedName("Volumes")
     @Expose
     private List<VolumeName> volumes;

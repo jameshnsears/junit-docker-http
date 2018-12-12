@@ -14,10 +14,10 @@ schemes:
   - "http"
   - "https"
 produces:
-  - "application/json"
+  - "application/containerCreateRequest"
   - "text/plain"
 consumes:
-  - "application/json"
+  - "application/containerCreateRequest"
   - "text/plain"
 basePath: "/v1.39"
 info:
@@ -95,17 +95,17 @@ info:
 # - The order of tags in this list defines the order in the menu.
 tags:
   # Primary objects
-  - name: "Container"
+  - name: "ContainerResponse"
     x-displayName: "Containers"
     description: |
       Create and manage containers.
-  - name: "Image"
+  - name: "ImageResponse"
     x-displayName: "Images"
-  - name: "Network"
+  - name: "NetworkResponse"
     x-displayName: "Networks"
     description: |
       Networks are user-defined networks that containers can be attached to. See the [networking documentation](https://docs.docker.com/engine/userguide/networking/) for more information.
-  - name: "Volume"
+  - name: "VolumeResponse"
     x-displayName: "Volumes"
     description: |
       Create and manage persistent storage that can be attached to containers.
@@ -226,7 +226,7 @@ definitions:
     type: "object"
     properties:
       Target:
-        description: "Container path."
+        description: "ContainerResponse path."
         type: "string"
       Source:
         description: "Mount source (e.g. a volume name, a host path)."
@@ -568,7 +568,7 @@ definitions:
         type: "integer"
 
   HostConfig:
-    description: "Container configuration that depends on the host we are running on"
+    description: "ContainerResponse configuration that depends on the host we are running on"
     allOf:
       - $ref: "#/definitions/Resources"
       - type: "object"
@@ -595,7 +595,7 @@ definitions:
               Type:
                 type: "string"
                 enum:
-                  - "json-file"
+                  - "containerCreateRequest-file"
                   - "syslog"
                   - "journald"
                   - "gelf"
@@ -610,7 +610,7 @@ definitions:
                   type: "string"
           NetworkMode:
             type: "string"
-            description: "Network mode to use for this container. Supported standard values are: `bridge`, `host`, `none`, and `container:<name|id>`. Any other value is taken
+            description: "NetworkResponse mode to use for this container. Supported standard values are: `bridge`, `host`, `none`, and `container:<name|id>`. Any other value is taken
               as a custom network's name to which this container should connect to."
           PortBindings:
             $ref: "#/definitions/PortMap"
@@ -1138,7 +1138,7 @@ definitions:
       - Parent
       - Comment
       - Created
-      - Container
+      - ContainerResponse
       - DockerVersion
       - Author
       - Architecture
@@ -1540,7 +1540,7 @@ definitions:
 
   ImageID:
     type: "object"
-    description: "Image ID or Digest"
+    description: "ImageResponse ID or Digest"
     properties:
       ID:
         type: "string"
@@ -1856,7 +1856,7 @@ definitions:
           - Interface
           - Entrypoint
           - WorkDir
-          - Network
+          - NetworkResponse
           - Linux
           - PidHost
           - PropagatedMount
@@ -2163,30 +2163,30 @@ definitions:
           - Type: "Log"
             Name: "journald"
           - Type: "Log"
-            Name: "json-file"
+            Name: "containerCreateRequest-file"
           - Type: "Log"
             Name: "logentries"
           - Type: "Log"
             Name: "splunk"
           - Type: "Log"
             Name: "syslog"
-          - Type: "Network"
+          - Type: "NetworkResponse"
             Name: "bridge"
-          - Type: "Network"
+          - Type: "NetworkResponse"
             Name: "host"
-          - Type: "Network"
+          - Type: "NetworkResponse"
             Name: "ipvlan"
-          - Type: "Network"
+          - Type: "NetworkResponse"
             Name: "macvlan"
-          - Type: "Network"
+          - Type: "NetworkResponse"
             Name: "null"
-          - Type: "Network"
+          - Type: "NetworkResponse"
             Name: "overlay"
-          - Type: "Volume"
+          - Type: "VolumeResponse"
             Name: "local"
-          - Type: "Volume"
+          - Type: "VolumeResponse"
             Name: "localhost:5000/vieux/sshfs:latest"
-          - Type: "Volume"
+          - Type: "VolumeResponse"
             Name: "vieux/sshfs:latest"
 
   TLSInfo:
@@ -2410,7 +2410,7 @@ definitions:
                 description: |
                   The log driver to use as a default for new tasks.
                 type: "string"
-                example: "json-file"
+                example: "containerCreateRequest-file"
               Options:
                 description: |
                   Driver-specific options for the selectd log driver, specified
@@ -3979,7 +3979,7 @@ definitions:
         type: "array"
         items:
           type: "string"
-        example: ["awslogs", "fluentd", "gcplogs", "gelf", "journald", "json-file", "logentries", "splunk", "syslog"]
+        example: ["awslogs", "fluentd", "gcplogs", "gelf", "journald", "containerCreateRequest-file", "logentries", "splunk", "syslog"]
 
 
   RegistryServiceConfig:
@@ -4284,7 +4284,7 @@ paths:
         the list of linked containers is not propagated .
       operationId: "ContainerList"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       parameters:
         - name: "all"
           in: "query"
@@ -4461,16 +4461,16 @@ paths:
           description: "server error"
           schema:
             $ref: "#/definitions/ErrorResponse"
-      tags: ["Container"]
+      tags: ["ContainerResponse"]
   /containers/create:
     post:
       summary: "Create a container"
-      operationId: "ContainerCreate"
+      operationId: "ContainerCreateRequest"
       consumes:
-        - "application/json"
+        - "application/containerCreateRequest"
         - "application/octet-stream"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       parameters:
         - name: "name"
           in: "query"
@@ -4479,7 +4479,7 @@ paths:
           pattern: "/?[a-zA-Z0-9_-]+"
         - name: "body"
           in: "body"
-          description: "Container to create"
+          description: "ContainerResponse to create"
           schema:
             allOf:
               - $ref: "#/definitions/ContainerConfig"
@@ -4592,7 +4592,7 @@ paths:
                 Ulimits:
                   - {}
                 LogConfig:
-                  Type: "json-file"
+                  Type: "containerCreateRequest-file"
                   Config: {}
                 SecurityOpt: []
                 StorageOpt: {}
@@ -4618,11 +4618,11 @@ paths:
           required: true
       responses:
         201:
-          description: "Container created successfully"
+          description: "ContainerResponse created successfully"
           schema:
             type: "object"
             title: "ContainerCreateResponse"
-            description: "OK response to ContainerCreate operation"
+            description: "OK response to ContainerCreateRequest operation"
             required: [Id, Warnings]
             properties:
               Id:
@@ -4658,14 +4658,14 @@ paths:
           description: "server error"
           schema:
             $ref: "#/definitions/ErrorResponse"
-      tags: ["Container"]
+      tags: ["ContainerResponse"]
   /containers/{id}/json:
     get:
       summary: "Inspect a container"
       description: "Return low-level information about a container."
       operationId: "ContainerInspect"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       responses:
         200:
           description: "no error"
@@ -4866,7 +4866,7 @@ paths:
                   MaximumRetryCount: 2
                   Name: "on-failure"
                 LogConfig:
-                  Type: "json-file"
+                  Type: "containerCreateRequest-file"
                 Sysctls:
                   net.ipv4.ip_forward: "1"
                 Ulimits:
@@ -4875,7 +4875,7 @@ paths:
                 ShmSize: 67108864
               HostnamePath: "/var/lib/com.github.jameshnsears.docker/containers/ba033ac4401106a3b513bc9d639eee123ad78ca3616b921167cd74b20e25ed39/hostname"
               HostsPath: "/var/lib/com.github.jameshnsears.docker/containers/ba033ac4401106a3b513bc9d639eee123ad78ca3616b921167cd74b20e25ed39/hosts"
-              LogPath: "/var/lib/com.github.jameshnsears.docker/containers/1eb5fabf5a03807136561b3c00adcd2992b535d624d5e18b6cdc6a6844d9767b/1eb5fabf5a03807136561b3c00adcd2992b535d624d5e18b6cdc6a6844d9767b-json.log"
+              LogPath: "/var/lib/com.github.jameshnsears.docker/containers/1eb5fabf5a03807136561b3c00adcd2992b535d624d5e18b6cdc6a6844d9767b/1eb5fabf5a03807136561b3c00adcd2992b535d624d5e18b6cdc6a6844d9767b-containerCreateRequest.log"
               Id: "ba033ac4401106a3b513bc9d639eee123ad78ca3616b921167cd74b20e25ed39"
               Image: "04c5d3b7b0656168630d3ba35d8889bd0e9caafcaeb3004d2bfbc47e7c5d35d2"
               MountLabel: ""
@@ -4952,7 +4952,7 @@ paths:
           type: "boolean"
           default: false
           description: "Return the size of container as fields `SizeRw` and `SizeRootFs`"
-      tags: ["Container"]
+      tags: ["ContainerResponse"]
   /containers/{id}/top:
     get:
       summary: "List processes running inside a container"
@@ -5028,7 +5028,7 @@ paths:
           description: "The arguments to pass to `ps`. For example, `aux`"
           type: "string"
           default: "-ef"
-      tags: ["Container"]
+      tags: ["ContainerResponse"]
   /containers/{id}/logs:
     get:
       summary: "Get container logs"
@@ -5102,7 +5102,7 @@ paths:
           description: "Only return this number of log lines from the end of the logs. Specify as an integer or `all` to output all log lines."
           type: "string"
           default: "all"
-      tags: ["Container"]
+      tags: ["ContainerResponse"]
   /containers/{id}/changes:
     get:
       summary: "Get changes on a container’s filesystem"
@@ -5114,7 +5114,7 @@ paths:
         - `1`: Added
         - `2`: Deleted
       operationId: "ContainerChanges"
-      produces: ["application/json"]
+      produces: ["application/containerCreateRequest"]
       responses:
         200:
           description: "The list of changes"
@@ -5162,7 +5162,7 @@ paths:
           required: true
           description: "ID or name of the container"
           type: "string"
-      tags: ["Container"]
+      tags: ["ContainerResponse"]
   /containers/{id}/export:
     get:
       summary: "Export a container"
@@ -5190,7 +5190,7 @@ paths:
           required: true
           description: "ID or name of the container"
           type: "string"
-      tags: ["Container"]
+      tags: ["ContainerResponse"]
   /containers/{id}/stats:
     get:
       summary: "Get container stats based on resource usage"
@@ -5206,7 +5206,7 @@ paths:
         nil then for compatibility with older daemons the length of the
         corresponding `cpu_usage.percpu_usage` array should be used.
       operationId: "ContainerStats"
-      produces: ["application/json"]
+      produces: ["application/containerCreateRequest"]
       responses:
         200:
           description: "no error"
@@ -5326,7 +5326,7 @@ paths:
           description: "Stream the output. If false, the stats will be output once and then it will disconnect."
           type: "boolean"
           default: true
-      tags: ["Container"]
+      tags: ["ContainerResponse"]
   /containers/{id}/resize:
     post:
       summary: "Resize a container TTY"
@@ -5364,7 +5364,7 @@ paths:
           in: "query"
           description: "Width of the tty session in characters"
           type: "integer"
-      tags: ["Container"]
+      tags: ["ContainerResponse"]
   /containers/{id}/start:
     post:
       summary: "Start a container"
@@ -5397,7 +5397,7 @@ paths:
           in: "query"
           description: "Override the key sequence for detaching a container. Format is a single character `[a-Z]` or `ctrl-<value>` where `<value>` is one of: `a-z`, `@`, `^`, `[`, `,` or `_`."
           type: "string"
-      tags: ["Container"]
+      tags: ["ContainerResponse"]
   /containers/{id}/stop:
     post:
       summary: "Stop a container"
@@ -5430,7 +5430,7 @@ paths:
           in: "query"
           description: "Number of seconds to wait before killing the container"
           type: "integer"
-      tags: ["Container"]
+      tags: ["ContainerResponse"]
   /containers/{id}/restart:
     post:
       summary: "Restart a container"
@@ -5459,7 +5459,7 @@ paths:
           in: "query"
           description: "Number of seconds to wait before killing the container"
           type: "integer"
-      tags: ["Container"]
+      tags: ["ContainerResponse"]
   /containers/{id}/kill:
     post:
       summary: "Kill a container"
@@ -5481,7 +5481,7 @@ paths:
             $ref: "#/definitions/ErrorResponse"
           examples:
             application/json:
-              message: "Container d37cde0fe4ad63c3a7252023b2f9800282894247d145cb5933ddf6e52cc03a28 is not running"
+              message: "ContainerResponse d37cde0fe4ad63c3a7252023b2f9800282894247d145cb5933ddf6e52cc03a28 is not running"
         500:
           description: "server error"
           schema:
@@ -5497,14 +5497,14 @@ paths:
           description: "Signal to send to the container as an integer or string (e.g. `SIGINT`)"
           type: "string"
           default: "SIGKILL"
-      tags: ["Container"]
+      tags: ["ContainerResponse"]
   /containers/{id}/update:
     post:
       summary: "Update a container"
       description: "Change various configuration options of a container without having to recreate it."
       operationId: "ContainerUpdate"
-      consumes: ["application/json"]
-      produces: ["application/json"]
+      consumes: ["application/containerCreateRequest"]
+      produces: ["application/containerCreateRequest"]
       responses:
         200:
           description: "The container has been updated."
@@ -5560,7 +5560,7 @@ paths:
               RestartPolicy:
                 MaximumRetryCount: 4
                 Name: "on-failure"
-      tags: ["Container"]
+      tags: ["ContainerResponse"]
   /containers/{id}/rename:
     post:
       summary: "Rename a container"
@@ -5594,7 +5594,7 @@ paths:
           required: true
           description: "New name for the container"
           type: "string"
-      tags: ["Container"]
+      tags: ["ContainerResponse"]
   /containers/{id}/pause:
     post:
       summary: "Pause a container"
@@ -5623,7 +5623,7 @@ paths:
           required: true
           description: "ID or name of the container"
           type: "string"
-      tags: ["Container"]
+      tags: ["ContainerResponse"]
   /containers/{id}/unpause:
     post:
       summary: "Unpause a container"
@@ -5649,7 +5649,7 @@ paths:
           required: true
           description: "ID or name of the container"
           type: "string"
-      tags: ["Container"]
+      tags: ["ContainerResponse"]
   /containers/{id}/attach:
     post:
       summary: "Attach to a container"
@@ -5793,7 +5793,7 @@ paths:
           description: "Attach to `stderr`"
           type: "boolean"
           default: false
-      tags: ["Container"]
+      tags: ["ContainerResponse"]
   /containers/{id}/attach/ws:
     get:
       summary: "Attach to a container via a websocket"
@@ -5853,13 +5853,13 @@ paths:
           description: "Attach to `stderr`"
           type: "boolean"
           default: false
-      tags: ["Container"]
+      tags: ["ContainerResponse"]
   /containers/{id}/wait:
     post:
       summary: "Wait for a container"
       description: "Block until a container stops, then returns the exit code."
       operationId: "ContainerWait"
-      produces: ["application/json"]
+      produces: ["application/containerCreateRequest"]
       responses:
         200:
           description: "The container has exit."
@@ -5902,7 +5902,7 @@ paths:
           description: "Wait until a container state reaches the given condition, either 'not-running' (default), 'next-exit', or 'removed'."
           type: "string"
           default: "not-running"
-      tags: ["Container"]
+      tags: ["ContainerResponse"]
   /containers/{id}:
     delete:
       summary: "Remove a container"
@@ -5953,11 +5953,11 @@ paths:
           description: "Remove the specified link associated with the container."
           type: "boolean"
           default: false
-      tags: ["Container"]
+      tags: ["ContainerResponse"]
   /containers/{id}/archive:
     head:
       summary: "Get information about files in a container"
-      description: "A response header `X-Docker-Container-Path-Stat` is return containing a base64 - encoded JSON object with some filesystem header information about the path."
+      description: "A response header `X-Docker-ContainerResponse-Path-Stat` is return containing a base64 - encoded JSON object with some filesystem header information about the path."
       operationId: "ContainerArchiveInfo"
       responses:
         200:
@@ -5978,7 +5978,7 @@ paths:
                     type: "string"
                     x-nullable: false
         404:
-          description: "Container or path does not exist"
+          description: "ContainerResponse or path does not exist"
           schema:
             $ref: "#/definitions/ErrorResponse"
           examples:
@@ -5999,7 +5999,7 @@ paths:
           required: true
           description: "Resource in the container’s filesystem to archive."
           type: "string"
-      tags: ["Container"]
+      tags: ["ContainerResponse"]
     get:
       summary: "Get an archive of a filesystem resource in a container"
       description: "Get a tar archive of a resource in the filesystem of container id."
@@ -6020,7 +6020,7 @@ paths:
                     type: "string"
                     x-nullable: false
         404:
-          description: "Container or path does not exist"
+          description: "ContainerResponse or path does not exist"
           schema:
             $ref: "#/definitions/ErrorResponse"
           examples:
@@ -6041,7 +6041,7 @@ paths:
           required: true
           description: "Resource in the container’s filesystem to archive."
           type: "string"
-      tags: ["Container"]
+      tags: ["ContainerResponse"]
     put:
       summary: "Extract an archive of files or folders to a directory in a container"
       description: "Upload a tar archive to be extracted to a path in the filesystem of container id."
@@ -6090,12 +6090,12 @@ paths:
           description: "The input stream must be a tar archive compressed with one of the following algorithms: identity (no compression), gzip, bzip2, xz."
           schema:
             type: "string"
-      tags: ["Container"]
+      tags: ["ContainerResponse"]
   /containers/prune:
     post:
       summary: "Delete stopped containers"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       operationId: "ContainerPrune"
       parameters:
         - name: "filters"
@@ -6115,7 +6115,7 @@ paths:
             title: "ContainerPruneResponse"
             properties:
               ContainersDeleted:
-                description: "Container IDs that were deleted"
+                description: "ContainerResponse IDs that were deleted"
                 type: "array"
                 items:
                   type: "string"
@@ -6127,14 +6127,14 @@ paths:
           description: "Server error"
           schema:
             $ref: "#/definitions/ErrorResponse"
-      tags: ["Container"]
+      tags: ["ContainerResponse"]
   /images/json:
     get:
       summary: "List Images"
       description: "Returns a list of images on the server. Note that it uses a different, smaller representation of an image than inspecting a single image."
       operationId: "ImageList"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       responses:
         200:
           description: "Summary image data for the images matching the query"
@@ -6197,7 +6197,7 @@ paths:
           description: "Show digest information as a `RepoDigests` field on each image."
           type: "boolean"
           default: false
-      tags: ["Image"]
+      tags: ["ImageResponse"]
   /build:
     post:
       summary: "Build an image"
@@ -6213,7 +6213,7 @@ paths:
       consumes:
         - "application/octet-stream"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       parameters:
         - name: "inputStream"
           in: "body"
@@ -6373,12 +6373,12 @@ paths:
           description: "server error"
           schema:
             $ref: "#/definitions/ErrorResponse"
-      tags: ["Image"]
+      tags: ["ImageResponse"]
   /build/prune:
     post:
       summary: "Delete builder cache"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       operationId: "BuildPrune"
       parameters:
         - name: "keep-storage"
@@ -6423,7 +6423,7 @@ paths:
           description: "Server error"
           schema:
             $ref: "#/definitions/ErrorResponse"
-      tags: ["Image"]
+      tags: ["ImageResponse"]
   /images/create:
     post:
       summary: "Create an image"
@@ -6433,7 +6433,7 @@ paths:
         - "text/plain"
         - "application/octet-stream"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       responses:
         200:
           description: "no error"
@@ -6464,7 +6464,7 @@ paths:
           type: "string"
         - name: "inputImage"
           in: "body"
-          description: "Image content if the value `-` has been specified in fromSrc query parameter"
+          description: "ImageResponse content if the value `-` has been specified in fromSrc query parameter"
           schema:
             type: "string"
           required: false
@@ -6477,19 +6477,19 @@ paths:
           description: "Platform in the format os[/arch[/variant]]"
           type: "string"
           default: ""
-      tags: ["Image"]
+      tags: ["ImageResponse"]
   /images/{name}/json:
     get:
       summary: "Inspect an image"
       description: "Return low-level information about an image."
       operationId: "ImageInspect"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       responses:
         200:
           description: "No error"
           schema:
-            $ref: "#/definitions/Image"
+            $ref: "#/definitions/ImageResponse"
           examples:
             application/json:
               Id: "sha256:85f05633ddc1c50679be2b16a0479ab6f7637f8884e0cfe0f4d20e1ebb3d6e7c"
@@ -6581,16 +6581,16 @@ paths:
       parameters:
         - name: "name"
           in: "path"
-          description: "Image name or id"
+          description: "ImageResponse name or id"
           type: "string"
           required: true
-      tags: ["Image"]
+      tags: ["ImageResponse"]
   /images/{name}/history:
     get:
       summary: "Get the history of an image"
       description: "Return parent layers of an image."
       operationId: "ImageHistory"
-      produces: ["application/json"]
+      produces: ["application/containerCreateRequest"]
       responses:
         200:
           description: "List of image layers"
@@ -6659,10 +6659,10 @@ paths:
       parameters:
         - name: "name"
           in: "path"
-          description: "Image name or ID"
+          description: "ImageResponse name or ID"
           type: "string"
           required: true
-      tags: ["Image"]
+      tags: ["ImageResponse"]
   /images/{name}/push:
     post:
       summary: "Push an image"
@@ -6689,7 +6689,7 @@ paths:
       parameters:
         - name: "name"
           in: "path"
-          description: "Image name or ID."
+          description: "ImageResponse name or ID."
           type: "string"
           required: true
         - name: "tag"
@@ -6701,7 +6701,7 @@ paths:
           description: "A base64-encoded auth configuration. [See the authentication section for details.](#section/Authentication)"
           type: "string"
           required: true
-      tags: ["Image"]
+      tags: ["ImageResponse"]
   /images/{name}/tag:
     post:
       summary: "Tag an image"
@@ -6729,7 +6729,7 @@ paths:
       parameters:
         - name: "name"
           in: "path"
-          description: "Image name or ID to tag."
+          description: "ImageResponse name or ID to tag."
           type: "string"
           required: true
         - name: "repo"
@@ -6740,7 +6740,7 @@ paths:
           in: "query"
           description: "The name of the new tag."
           type: "string"
-      tags: ["Image"]
+      tags: ["ImageResponse"]
   /images/{name}:
     delete:
       summary: "Remove an image"
@@ -6751,7 +6751,7 @@ paths:
         Images can't be removed if they have descendant images, are being
         used by a running container or are being used by a build.
       operationId: "ImageDelete"
-      produces: ["application/json"]
+      produces: ["application/containerCreateRequest"]
       responses:
         200:
           description: "The image was deleted successfully"
@@ -6779,7 +6779,7 @@ paths:
       parameters:
         - name: "name"
           in: "path"
-          description: "Image name or ID"
+          description: "ImageResponse name or ID"
           type: "string"
           required: true
         - name: "force"
@@ -6792,14 +6792,14 @@ paths:
           description: "Do not delete untagged parent images"
           type: "boolean"
           default: false
-      tags: ["Image"]
+      tags: ["ImageResponse"]
   /images/search:
     get:
       summary: "Search images"
       description: "Search for an image on Docker Hub."
       operationId: "ImageSearch"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       responses:
         200:
           description: "No error"
@@ -6859,12 +6859,12 @@ paths:
             - `is-official=(true|false)`
             - `stars=<number>` Matches images that has at least 'number' stars.
           type: "string"
-      tags: ["Image"]
+      tags: ["ImageResponse"]
   /images/prune:
     post:
       summary: "Delete unused images"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       operationId: "ImagePrune"
       parameters:
         - name: "filters"
@@ -6898,14 +6898,14 @@ paths:
           description: "Server error"
           schema:
             $ref: "#/definitions/ErrorResponse"
-      tags: ["Image"]
+      tags: ["ImageResponse"]
   /auth:
     post:
       summary: "Check auth configuration"
       description: "Validate credentials for a registry and, if available, get an identity token for accessing the registry without password."
       operationId: "SystemAuth"
-      consumes: ["application/json"]
-      produces: ["application/json"]
+      consumes: ["application/containerCreateRequest"]
+      produces: ["application/containerCreateRequest"]
       responses:
         200:
           description: "An identity token was generated successfully."
@@ -6944,7 +6944,7 @@ paths:
       summary: "Get system information"
       operationId: "SystemInfo"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       responses:
         200:
           description: "No error"
@@ -6960,7 +6960,7 @@ paths:
       summary: "Get version"
       description: "Returns the version of Docker that is running and various information about the system that Docker is running on."
       operationId: "SystemVersion"
-      produces: ["application/json"]
+      produces: ["application/containerCreateRequest"]
       responses:
         200:
           description: "no error"
@@ -7059,9 +7059,9 @@ paths:
       summary: "Create a new image from a container"
       operationId: "ImageCommit"
       consumes:
-        - "application/json"
+        - "application/containerCreateRequest"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       responses:
         201:
           description: "no error"
@@ -7113,7 +7113,7 @@ paths:
           in: "query"
           description: "`Dockerfile` instructions to apply while committing"
           type: "string"
-      tags: ["Image"]
+      tags: ["ImageResponse"]
   /events:
     get:
       summary: "Monitor events"
@@ -7142,7 +7142,7 @@ paths:
 
       operationId: "SystemEvents"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       responses:
         200:
           description: "no error"
@@ -7248,7 +7248,7 @@ paths:
               Volumes:
                 type: "array"
                 items:
-                  $ref: "#/definitions/Volume"
+                  $ref: "#/definitions/VolumeResponse"
               BuildCache:
                 type: "array"
                 items:
@@ -7357,10 +7357,10 @@ paths:
       parameters:
         - name: "name"
           in: "path"
-          description: "Image name or ID"
+          description: "ImageResponse name or ID"
           type: "string"
           required: true
-      tags: ["Image"]
+      tags: ["ImageResponse"]
   /images/get:
     get:
       summary: "Export several images"
@@ -7386,11 +7386,11 @@ paths:
       parameters:
         - name: "names"
           in: "query"
-          description: "Image names to filter by"
+          description: "ImageResponse names to filter by"
           type: "array"
           items:
             type: "string"
-      tags: ["Image"]
+      tags: ["ImageResponse"]
   /images/load:
     post:
       summary: "Import images"
@@ -7402,7 +7402,7 @@ paths:
       consumes:
         - "application/x-tar"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       responses:
         200:
           description: "no error"
@@ -7422,16 +7422,16 @@ paths:
           description: "Suppress progress details during load."
           type: "boolean"
           default: false
-      tags: ["Image"]
+      tags: ["ImageResponse"]
   /containers/{id}/exec:
     post:
       summary: "Create an exec instance"
       description: "Run a command inside a running container."
       operationId: "ContainerExec"
       consumes:
-        - "application/json"
+        - "application/containerCreateRequest"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       responses:
         201:
           description: "no error"
@@ -7518,7 +7518,7 @@ paths:
       description: "Starts a previously set up exec instance. If detach is true, this endpoint returns immediately after starting the command. Otherwise, it sets up an interactive session with the command."
       operationId: "ExecStart"
       consumes:
-        - "application/json"
+        - "application/containerCreateRequest"
       produces:
         - "application/vnd.com.github.jameshnsears.docker.raw-stream"
       responses:
@@ -7529,7 +7529,7 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
         409:
-          description: "Container is stopped or paused"
+          description: "ContainerResponse is stopped or paused"
           schema:
             $ref: "#/definitions/ErrorResponse"
       parameters:
@@ -7586,7 +7586,7 @@ paths:
       description: "Return low-level information about an exec instance."
       operationId: "ExecInspect"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       responses:
         200:
           description: "No error"
@@ -7657,14 +7657,14 @@ paths:
     get:
       summary: "List volumes"
       operationId: "VolumeList"
-      produces: ["application/json"]
+      produces: ["application/containerCreateRequest"]
       responses:
         200:
           description: "Summary volume data that matches the query"
           schema:
             type: "object"
             title: "VolumeListResponse"
-            description: "Volume list response"
+            description: "VolumeResponse list response"
             required: [Volumes, Warnings]
             properties:
               Volumes:
@@ -7672,7 +7672,7 @@ paths:
                 x-nullable: false
                 description: "List of volumes"
                 items:
-                  $ref: "#/definitions/Volume"
+                  $ref: "#/definitions/VolumeResponse"
               Warnings:
                 type: "array"
                 x-nullable: false
@@ -7716,20 +7716,20 @@ paths:
                the presence of a `label` alone or a `label` and a value.
             - `name=<volume-name>` Matches all or part of a volume name.
           type: "string"
-          format: "json"
-      tags: ["Volume"]
+          format: "containerCreateRequest"
+      tags: ["VolumeResponse"]
 
   /volumes/create:
     post:
       summary: "Create a volume"
       operationId: "VolumeCreate"
-      consumes: ["application/json"]
-      produces: ["application/json"]
+      consumes: ["application/containerCreateRequest"]
+      produces: ["application/containerCreateRequest"]
       responses:
         201:
           description: "The volume was created successfully"
           schema:
-            $ref: "#/definitions/Volume"
+            $ref: "#/definitions/VolumeResponse"
         500:
           description: "Server error"
           schema:
@@ -7738,10 +7738,10 @@ paths:
         - name: "volumeConfig"
           in: "body"
           required: true
-          description: "Volume configuration"
+          description: "VolumeResponse configuration"
           schema:
             type: "object"
-            description: "Volume configuration"
+            description: "VolumeResponse configuration"
             title: "VolumeConfig"
             properties:
               Name:
@@ -7769,18 +7769,18 @@ paths:
                 com.example.some-label: "some-value"
                 com.example.some-other-label: "some-other-value"
               Driver: "custom"
-      tags: ["Volume"]
+      tags: ["VolumeResponse"]
 
   /volumes/{name}:
     get:
       summary: "Inspect a volume"
       operationId: "VolumeInspect"
-      produces: ["application/json"]
+      produces: ["application/containerCreateRequest"]
       responses:
         200:
           description: "No error"
           schema:
-            $ref: "#/definitions/Volume"
+            $ref: "#/definitions/VolumeResponse"
         404:
           description: "No such volume"
           schema:
@@ -7793,9 +7793,9 @@ paths:
         - name: "name"
           in: "path"
           required: true
-          description: "Volume name or ID"
+          description: "VolumeResponse name or ID"
           type: "string"
-      tags: ["Volume"]
+      tags: ["VolumeResponse"]
 
     delete:
       summary: "Remove a volume"
@@ -7809,7 +7809,7 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
         409:
-          description: "Volume is in use and cannot be removed"
+          description: "VolumeResponse is in use and cannot be removed"
           schema:
             $ref: "#/definitions/ErrorResponse"
         500:
@@ -7820,19 +7820,19 @@ paths:
         - name: "name"
           in: "path"
           required: true
-          description: "Volume name or ID"
+          description: "VolumeResponse name or ID"
           type: "string"
         - name: "force"
           in: "query"
           description: "Force the removal of the volume"
           type: "boolean"
           default: false
-      tags: ["Volume"]
+      tags: ["VolumeResponse"]
   /volumes/prune:
     post:
       summary: "Delete unused volumes"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       operationId: "VolumePrune"
       parameters:
         - name: "filters"
@@ -7863,7 +7863,7 @@ paths:
           description: "Server error"
           schema:
             $ref: "#/definitions/ErrorResponse"
-      tags: ["Volume"]
+      tags: ["VolumeResponse"]
   /networks:
     get:
       summary: "List networks"
@@ -7874,14 +7874,14 @@ paths:
         the list of containers attached to the network is not propagated in API versions 1.28 and up.
       operationId: "NetworkList"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       responses:
         200:
           description: "No error"
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Network"
+              $ref: "#/definitions/NetworkResponse"
           examples:
             application/json:
               - Name: "bridge"
@@ -7949,21 +7949,21 @@ paths:
             - `scope=["swarm"|"global"|"local"]` Filters networks by scope (`swarm`, `global`, or `local`).
             - `type=["custom"|"builtin"]` Filters networks by type. The `custom` keyword returns all user-defined networks.
           type: "string"
-      tags: ["Network"]
+      tags: ["NetworkResponse"]
 
   /networks/{id}:
     get:
       summary: "Inspect a network"
       operationId: "NetworkInspect"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       responses:
         200:
           description: "No error"
           schema:
-            $ref: "#/definitions/Network"
+            $ref: "#/definitions/NetworkResponse"
         404:
-          description: "Network not found"
+          description: "NetworkResponse not found"
           schema:
             $ref: "#/definitions/ErrorResponse"
         500:
@@ -7973,7 +7973,7 @@ paths:
       parameters:
         - name: "id"
           in: "path"
-          description: "Network ID or name"
+          description: "NetworkResponse ID or name"
           required: true
           type: "string"
         - name: "verbose"
@@ -7985,7 +7985,7 @@ paths:
           in: "query"
           description: "Filter the network by scope (swarm, global, or local)"
           type: "string"
-      tags: ["Network"]
+      tags: ["NetworkResponse"]
 
     delete:
       summary: "Remove a network"
@@ -8008,19 +8008,19 @@ paths:
       parameters:
         - name: "id"
           in: "path"
-          description: "Network ID or name"
+          description: "NetworkResponse ID or name"
           required: true
           type: "string"
-      tags: ["Network"]
+      tags: ["NetworkResponse"]
 
   /networks/create:
     post:
       summary: "Create a network"
       operationId: "NetworkCreate"
       consumes:
-        - "application/json"
+        - "application/containerCreateRequest"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       responses:
         201:
           description: "No error"
@@ -8051,7 +8051,7 @@ paths:
       parameters:
         - name: "networkConfig"
           in: "body"
-          description: "Network configuration"
+          description: "NetworkResponse configuration"
           required: true
           schema:
             type: "object"
@@ -8061,7 +8061,7 @@ paths:
                 description: "The network's name."
                 type: "string"
               CheckDuplicate:
-                description: "Check for networks with duplicate names. Since Network is primarily keyed based on a random ID and not on the name, and network name is strictly a user-friendly alias to the network which is uniquely identified using ID, there is no guaranteed way to check for duplicates. CheckDuplicate is there to provide a best effort checking of any networks which has the same name but it is not guaranteed to catch all name collisions."
+                description: "Check for networks with duplicate names. Since NetworkResponse is primarily keyed based on a random ID and not on the name, and network name is strictly a user-friendly alias to the network which is uniquely identified using ID, there is no guaranteed way to check for duplicates. CheckDuplicate is there to provide a best effort checking of any networks which has the same name but it is not guaranteed to catch all name collisions."
                 type: "boolean"
               Driver:
                 description: "Name of the network driver plugin to use."
@@ -8083,7 +8083,7 @@ paths:
                 description: "Enable IPv6 on the network."
                 type: "boolean"
               Options:
-                description: "Network specific options to be used by the drivers."
+                description: "NetworkResponse specific options to be used by the drivers."
                 type: "object"
                 additionalProperties:
                   type: "string"
@@ -8120,14 +8120,14 @@ paths:
               Labels:
                 com.example.some-label: "some-value"
                 com.example.some-other-label: "some-other-value"
-      tags: ["Network"]
+      tags: ["NetworkResponse"]
 
   /networks/{id}/connect:
     post:
       summary: "Connect a container to a network"
       operationId: "NetworkConnect"
       consumes:
-        - "application/json"
+        - "application/containerCreateRequest"
       responses:
         200:
           description: "No error"
@@ -8136,7 +8136,7 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
         404:
-          description: "Network or container not found"
+          description: "NetworkResponse or container not found"
           schema:
             $ref: "#/definitions/ErrorResponse"
         500:
@@ -8146,7 +8146,7 @@ paths:
       parameters:
         - name: "id"
           in: "path"
-          description: "Network ID or name"
+          description: "NetworkResponse ID or name"
           required: true
           type: "string"
         - name: "container"
@@ -8166,14 +8166,14 @@ paths:
                 IPAMConfig:
                   IPv4Address: "172.24.56.89"
                   IPv6Address: "2001:db8::5689"
-      tags: ["Network"]
+      tags: ["NetworkResponse"]
 
   /networks/{id}/disconnect:
     post:
       summary: "Disconnect a container from a network"
       operationId: "NetworkDisconnect"
       consumes:
-        - "application/json"
+        - "application/containerCreateRequest"
       responses:
         200:
           description: "No error"
@@ -8182,7 +8182,7 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
         404:
-          description: "Network or container not found"
+          description: "NetworkResponse or container not found"
           schema:
             $ref: "#/definitions/ErrorResponse"
         500:
@@ -8192,7 +8192,7 @@ paths:
       parameters:
         - name: "id"
           in: "path"
-          description: "Network ID or name"
+          description: "NetworkResponse ID or name"
           required: true
           type: "string"
         - name: "container"
@@ -8207,12 +8207,12 @@ paths:
               Force:
                 type: "boolean"
                 description: "Force the container to disconnect from the network."
-      tags: ["Network"]
+      tags: ["NetworkResponse"]
   /networks/prune:
     post:
       summary: "Delete unused networks"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       operationId: "NetworkPrune"
       parameters:
         - name: "filters"
@@ -8240,13 +8240,13 @@ paths:
           description: "Server error"
           schema:
             $ref: "#/definitions/ErrorResponse"
-      tags: ["Network"]
+      tags: ["NetworkResponse"]
   /plugins:
     get:
       summary: "List plugins"
       operationId: "PluginList"
       description: "Returns information about installed plugins."
-      produces: ["application/json"]
+      produces: ["application/containerCreateRequest"]
       responses:
         200:
           description: "No error"
@@ -8324,7 +8324,7 @@ paths:
       description: |
         Pulls and installs a plugin. After the plugin is installed, it can be enabled using the [`POST /plugins/{name}/enable` endpoint](#operation/PostPluginsEnable).
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       responses:
         204:
           description: "no error"
@@ -8603,7 +8603,7 @@ paths:
       summary: "Configure a plugin"
       operationId: "PluginSet"
       consumes:
-        - "application/json"
+        - "application/containerCreateRequest"
       parameters:
         - name: "name"
           in: "path"
@@ -8787,7 +8787,7 @@ paths:
       summary: "Initialize a new swarm"
       operationId: "SwarmInit"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
         - "text/plain"
       responses:
         200:
@@ -8992,7 +8992,7 @@ paths:
       summary: "Get the unlock key"
       operationId: "SwarmUnlockkey"
       consumes:
-        - "application/json"
+        - "application/containerCreateRequest"
       responses:
         200:
           description: "no error"
@@ -9019,9 +9019,9 @@ paths:
       summary: "Unlock a locked manager"
       operationId: "SwarmUnlock"
       consumes:
-        - "application/json"
+        - "application/containerCreateRequest"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       parameters:
         - name: "body"
           in: "body"
@@ -9082,9 +9082,9 @@ paths:
       summary: "Create a service"
       operationId: "ServiceCreate"
       consumes:
-        - "application/json"
+        - "application/containerCreateRequest"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       responses:
         201:
           description: "no error"
@@ -9158,7 +9158,7 @@ paths:
                           SecretID: "fpjqlhnwb19zds35k8wn80lq9"
                           SecretName: "example_org_domain_key"
                     LogDriver:
-                      Name: "json-file"
+                      Name: "containerCreateRequest-file"
                       Options:
                         max-file: "3"
                         max-size: "10M"
@@ -9260,8 +9260,8 @@ paths:
     post:
       summary: "Update a service"
       operationId: "ServiceUpdate"
-      consumes: ["application/json"]
-      produces: ["application/json"]
+      consumes: ["application/containerCreateRequest"]
+      produces: ["application/containerCreateRequest"]
       responses:
         200:
           description: "no error"
@@ -9366,7 +9366,7 @@ paths:
       operationId: "ServiceLogs"
       produces:
         - "application/vnd.com.github.jameshnsears.docker.raw-stream"
-        - "application/json"
+        - "application/containerCreateRequest"
       responses:
         101:
           description: "logs returned as a stream"
@@ -9442,7 +9442,7 @@ paths:
       summary: "List tasks"
       operationId: "TaskList"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       responses:
         200:
           description: "no error"
@@ -9588,7 +9588,7 @@ paths:
       summary: "Inspect a task"
       operationId: "TaskInspect"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       responses:
         200:
           description: "no error"
@@ -9623,7 +9623,7 @@ paths:
       operationId: "TaskLogs"
       produces:
         - "application/vnd.com.github.jameshnsears.docker.raw-stream"
-        - "application/json"
+        - "application/containerCreateRequest"
       responses:
         101:
           description: "logs returned as a stream"
@@ -9698,7 +9698,7 @@ paths:
       summary: "List secrets"
       operationId: "SecretList"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       responses:
         200:
           description: "no error"
@@ -9755,9 +9755,9 @@ paths:
       summary: "Create a secret"
       operationId: "SecretCreate"
       consumes:
-        - "application/json"
+        - "application/containerCreateRequest"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       responses:
         201:
           description: "no error"
@@ -9798,7 +9798,7 @@ paths:
       summary: "Inspect a secret"
       operationId: "SecretInspect"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       responses:
         200:
           description: "no error"
@@ -9844,7 +9844,7 @@ paths:
       summary: "Delete a secret"
       operationId: "SecretDelete"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       responses:
         204:
           description: "no error"
@@ -9913,7 +9913,7 @@ paths:
       summary: "List configs"
       operationId: "ConfigList"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       responses:
         200:
           description: "no error"
@@ -9954,9 +9954,9 @@ paths:
       summary: "Create a config"
       operationId: "ConfigCreate"
       consumes:
-        - "application/json"
+        - "application/containerCreateRequest"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       responses:
         201:
           description: "no error"
@@ -9992,7 +9992,7 @@ paths:
       summary: "Inspect a config"
       operationId: "ConfigInspect"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       responses:
         200:
           description: "no error"
@@ -10030,7 +10030,7 @@ paths:
       summary: "Delete a config"
       operationId: "ConfigDelete"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       responses:
         204:
           description: "no error"
@@ -10100,7 +10100,7 @@ paths:
       description: "Return image digest and platform information by contacting the registry."
       operationId: "DistributionInspect"
       produces:
-        - "application/json"
+        - "application/containerCreateRequest"
       responses:
         200:
           description: "descriptor and platform information"
@@ -10150,7 +10150,7 @@ paths:
           examples:
             application/json:
               Descriptor:
-                MediaType: "application/vnd.com.github.jameshnsears.docker.distribution.manifest.v2+json"
+                MediaType: "application/vnd.com.github.jameshnsears.docker.distribution.manifest.v2+containerCreateRequest"
                 Digest: "sha256:c0537ff6a5218ef531ece93d4984efc99bbf3f7497c0a7726c88e2bb7584dc96"
                 Size: 3987495
                 URLs:
@@ -10178,7 +10178,7 @@ paths:
       parameters:
         - name: "name"
           in: "path"
-          description: "Image name or id"
+          description: "ImageResponse name or id"
           type: "string"
           required: true
       tags: ["Distribution"]

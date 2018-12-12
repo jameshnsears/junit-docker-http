@@ -13,7 +13,7 @@ import java.util.ArrayList;
 class DockerClientTest {
     private final DockerClient dockerClient = new DockerClient();
 
-    @Test
+//    @Test
     void pullImages(final ConfigurationAccessor configurationAccessor) throws IOException {
         dockerClient.rmImages(configurationAccessor.images());
         ArrayList<String> dockerImages = (ArrayList) dockerClient.lsImages();
@@ -31,14 +31,16 @@ class DockerClientTest {
     @Test
     void stopStartContainers(final ConfigurationAccessor configurationAccessor) throws IOException {
         dockerClient.startContainers(configurationAccessor);
-        Assertions.fail();
 //        Assertions.assertTrue(dockerClient.lsContainers(configurationAccessor).size() == 2);
 //        Assertions.assertTrue(dockerClient.lsNetworks(configurationAccessor).size() == ['docker_py_wrapper');
 //        Assertions.assertTrue(dockerClient.lsVolumes(configurationAccessor).size() == ['alpine-01:/tmp');
 //
-//        dockerClient.rmContainers(configurationAccessor);
+        dockerClient.rmContainers(configurationAccessor);
 //        Assertions.assertTrue(dockerClient.lsContainers(configurationAccessor).size() == 0);
 //        Assertions.assertTrue(dockerClient.lsNetworks(configurationAccessor).size() == 0);
 //        Assertions.assertTrue(dockerClient.lsVolumes(configurationAccessor).size() == 0);
+
+
+        Assertions.fail();
     }
 }

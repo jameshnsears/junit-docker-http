@@ -1,13 +1,13 @@
 work on DockerClientTest
 
+check precondition used everywhere!
+
 use coverage + other static analsys tools to rm as much as possible - especially in Models
 = +incoproate more pre-condition tests
 
 work on JunitDockerHttpExtensionTest to actually use the extension
 
-check volumes created correctly in pytest-docker-py
-
-rename project / repo from "junit-docker-http" to "junit-docker_client-extension"
+check volumes + networks created correctly in pytest-docker-py
 
 in configurationaccessor use more Models!?
 

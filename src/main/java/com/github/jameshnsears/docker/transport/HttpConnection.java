@@ -59,6 +59,7 @@ public class HttpConnection {
         Preconditions.checkNotNull(endpoint);
 
         logger.info(endpoint);
+        logger.debug(json);
 
         final Request request = new Request.Builder()
                 .url(endpoint)
@@ -73,7 +74,7 @@ public class HttpConnection {
         Preconditions.checkNotNull(request);
 
         final Response response = okHttpClient().newCall(request).execute();
-        logger.debug(response.body().string().replace("\n", ""));
+
         logger.info(String.format("%s", response.code()));
         return response;
     }

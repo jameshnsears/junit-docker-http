@@ -6,12 +6,12 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Container {
+public class ContainerResponse {
     @SerializedName("Id")
     @Expose
     private String id;
 
-    @SerializedName("Image")
+    @SerializedName("ImageResponse")
     @Expose
     private String image;
 

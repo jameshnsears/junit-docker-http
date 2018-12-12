@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 import java.util.Map;
 
-public class ContainerCreate {
+public class ContainerCreateRequest {
     @SerializedName("Tty")
     @Expose
     public Boolean tty = false;

@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Image {
+public class ImageResponse {
     @SerializedName("Id")
     @Expose
     private String id;

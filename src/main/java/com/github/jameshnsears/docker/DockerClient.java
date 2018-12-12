@@ -2,11 +2,13 @@ package com.github.jameshnsears.docker;
 
 import com.github.jameshnsears.Configuration;
 import com.github.jameshnsears.ConfigurationAccessor;
-import com.github.jameshnsears.docker.models.Container;
-import com.github.jameshnsears.docker.models.Image;
-import com.github.jameshnsears.docker.models.Network;
+import com.github.jameshnsears.docker.models.ContainerCreateResponse;
+import com.github.jameshnsears.docker.models.ContainerResponse;
+import com.github.jameshnsears.docker.models.ImageResponse;
+import com.github.jameshnsears.docker.models.NetworkResponse;
 import com.github.jameshnsears.docker.transport.HttpConnection;
-import com.github.jameshnsears.docker.utils.ModelMapper;
+import com.github.jameshnsears.docker.utils.RequestMapper;
+import com.github.jameshnsears.docker.utils.ResponseMapper;
 import com.google.common.base.Preconditions;
 import com.google.gson.JsonSyntaxException;
 import okhttp3.Response;
@@ -14,26 +16,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.AbstractList;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 
 public class DockerClient {
     private static final Logger logger = LoggerFactory.getLogger(DockerClient.class);
     private final HttpConnection httpConnection = new HttpConnection();
-    private final ModelMapper modelMapper = new ModelMapper();
+    private final ResponseMapper responseMapper = new ResponseMapper();
+    private final RequestMapper containerCreateMapper = new RequestMapper();
 
     public AbstractList<String> lsImages() throws IOException {
         final ArrayList<String> imageNames = new ArrayList<>();
 
         try {
-            final String json = httpConnection.get("http://127.0.0.1/v1.39/images/json");
-            final ArrayList<Image> dockerImages = (ArrayList) modelMapper.mapJsonIntoImages(json);
+            final String json = httpConnection.get("http://127.0.0.1/v1.39/images/containerCreateRequest");
+            final ArrayList<ImageResponse> dockerImages = (ArrayList) responseMapper.imagesResponse(json);
 
-            for (final Image dockerImage : dockerImages) {
+            for (final ImageResponse dockerImage : dockerImages) {
                 imageNames.addAll(dockerImage.getRepoTags());
             }
         } catch (JsonSyntaxException jsonSyntaxException) {
@@ -51,10 +51,10 @@ public class DockerClient {
 
         try {
             final String json = httpConnection.get(
-                    "http://127.0.0.1/v1.39/containers/json?limit=-1&all=0&size=0&trunc_cmd=0");
-            final ArrayList<Container> dockerContainers = (ArrayList) modelMapper.mapJsonIntoContainers(json);
+                    "http://127.0.0.1/v1.39/containers/containerCreateRequest?limit=-1&all=0&size=0&trunc_cmd=0");
+            final ArrayList<ContainerResponse> dockerContainers = (ArrayList) responseMapper.containersResponse(json);
 
-            for (final Container dockerContainer : dockerContainers) {
+            for (final ContainerResponse dockerContainer : dockerContainers) {
                 for (final String containerName : dockerContainer.getNames()) {
                     if (configurationAccessor.images().contains(containerName)) {
                         final Map<String, String> container = new ConcurrentHashMap<>();
@@ -97,7 +97,7 @@ public class DockerClient {
         final ArrayList<String> dockerImages = (ArrayList) lsImages();
         for (final String configurationImage : configurationImages) {
             if (!dockerImages.contains(configurationImage)) {
-                logger.debug(configurationImage);
+                logger.info(configurationImage);
                 httpConnection.post(
                         String.format("http://127.0.0.1/v1.39/images/create?fromImage=%s", configurationImage));
             }
@@ -112,51 +112,17 @@ public class DockerClient {
 
         // create container
         final Collection<Configuration> configurationContainers = configurationAccessor.containers();
+        ContainerCreateResponse containerCreateResponse;
+
         for (final Configuration configurationContainer : configurationContainers) {
+            logger.info(configurationContainer.getName());
             Response response = httpConnection.post(
                     String.format("http://127.0.0.1/v1.39/containers/create?name=%s", configurationContainer.getName()),
-                    jsonForContainerCreation(configurationContainer));
+                    containerCreateMapper.containerCreateRequest(configurationContainer));
 
-//            configurationContainer.getImage();  // alpine:latest
-//            configurationContainer.getCommand(); // to split into white space seperated values
-
-//            httpConnection.post(
-//                    String.format("http://127.0.0.1/v1.39/containers/%s/start", response.body("Id"));
-            // {"Id":"e0f5f5110f92b661839470adfadf55755caedee0c84fd3119d2e6a2dfc7a1fe8","Warnings":null}.
+            httpConnection.post(
+                    String.format("http://127.0.0.1/v1.39/containers/%s/start", responseMapper.containerCreateResponse(response).id));
         }
-    }
-
-    public String jsonForContainerCreation(final Configuration configurationContainer4) {
-        String json = null;
-        /*
-POST /v1.35/containers/create?name=alpine-01
-{
-"ExposedPorts": {"1234/tcp": {}},
-"Cmd": ["sleep", "12345"],
-"Image": "alpine:latest",
-"Volumes": {"/tmp": {}},
-"NetworkDisabled": false,
-"HostConfig": {
-    "NetworkMode": "default",
-    "Binds": ["alpine-01:/tmp:rw"],
-    "PortBindings": {
-        "1234/tcp": [{
-            "HostIp": "", "HostPort": "1234"}
-            ]}
-        }
-    }
-
---
-
-POST /v1.35/containers/create?name=busybox-01
->
-
-< {"Id":"2976e872fae3cd6614a81926ef6c67b95d2cdda02179661694fc55cc252ee9f5","Warnings":null}
-
-POST /v1.35/containers/2976e872fae3cd6614a81926ef6c67b95d2cdda02179661694fc55cc252ee9f5/start
-
-*/
-        return json;
     }
 
     public void rmContainers(final ConfigurationAccessor configurationAccessor) throws IOException {
@@ -209,10 +175,10 @@ POST /v1.35/containers/2976e872fae3cd6614a81926ef6c67b95d2cdda02179661694fc55cc2
     private AbstractList<String> lsNetworks() throws IOException {
         final String json = httpConnection.get(
                 "http://127.0.0.1/v1.39/networks?filters=%7B%7D");
-        final ArrayList<Network> dockerNetworks = (ArrayList) modelMapper.mapJsonIntoNetworks(json);
+        final ArrayList<NetworkResponse> dockerNetworks = (ArrayList) responseMapper.networksResponse(json);
 
         final ArrayList<String> networks = new ArrayList<>();
-        for (final Network dockerNetwork : dockerNetworks) {
+        for (final NetworkResponse dockerNetwork : dockerNetworks) {
             networks.add(dockerNetwork.getName());
         }
 
