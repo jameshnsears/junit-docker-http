@@ -39,28 +39,42 @@ class DockerClientTest {
         String json = modelMapper.mapConfigurationContainerIntoJson(configurationContainers.get(0));
 
         String expectedJson = "";
+
         /*
-        {
-"ExposedPorts": {"1234/tcp": {}},
-"Tty": false,
-"OpenStdin": false,
-"StdinOnce": false,
-"AttachStdin": false,
-"AttachStdout": false,
-"AttachStderr": false,
-"Cmd": ["sleep", "12345"],
-"Image": "alpine:latest",
-"Volumes": {"/tmp": {}},
-"NetworkDisabled": false,
-"HostConfig": {
+{
+  "Tty": false,
+  "OpenStdin": false,
+  "StdinOnce": false,
+  "AttachStdin": false,
+  "AttachStdout": false,
+  "AttachStderr": false,
+  "NetworkDisabled": false,
+  "Image": "alpine:latest",
+  "ExposedPorts": {
+    "1234/tcp": {}
+  },
+  "Cmd": [
+    "sleep",
+    "12345"
+  ],
+  "Volumes": {
+    "/tmp": {}
+  },
+  "HostConfig": {
     "NetworkMode": "default",
-    "Binds": ["alpine-01:/tmp:rw"],
+    "Binds": [
+      "alpine-01:/tmp:rw"
+    ],
     "PortBindings": {
-        "1234/tcp": [{
-            "HostIp": "", "HostPort": "1234"}
-            ]}
+      "1234/tcp": [
+        {
+          "HostIp": "",
+          "HostPort": "1234"
         }
+      ]
     }
+  }
+}
          */
         Assertions.assertEquals( expectedJson, json);
     }

@@ -66,28 +66,42 @@ public class ModelMapper {
 
         ///////////
 
+        containerCreate.hostConfig = new ContainerCreate.HostConfig();
+
+        containerCreate.hostConfig.portBindings = new HashMap<>();
+
         containerCreate.exposedPorts = new HashMap<>();
-        Map<String, Integer> ports = configurationContainer.getPorts();
-        for (Map.Entry<String, Integer> port : ports.entrySet()) {
+        for (Map.Entry<String, Integer> port: configurationContainer.getPorts().entrySet()) {
             containerCreate.exposedPorts.put(port.getKey(), new HashMap<>());
+
+            List<Map<String, String>> portBindingsList= new ArrayList<>();
+            Map<String, String> portBidningsMap = new HashMap<>();
+            portBidningsMap.put("HostIp", "");
+            portBidningsMap.put("HostPort", port.getValue().toString());
+
+            portBindingsList.add(portBidningsMap);
+
+            containerCreate.hostConfig.portBindings.put(port.getKey(), portBindingsList);
         }
 
+        ///////////
 
-        //containerCreate.exposedPorts = configurationContainer.getPorts();
-                /*
-        {
-"ExposedPorts": {"1234/tcp": {}},
-"Volumes": {"/tmp": {}},
-"HostConfig": {
-    "NetworkMode": "default",
-    "Binds": ["alpine-01:/tmp:rw"],
-    "PortBindings": {
-        "1234/tcp": [{
-            "HostIp": "", "HostPort": "1234"}
-            ]}
+
+        containerCreate.hostConfig.binds = new ArrayList<>();
+
+        containerCreate.volumes = new HashMap<>();
+        for (Map.Entry<String, Map<String, String>> volumeMapEntry: configurationContainer.getVolumes().entrySet()) {
+            Map<String, String> volumeMap = volumeMapEntry.getValue();
+            containerCreate.volumes.put(volumeMap.get("bind") , new HashMap<>());
+
+            containerCreate.hostConfig.binds.add(
+                    String.format("%s:%s:%s",
+                            configurationContainer.getName(),
+                            volumeMap.get("bind"),
+                            volumeMap.get("mode")));
         }
-    }
-         */
+
+        ///////////
 
         Gson gsonPrettyPrinter = new GsonBuilder().setPrettyPrinting().create();
         return gsonPrettyPrinter.toJson(containerCreate);

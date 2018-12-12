@@ -51,18 +51,22 @@ public class ContainerCreate {
     @Expose
     public Map<String, Map<String, String>> volumes;
 
-    public class HostConfig {
+    @SerializedName("HostConfig")
+    @Expose
+    public HostConfig hostConfig;
+
+    public static class HostConfig {
         @SerializedName("NetworkMode")
         @Expose
-        String cmd = "default";
+        public String cmd = "default";
 
         @SerializedName("Binds")
         @Expose
-        List<String> binds;
+        public List<String> binds;
 
         @SerializedName("PortBindings")
         @Expose
-        Map<String, List<Map<String, String>>> portBindings;
+        public Map<String, List<Map<String, String>>> portBindings;
 
     }
 }
