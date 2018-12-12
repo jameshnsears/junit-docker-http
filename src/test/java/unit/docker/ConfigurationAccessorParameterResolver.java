@@ -13,7 +13,7 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.Collection;
 
-class ConfigurationAccessorParameterResolver implements ParameterResolver {
+public class ConfigurationAccessorParameterResolver implements ParameterResolver {
     @Override
     public boolean supportsParameter(final ParameterContext parameterContext,
                                      final ExtensionContext extensionContext) throws ParameterResolutionException {

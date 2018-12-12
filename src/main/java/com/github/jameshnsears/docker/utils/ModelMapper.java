@@ -55,26 +55,41 @@ public class ModelMapper {
         Preconditions.checkNotNull(configurationContainer);
 
         ContainerCreate containerCreate = new ContainerCreate();
-        containerCreate.image = configurationContainer.getImage();
-
-        ///////////
-
-        containerCreate.cmd = new ArrayList<>();
-        for (String cmd: configurationContainer.getCommand().split("\\s+")) {
-            containerCreate.cmd.add(cmd);
-        }
-
-        ///////////
-
         containerCreate.hostConfig = new ContainerCreate.HostConfig();
 
+        containerCreate.image = configurationContainer.getImage();
+        mapConfigurationContainerCmd(configurationContainer, containerCreate);
+        mapConfigurationContainerPorts(configurationContainer, containerCreate);
+        mapConfigurationContainerVolumes(configurationContainer, containerCreate);
+
+        Gson gsonPrettyPrinter = new GsonBuilder().setPrettyPrinting().create();
+        return gsonPrettyPrinter.toJson(containerCreate);
+    }
+
+    private void mapConfigurationContainerVolumes(Configuration configurationContainer, ContainerCreate containerCreate) {
+        containerCreate.hostConfig.binds = new ArrayList<>();
+
+        containerCreate.volumes = new HashMap<>();
+        for (Map.Entry<String, Map<String, String>> volumeMapEntry : configurationContainer.getVolumes().entrySet()) {
+            Map<String, String> volumeMap = volumeMapEntry.getValue();
+            containerCreate.volumes.put(volumeMap.get("bind"), new HashMap<>());
+
+            containerCreate.hostConfig.binds.add(
+                    String.format("%s:%s:%s",
+                            configurationContainer.getName(),
+                            volumeMap.get("bind"),
+                            volumeMap.get("mode")));
+        }
+    }
+
+    private void mapConfigurationContainerPorts(Configuration configurationContainer, ContainerCreate containerCreate) {
         containerCreate.hostConfig.portBindings = new HashMap<>();
 
         containerCreate.exposedPorts = new HashMap<>();
-        for (Map.Entry<String, Integer> port: configurationContainer.getPorts().entrySet()) {
+        for (Map.Entry<String, Integer> port : configurationContainer.getPorts().entrySet()) {
             containerCreate.exposedPorts.put(port.getKey(), new HashMap<>());
 
-            List<Map<String, String>> portBindingsList= new ArrayList<>();
+            List<Map<String, String>> portBindingsList = new ArrayList<>();
             Map<String, String> portBidningsMap = new HashMap<>();
             portBidningsMap.put("HostIp", "");
             portBidningsMap.put("HostPort", port.getValue().toString());
@@ -83,27 +98,12 @@ public class ModelMapper {
 
             containerCreate.hostConfig.portBindings.put(port.getKey(), portBindingsList);
         }
+    }
 
-        ///////////
-
-
-        containerCreate.hostConfig.binds = new ArrayList<>();
-
-        containerCreate.volumes = new HashMap<>();
-        for (Map.Entry<String, Map<String, String>> volumeMapEntry: configurationContainer.getVolumes().entrySet()) {
-            Map<String, String> volumeMap = volumeMapEntry.getValue();
-            containerCreate.volumes.put(volumeMap.get("bind") , new HashMap<>());
-
-            containerCreate.hostConfig.binds.add(
-                    String.format("%s:%s:%s",
-                            configurationContainer.getName(),
-                            volumeMap.get("bind"),
-                            volumeMap.get("mode")));
+    private void mapConfigurationContainerCmd(Configuration configurationContainer, ContainerCreate containerCreate) {
+        containerCreate.cmd = new ArrayList<>();
+        for (String cmd : configurationContainer.getCommand().split("\\s+")) {
+            containerCreate.cmd.add(cmd);
         }
-
-        ///////////
-
-        Gson gsonPrettyPrinter = new GsonBuilder().setPrettyPrinting().create();
-        return gsonPrettyPrinter.toJson(containerCreate);
     }
 }

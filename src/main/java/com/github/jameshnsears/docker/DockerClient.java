@@ -3,7 +3,6 @@ package com.github.jameshnsears.docker;
 import com.github.jameshnsears.Configuration;
 import com.github.jameshnsears.ConfigurationAccessor;
 import com.github.jameshnsears.docker.models.Container;
-import com.github.jameshnsears.docker.models.ContainerCreate;
 import com.github.jameshnsears.docker.models.Image;
 import com.github.jameshnsears.docker.models.Network;
 import com.github.jameshnsears.docker.transport.HttpConnection;
