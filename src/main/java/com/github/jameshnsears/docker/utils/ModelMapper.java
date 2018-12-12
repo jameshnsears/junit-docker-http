@@ -10,8 +10,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import java.util.AbstractList;
-import java.util.Collection;
+import java.util.*;
 
 public class ModelMapper {
     private final Gson gson = new Gson();
@@ -55,7 +54,40 @@ public class ModelMapper {
     public String mapConfigurationContainerIntoJson(Configuration configurationContainer) {
         Preconditions.checkNotNull(configurationContainer);
 
-        ContainerCreate containerCreate= new ContainerCreate();
+        ContainerCreate containerCreate = new ContainerCreate();
+        containerCreate.image = configurationContainer.getImage();
+
+        ///////////
+
+        containerCreate.cmd = new ArrayList<>();
+        for (String cmd: configurationContainer.getCommand().split("\\s+")) {
+            containerCreate.cmd.add(cmd);
+        }
+
+        ///////////
+
+        containerCreate.exposedPorts = new HashMap<>();
+        Map<String, Integer> ports = configurationContainer.getPorts();
+        for (Map.Entry<String, Integer> port : ports.entrySet()) {
+            containerCreate.exposedPorts.put(port.getKey(), new HashMap<>());
+        }
+
+
+        //containerCreate.exposedPorts = configurationContainer.getPorts();
+                /*
+        {
+"ExposedPorts": {"1234/tcp": {}},
+"Volumes": {"/tmp": {}},
+"HostConfig": {
+    "NetworkMode": "default",
+    "Binds": ["alpine-01:/tmp:rw"],
+    "PortBindings": {
+        "1234/tcp": [{
+            "HostIp": "", "HostPort": "1234"}
+            ]}
+        }
+    }
+         */
 
         Gson gsonPrettyPrinter = new GsonBuilder().setPrettyPrinting().create();
         return gsonPrettyPrinter.toJson(containerCreate);
