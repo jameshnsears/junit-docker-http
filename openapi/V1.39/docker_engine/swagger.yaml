@@ -14,10 +14,10 @@ schemes:
   - "http"
   - "https"
 produces:
-  - "application/containerCreateRequest"
+  - "application/json"
   - "text/plain"
 consumes:
-  - "application/containerCreateRequest"
+  - "application/json"
   - "text/plain"
 basePath: "/v1.39"
 info:
