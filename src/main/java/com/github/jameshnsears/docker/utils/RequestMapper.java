@@ -18,7 +18,7 @@ public class RequestMapper {
         ContainerCreateRequest containerCreateRequest = new ContainerCreateRequest();
         containerCreateRequest.hostConfig = new ContainerCreateRequest.HostConfig();
 
-        containerCreateRequest.image = configurationContainer.getImage();
+        containerCreateRequest.image = configurationContainer.image;
         cmd(configurationContainer, containerCreateRequest);
         ports(configurationContainer, containerCreateRequest);
         volumes(configurationContainer, containerCreateRequest);
@@ -34,13 +34,13 @@ public class RequestMapper {
         containerCreateRequest.hostConfig.binds = new ArrayList<>();
 
         containerCreateRequest.volumes = new HashMap<>();
-        for (Map.Entry<String, Map<String, String>> volumeMapEntry : configurationContainer.getVolumes().entrySet()) {
+        for (Map.Entry<String, Map<String, String>> volumeMapEntry : configurationContainer.volumes.entrySet()) {
             Map<String, String> volumeMap = volumeMapEntry.getValue();
             containerCreateRequest.volumes.put(volumeMap.get("bind"), new HashMap<>());
 
             containerCreateRequest.hostConfig.binds.add(
                     String.format("%s:%s:%s",
-                            configurationContainer.getName(),
+                            configurationContainer.name,
                             volumeMap.get("bind"),
                             volumeMap.get("mode")));
         }
@@ -53,7 +53,7 @@ public class RequestMapper {
         containerCreateRequest.hostConfig.portBindings = new HashMap<>();
 
         containerCreateRequest.exposedPorts = new HashMap<>();
-        for (Map.Entry<String, Integer> port : configurationContainer.getPorts().entrySet()) {
+        for (Map.Entry<String, Integer> port : configurationContainer.ports.entrySet()) {
             containerCreateRequest.exposedPorts.put(port.getKey(), new HashMap<>());
 
             List<Map<String, String>> portBindingsList = new ArrayList<>();
@@ -72,7 +72,7 @@ public class RequestMapper {
         Preconditions.checkNotNull(containerCreateRequest);
 
         containerCreateRequest.cmd = new ArrayList<>();
-        for (String cmd : configurationContainer.getCommand().split("\\s+")) {
+        for (String cmd : configurationContainer.command.split("\\s+")) {
             containerCreateRequest.cmd.add(cmd);
         }
     }

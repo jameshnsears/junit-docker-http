@@ -58,6 +58,7 @@
     <orderEntry type="library" name="Maven: com.github.jnr:jnr-constants:0.9.11" level="project" />
     <orderEntry type="library" name="Maven: com.github.jnr:jnr-enxio:0.19" level="project" />
     <orderEntry type="library" name="Maven: com.github.jnr:jnr-posix:3.0.47" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: commons-io:commons-io:2.6" level="project" />
   </component>
   <component name="sonarModuleSettings">
     <option name="localAnalysisScripName" value="&lt;PROJECT&gt;" />

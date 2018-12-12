@@ -16,7 +16,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.AbstractList;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 
@@ -115,9 +118,9 @@ public class DockerClient {
         ContainerCreateResponse containerCreateResponse;
 
         for (final Configuration configurationContainer : configurationContainers) {
-            logger.info(configurationContainer.getName());
+            logger.info(configurationContainer.name);
             Response response = httpConnection.post(
-                    String.format("http://127.0.0.1/v1.39/containers/create?name=%s", configurationContainer.getName()),
+                    String.format("http://127.0.0.1/v1.39/containers/create?name=%s", configurationContainer.name),
                     containerCreateMapper.containerCreateRequest(configurationContainer));
 
             httpConnection.post(

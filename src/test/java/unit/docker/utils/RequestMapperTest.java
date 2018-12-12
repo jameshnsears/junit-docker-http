@@ -2,9 +2,7 @@ package unit.docker.utils;
 
 import com.github.jameshnsears.Configuration;
 import com.github.jameshnsears.ConfigurationAccessor;
-import com.github.jameshnsears.docker.models.VolumeResponse;
 import com.github.jameshnsears.docker.utils.RequestMapper;
-import com.github.jameshnsears.docker.utils.ResponseMapper;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -26,7 +24,7 @@ public class RequestMapperTest extends GsonCommon {
         Assertions.assertEquals(
                 FileUtils.readFileToString(
                         new File(getClass().getClassLoader().getResource("fixtures/docker/containerCreateRequest.json").getFile()), "UTF-8"),
-                requestMapper.containerCreateRequest(configurationContainers.get(1)));
+                requestMapper.containerCreateRequest(configurationContainers.get(0)));
     }
 
 }

@@ -22,7 +22,7 @@ class ConfigurationTest extends GsonCommon {
                 2);
 
         final Configuration configuration = (Configuration) ((ArrayList) configurationCollection).get(0);
-        final Map<String, Integer> portMap = configuration.getPorts();
+        final Map<String, Integer> portMap = configuration.ports;
         Assertions.assertEquals(
                 portMap.get("1234/tcp").intValue(),
                 1234);

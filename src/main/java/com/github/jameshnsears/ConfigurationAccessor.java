@@ -15,8 +15,8 @@ public class ConfigurationAccessor {
     public AbstractList<String> images() {
         final ArrayList<String> images = new ArrayList<>();
         for (final Configuration configuration : this.configurationCollection) {
-            if (configuration.getImage() != null) {
-                images.add(configuration.getImage());
+            if (configuration.image != null) {
+                images.add(configuration.image);
             }
         }
         Collections.sort(images);
@@ -30,8 +30,8 @@ public class ConfigurationAccessor {
     public AbstractList<String> networks() {
         final ArrayList<String> networks = new ArrayList<>();
         for (final Configuration configuration : this.configurationCollection) {
-            if (configuration.getNetwork() != null) {
-                networks.add(configuration.getNetwork());
+            if (configuration.network != null) {
+                networks.add(configuration.network);
             }
         }
         Collections.sort(networks);
@@ -41,8 +41,8 @@ public class ConfigurationAccessor {
     public AbstractList<Map<String, Map<String, String>>> volumes() {
         final ArrayList<Map<String, Map<String, String>>> volumes = new ArrayList<>();
         for (final Configuration configuration : this.configurationCollection) {
-            if (configuration.getVolumes() != null) {
-                volumes.add(configuration.getVolumes());
+            if (configuration.volumes != null) {
+                volumes.add(configuration.volumes);
             }
         }
         return volumes;
