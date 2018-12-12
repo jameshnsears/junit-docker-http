@@ -26,7 +26,7 @@ public class RequestMapperTest extends GsonCommon {
         Assertions.assertEquals(
                 FileUtils.readFileToString(
                         new File(getClass().getClassLoader().getResource("fixtures/docker/containerCreateRequest.json").getFile()), "UTF-8"),
-                requestMapper.containerCreateRequest(configurationContainers.get(0)));
+                requestMapper.containerCreateRequest(configurationContainers.get(1)));
     }
 
 }

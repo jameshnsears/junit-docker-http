@@ -8,11 +8,11 @@ import java.util.Map;
 public class Configuration {
     @SerializedName("image")
     @Expose
-    private String image;
+    private String image = "";
 
     @SerializedName("name")
     @Expose
-    private String name;
+    private String name = "";
 
     @SerializedName("ports")
     @Expose
@@ -24,11 +24,11 @@ public class Configuration {
 
     @SerializedName("command")
     @Expose
-    private String command;
+    private String command = "";
 
     @SerializedName("network")
     @Expose
-    private String network;
+    private String network = "";
 
     public String getImage() {
         return image;
