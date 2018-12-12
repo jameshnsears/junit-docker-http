@@ -6,13 +6,5 @@ import com.google.gson.annotations.SerializedName;
 public class NetworkResponse {
     @SerializedName("Name")
     @Expose
-    private String name;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(final String name) {
-        this.name = name;
-    }
+    public String name = "";
 }

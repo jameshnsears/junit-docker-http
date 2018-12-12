@@ -9,13 +9,14 @@ public class ConfigurationAccessor {
 
     public ConfigurationAccessor(final Collection<Configuration> configurationCollection) {
         Preconditions.checkNotNull(configurationCollection);
+
         this.configurationCollection = configurationCollection;
     }
 
     public AbstractList<String> images() {
         final ArrayList<String> images = new ArrayList<>();
-        for (final Configuration configuration : this.configurationCollection) {
-            if (configuration.image != null) {
+        for (Configuration configuration : this.configurationCollection) {
+            if (!configuration.image.isEmpty()) {
                 images.add(configuration.image);
             }
         }
@@ -30,7 +31,7 @@ public class ConfigurationAccessor {
     public AbstractList<String> networks() {
         final ArrayList<String> networks = new ArrayList<>();
         for (final Configuration configuration : this.configurationCollection) {
-            if (configuration.network != null) {
+            if (!configuration.network.isEmpty()) {
                 networks.add(configuration.network);
             }
         }
@@ -41,16 +42,10 @@ public class ConfigurationAccessor {
     public AbstractList<Map<String, Map<String, String>>> volumes() {
         final ArrayList<Map<String, Map<String, String>>> volumes = new ArrayList<>();
         for (final Configuration configuration : this.configurationCollection) {
-            if (configuration.volumes != null) {
+            if (!configuration.volumes.isEmpty()) {
                 volumes.add(configuration.volumes);
             }
         }
         return volumes;
-    }
-
-    private class ConfigException extends Exception {
-        ConfigException(final String message) {
-            super(message);
-        }
     }
 }

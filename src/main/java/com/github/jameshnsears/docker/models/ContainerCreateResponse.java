@@ -6,9 +6,9 @@ import com.google.gson.annotations.SerializedName;
 public class ContainerCreateResponse {
     @SerializedName("Id")
     @Expose
-    public String id;
+    public String id = "";
 
     @SerializedName("Warnings")
     @Expose
-    public String warnings;
+    public String warnings = "";
 }

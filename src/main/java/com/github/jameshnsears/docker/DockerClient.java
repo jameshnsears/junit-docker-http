@@ -2,7 +2,6 @@ package com.github.jameshnsears.docker;
 
 import com.github.jameshnsears.Configuration;
 import com.github.jameshnsears.ConfigurationAccessor;
-import com.github.jameshnsears.docker.models.ContainerCreateResponse;
 import com.github.jameshnsears.docker.models.ContainerResponse;
 import com.github.jameshnsears.docker.models.ImageResponse;
 import com.github.jameshnsears.docker.models.NetworkResponse;
@@ -37,7 +36,7 @@ public class DockerClient {
             final ArrayList<ImageResponse> dockerImages = (ArrayList) responseMapper.imagesResponse(json);
 
             for (final ImageResponse dockerImage : dockerImages) {
-                imageNames.addAll(dockerImage.getRepoTags());
+                imageNames.addAll(dockerImage.repoTags);
             }
         } catch (JsonSyntaxException jsonSyntaxException) {
             logger.warn(jsonSyntaxException.getMessage());
@@ -58,11 +57,11 @@ public class DockerClient {
             final ArrayList<ContainerResponse> dockerContainers = (ArrayList) responseMapper.containersResponse(json);
 
             for (final ContainerResponse dockerContainer : dockerContainers) {
-                for (final String containerName : dockerContainer.getNames()) {
+                for (final String containerName : dockerContainer.names) {
                     if (configurationAccessor.images().contains(containerName)) {
                         final Map<String, String> container = new ConcurrentHashMap<>();
-                        container.put("image", dockerContainer.getImage());
-                        container.put("id", dockerContainer.getId());
+                        container.put("image", dockerContainer.image);
+                        container.put("id", dockerContainer.id);
                         dockerContainersThatMatchConfiguration.add(container);
                     }
                 }
@@ -113,9 +112,7 @@ public class DockerClient {
         rmContainers(configurationAccessor);
         createNetworks(configurationAccessor);
 
-        // create container
         final Collection<Configuration> configurationContainers = configurationAccessor.containers();
-        ContainerCreateResponse containerCreateResponse;
 
         for (final Configuration configurationContainer : configurationContainers) {
             logger.info(configurationContainer.name);
@@ -124,7 +121,8 @@ public class DockerClient {
                     containerCreateMapper.containerCreateRequest(configurationContainer));
 
             httpConnection.post(
-                    String.format("http://127.0.0.1/v1.39/containers/%s/start", responseMapper.containerCreateResponse(response).id));
+                    String.format("http://127.0.0.1/v1.39/containers/%s/start",
+                            responseMapper.containerCreateResponse(response).id));
         }
     }
 
@@ -182,7 +180,7 @@ public class DockerClient {
 
         final ArrayList<String> networks = new ArrayList<>();
         for (final NetworkResponse dockerNetwork : dockerNetworks) {
-            networks.add(dockerNetwork.getName());
+            networks.add(dockerNetwork.name);
         }
 
         return networks;

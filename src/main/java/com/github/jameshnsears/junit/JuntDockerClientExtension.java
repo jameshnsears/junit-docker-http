@@ -1,5 +1,6 @@
 package com.github.jameshnsears.junit;
 
+import com.google.common.base.Preconditions;
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -29,6 +30,8 @@ public class JuntDockerClientExtension implements BeforeTestExecutionCallback, A
 
     @Override
     public void beforeTestExecution(final ExtensionContext context) {
+        Preconditions.checkNotNull(context);
+
         final Method testMethod = context.getRequiredTestMethod();
         readProps();
         logger.info(String.format("%s", testMethod.getName()));
@@ -49,6 +52,8 @@ public class JuntDockerClientExtension implements BeforeTestExecutionCallback, A
 
     @Override
     public void afterTestExecution(final ExtensionContext context) {
+        Preconditions.checkNotNull(context);
+
         final Method testMethod = context.getRequiredTestMethod();
         logger.info(String.format("%s", testMethod.getName()));
 

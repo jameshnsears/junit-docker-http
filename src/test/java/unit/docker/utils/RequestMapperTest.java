@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 @ExtendWith(ConfigurationAccessorParameterResolver.class)
-public class RequestMapperTest extends GsonCommon {
+class RequestMapperTest extends GsonCommon {
     @Test
     void containerCreateRequest(ConfigurationAccessor configurationAccessor) throws IOException {
         RequestMapper requestMapper = new RequestMapper();

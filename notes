@@ -2,8 +2,6 @@ work on DockerClientTest
 
 check precondition used everywhere!
 
-rm getter and setters in models, unless they do something useful.
-
 use coverage + other static analsys tools to rm as much as possible - especially in Models
 = +incoproate more pre-condition tests
 

@@ -1,15 +1,14 @@
 package com.github.jameshnsears.docker.utils;
 
-import com.github.jameshnsears.Configuration;
 import com.github.jameshnsears.docker.models.*;
 import com.google.common.base.Preconditions;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import okhttp3.Response;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.AbstractList;
+import java.util.Collection;
 
 public class ResponseMapper {
     private final Gson gson = new Gson();

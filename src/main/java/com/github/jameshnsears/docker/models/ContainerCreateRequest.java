@@ -3,6 +3,8 @@ package com.github.jameshnsears.docker.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,15 +39,15 @@ public class ContainerCreateRequest {
 
     @SerializedName("Image")
     @Expose
-    public String image;
+    public String image = "";
 
     @SerializedName("ExposedPorts")
     @Expose
-    public Map<String, Map<String, String>> exposedPorts;
+    public Map<String, Map<String, String>> exposedPorts = new HashMap<>();
 
     @SerializedName("Cmd")
     @Expose
-    public List<String> cmd;
+    public List<String> cmd = new ArrayList<>();
 
     @SerializedName("Volumes")
     @Expose
@@ -53,7 +55,7 @@ public class ContainerCreateRequest {
 
     @SerializedName("HostConfig")
     @Expose
-    public HostConfig hostConfig;
+    public HostConfig hostConfig = new HostConfig();
 
     public static class HostConfig {
         @SerializedName("NetworkMode")
@@ -62,11 +64,10 @@ public class ContainerCreateRequest {
 
         @SerializedName("Binds")
         @Expose
-        public List<String> binds;
+        public List<String> binds = new ArrayList<>();
 
         @SerializedName("PortBindings")
         @Expose
-        public Map<String, List<Map<String, String>>> portBindings;
-
+        public Map<String, List<Map<String, String>>> portBindings = new HashMap<>();
     }
 }

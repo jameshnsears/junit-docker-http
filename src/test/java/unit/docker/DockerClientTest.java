@@ -13,7 +13,7 @@ import java.util.ArrayList;
 class DockerClientTest {
     private final DockerClient dockerClient = new DockerClient();
 
-//    @Test
+    //    @Test
     void pullImages(final ConfigurationAccessor configurationAccessor) throws IOException {
         dockerClient.rmImages(configurationAccessor.images());
         ArrayList<String> dockerImages = (ArrayList) dockerClient.lsImages();

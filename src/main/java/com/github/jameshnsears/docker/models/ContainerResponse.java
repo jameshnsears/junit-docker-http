@@ -9,43 +9,13 @@ import java.util.List;
 public class ContainerResponse {
     @SerializedName("Id")
     @Expose
-    private String id;
+    public String id = "";
 
     @SerializedName("ImageResponse")
     @Expose
-    private String image;
+    public String image = "";
 
     @SerializedName("Names")
     @Expose
-    private List<String> names;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(final String id) {
-        this.id = id;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(final String image) {
-        this.image = image;
-    }
-
-    public List<String> getNames() {
-        List<String> response;
-        if (names == null) {
-            response = new ArrayList<>();
-        } else {
-            response = names;
-        }
-        return response;
-    }
-
-    public void setNames(final List<String> names) {
-        this.names = names;
-    }
+    public List<String> names = new ArrayList<>();
 }
