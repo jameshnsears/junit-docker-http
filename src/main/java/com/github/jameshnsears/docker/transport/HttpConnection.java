@@ -35,7 +35,10 @@ public class HttpConnection {
 
         final Response response = okHttpClient().newCall(request).execute();
         final String jsonResponse = response.body().string();
+
+        // TODO pretty print?.
         logger.debug(jsonResponse.replace("\n", ""));
+
         logger.info(String.format("%s", response.code()));
 
         return jsonResponse;

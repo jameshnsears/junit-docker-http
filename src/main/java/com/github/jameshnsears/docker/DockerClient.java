@@ -15,10 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.AbstractList;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 
@@ -33,7 +30,7 @@ public class DockerClient {
 
         try {
             final String json = httpConnection.get("http://127.0.0.1/v1.39/images/containerCreateRequest");
-            final ArrayList<ImageResponse> dockerImages = (ArrayList) responseMapper.imagesResponse(json);
+            final ArrayList<ImageResponse> dockerImages = responseMapper.imagesResponse(json);
 
             for (final ImageResponse dockerImage : dockerImages) {
                 imageNames.addAll(dockerImage.repoTags);
@@ -54,7 +51,7 @@ public class DockerClient {
         try {
             final String json = httpConnection.get(
                     "http://127.0.0.1/v1.39/containers/json?limit=-1&all=0&size=0&trunc_cmd=0");
-            final ArrayList<ContainerResponse> dockerContainers = (ArrayList) responseMapper.containersResponse(json);
+            final ArrayList<ContainerResponse> dockerContainers = responseMapper.containersResponse(json);
 
             for (final ContainerResponse dockerContainer : dockerContainers) {
                 for (String containerName : dockerContainer.names) {
@@ -98,7 +95,7 @@ public class DockerClient {
     public void pull(final AbstractList<String> configurationImages) throws IOException {
         Preconditions.checkNotNull(configurationImages);
 
-        final ArrayList<String> dockerImages = (ArrayList) lsImages();
+        final ArrayList<String> dockerImages = lsImages();
         for (final String configurationImage : configurationImages) {
             if (!dockerImages.contains(configurationImage)) {
                 logger.info(configurationImage);
@@ -131,8 +128,8 @@ public class DockerClient {
     public void rmContainers(final ConfigurationAccessor configurationAccessor) throws IOException {
         Preconditions.checkNotNull(configurationAccessor);
 
-        final ArrayList<Map<String, String>> dockerContainers = (ArrayList) lsContainers(configurationAccessor);
-        final ArrayList<String> dockerImages = (ArrayList) lsImages();
+        final ArrayList<Map<String, String>> dockerContainers = lsContainers(configurationAccessor);
+        final ArrayList<String> dockerImages = lsImages();
 
         for (final Map<String, String> dockerCointainer : dockerContainers) {
             if (dockerImages.contains(dockerCointainer.get("image"))) {
@@ -155,8 +152,8 @@ public class DockerClient {
     private void createNetworks(final ConfigurationAccessor configurationAccessor) throws IOException {
         Preconditions.checkNotNull(configurationAccessor);
 
-        final ArrayList<String> configurationNetworks = (ArrayList) configurationAccessor.networks();
-        final ArrayList<String> dockerNetworks = (ArrayList) lsNetworks();
+        final ArrayList<String> configurationNetworks = configurationAccessor.networks();
+        final ArrayList<String> dockerNetworks = lsNetworks();
         for (final String configurationNetwork : configurationNetworks) {
             if (!dockerNetworks.contains(configurationNetwork)) {
                 createNetwork(configurationNetwork);
@@ -176,27 +173,27 @@ public class DockerClient {
     public ArrayList<String> lsNetworks() throws IOException {
         final String json = httpConnection.get(
                 "http://127.0.0.1/v1.39/networks?filters=%7B%7D");
-        final ArrayList<NetworkResponse> dockerNetworks = (ArrayList) responseMapper.networksResponse(json);
+        final ArrayList<NetworkResponse> dockerNetworks = responseMapper.networksResponse(json);
 
         final ArrayList<String> networks = new ArrayList<>();
         for (final NetworkResponse dockerNetwork : dockerNetworks) {
+            logger.debug(dockerNetwork.name);
             networks.add(dockerNetwork.name);
         }
 
         return networks;
     }
 
-    public ArrayList<String> lsVolumes() {
-        /*
-        self._client.volumes.prune()
-        volumes = []
-        for volume in self._client.volumes.list():
-            for config_volume in config_volumes:
-                if volume.name in config_volume:
-                    logging.debug(config_volume)
-                    volumes.append(config_volume)
-        return sorted(volumes)
-         */
-        return new ArrayList<>();
+    public ArrayList<String> lsVolumes() throws IOException {
+        final String json = httpConnection.get(
+                "http://127.0.0.1/v1.39/volumes");
+        final Map<String, List<Map<String, Object>>> dockerVolumes = responseMapper.volumeResponse(json);
+
+        ArrayList<String> volumes = new ArrayList<>();
+        for (Map<String, Object> volume : dockerVolumes.get("Volumes")) {
+            volumes.add((String) volume.get("Name"));
+        }
+
+        return volumes;
     }
 }

@@ -2,6 +2,10 @@ work on DockerClientTest
 
 check precondition used everywhere!
 
+do more pretty printing:
+        Gson gsonPrettyPrinter = new GsonBuilder().setPrettyPrinting().create();
+        return gsonPrettyPrinter.toJson(containerCreateRequest);
+
 a test to create the same network twice
 
 use coverage + other static analsys tools to rm as much as possible - especially in Models

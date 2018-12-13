@@ -13,7 +13,7 @@ public class ConfigurationAccessor {
         this.configurationCollection = configurationCollection;
     }
 
-    public AbstractList<String> images() {
+    public ArrayList<String> images() {
         final ArrayList<String> images = new ArrayList<>();
         for (Configuration configuration : this.configurationCollection) {
             if (!configuration.image.isEmpty()) {
@@ -39,7 +39,7 @@ public class ConfigurationAccessor {
         return this.configurationCollection;
     }
 
-    public AbstractList<String> networks() {
+    public ArrayList<String> networks() {
         final ArrayList<String> networks = new ArrayList<>();
         for (final Configuration configuration : this.configurationCollection) {
             if (!configuration.network.isEmpty()) {
@@ -50,7 +50,7 @@ public class ConfigurationAccessor {
         return networks;
     }
 
-    public AbstractList<Map<String, Map<String, String>>> volumes() {
+    public ArrayList<Map<String, Map<String, String>>> volumes() {
         final ArrayList<Map<String, Map<String, String>>> volumes = new ArrayList<>();
         for (final Configuration configuration : this.configurationCollection) {
             if (!configuration.volumes.isEmpty()) {
