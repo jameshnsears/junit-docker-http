@@ -11,11 +11,12 @@
         "mode": "rw"
       }
     },
-    "command": "sleep 12345"
+    "command": "sleep 180"
   },
   {
     "image": "busybox:latest",
     "name": "busybox-01",
-    "network": "dev"
+    "network": "dev",
+    "command": "sleep 240"
   }
 ]

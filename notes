@@ -2,6 +2,8 @@ work on DockerClientTest
 
 check precondition used everywhere!
 
+a test to create the same network twice
+
 use coverage + other static analsys tools to rm as much as possible - especially in Models
 = +incoproate more pre-condition tests
 

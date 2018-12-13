@@ -31,9 +31,9 @@ class DockerClientTest {
     @Test
     void stopStartContainers(final ConfigurationAccessor configurationAccessor) throws IOException {
         dockerClient.startContainers(configurationAccessor);
-//        Assertions.assertTrue(dockerClient.lsContainers(configurationAccessor).size() == 2);
-//        Assertions.assertTrue(dockerClient.lsNetworks(configurationAccessor).size() == ['docker_py_wrapper');
-//        Assertions.assertTrue(dockerClient.lsVolumes(configurationAccessor).size() == ['alpine-01:/tmp');
+        Assertions.assertTrue(dockerClient.lsContainers(configurationAccessor).size() == 2);
+        Assertions.assertTrue(dockerClient.lsNetworks().contains("dev"));
+        Assertions.assertTrue(dockerClient.lsVolumes().contains("alpine-01:/tmp"));
 //
         dockerClient.rmContainers(configurationAccessor);
 //        Assertions.assertTrue(dockerClient.lsContainers(configurationAccessor).size() == 0);

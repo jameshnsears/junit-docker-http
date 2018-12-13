@@ -24,6 +24,17 @@ public class ConfigurationAccessor {
         return images;
     }
 
+    public AbstractList<String> imageNames() {
+        final ArrayList<String> imageNames = new ArrayList<>();
+        for (Configuration configuration : this.configurationCollection) {
+            if (!configuration.name.isEmpty()) {
+                imageNames.add(configuration.name);
+            }
+        }
+        Collections.sort(imageNames);
+        return imageNames;
+    }
+
     public Collection<Configuration> containers() {
         return this.configurationCollection;
     }
