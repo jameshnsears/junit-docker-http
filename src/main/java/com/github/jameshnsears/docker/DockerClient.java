@@ -29,11 +29,11 @@ public class DockerClient {
         final ArrayList<String> imageNames = new ArrayList<>();
 
         try {
-            final String json = httpConnection.get("http://127.0.0.1/v1.39/images/containerCreateRequest");
+            final String json = httpConnection.get("http://127.0.0.1/v1.39/images/json");
             final ArrayList<ImageResponse> dockerImages = responseMapper.imagesResponse(json);
 
             for (final ImageResponse dockerImage : dockerImages) {
-                imageNames.addAll(dockerImage.repoTags);
+                imageNames.add(dockerImage.id);
             }
         } catch (JsonSyntaxException jsonSyntaxException) {
             logger.warn(jsonSyntaxException.getMessage());
@@ -59,8 +59,9 @@ public class DockerClient {
 
                     if (configurationAccessor.imageNames().contains(containerName)) {
                         Map<String, String> container = new ConcurrentHashMap<>();
-                        container.put("name", containerName);
+                        container.put("imageId", dockerContainer.imageId);
                         container.put("id", dockerContainer.id);
+                        container.put("name", containerName);
                         dockerContainersThatMatchConfiguration.add(container);
                     }
                 }
@@ -128,15 +129,18 @@ public class DockerClient {
     public void rmContainers(final ConfigurationAccessor configurationAccessor) throws IOException {
         Preconditions.checkNotNull(configurationAccessor);
 
-        final ArrayList<Map<String, String>> dockerContainers = lsContainers(configurationAccessor);
         final ArrayList<String> dockerImages = lsImages();
+        final ArrayList<Map<String, String>> dockerContainers = lsContainers(configurationAccessor);
 
-        for (final Map<String, String> dockerCointainer : dockerContainers) {
-            if (dockerImages.contains(dockerCointainer.get("image"))) {
-                logger.debug(String.format("%s - %s", dockerCointainer.get("name"), dockerCointainer.get("id")));
-                httpConnection.delete(
-                        String.format("http://127.0.0.1/v1.39/containers/%s?v=False&link=False&force=True",
-                                dockerCointainer.get("id")));
+        for (final Map<String, String> dockerCointainer: dockerContainers) {
+            for (final String dockerImageId: dockerImages) {
+                if (dockerCointainer.get("imageId").equals(dockerImageId)) {
+
+                    logger.debug(String.format("%s - %s", dockerCointainer.get("name"), dockerCointainer.get("id")));
+                    httpConnection.delete(
+                            String.format("http://127.0.0.1/v1.39/containers/%s?v=False&link=False&force=True",
+                                    dockerCointainer.get("id")));
+                }
             }
         }
 

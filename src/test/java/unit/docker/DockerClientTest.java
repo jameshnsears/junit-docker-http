@@ -39,8 +39,5 @@ class DockerClientTest {
         Assertions.assertTrue(dockerClient.lsContainers(configurationAccessor).size() == 0);
 //        Assertions.assertTrue(dockerClient.lsNetworks(configurationAccessor).size() == 0);
 //        Assertions.assertTrue(dockerClient.lsVolumes(configurationAccessor).size() == 0);
-
-
-        Assertions.fail();
     }
 }

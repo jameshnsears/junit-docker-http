@@ -11,9 +11,9 @@ public class ContainerResponse {
     @Expose
     public String id = "";
 
-    @SerializedName("ImageResponse")
+    @SerializedName("ImageID")
     @Expose
-    public String image = "";
+    public String imageId = "";
 
     @SerializedName("Names")
     @Expose
