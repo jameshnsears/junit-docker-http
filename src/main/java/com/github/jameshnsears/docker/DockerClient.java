@@ -25,21 +25,24 @@ public class DockerClient {
     private final ResponseMapper responseMapper = new ResponseMapper();
     private final RequestMapper containerCreateMapper = new RequestMapper();
 
-    public ArrayList<String> lsImages() throws IOException {
-        final ArrayList<String> imageNames = new ArrayList<>();
+    public ArrayList<Map<String, String>>lsImages() throws IOException {
+        final ArrayList<Map<String, String>> images = new ArrayList<>();
 
         try {
             final String json = httpConnection.get("http://127.0.0.1/v1.39/images/json");
             final ArrayList<ImageResponse> dockerImages = responseMapper.imagesResponse(json);
 
             for (final ImageResponse dockerImage : dockerImages) {
-                imageNames.add(dockerImage.id);
+                Map<String, String> dockerImageMap = new HashMap<>();
+                dockerImageMap.put("id", dockerImage.id);
+                dockerImageMap.put("name", dockerImage.repoTags.get(0));
+                images.add(dockerImageMap);
             }
         } catch (JsonSyntaxException jsonSyntaxException) {
             logger.warn(jsonSyntaxException.getMessage());
         }
 
-        return imageNames;
+        return images;
     }
 
     public ArrayList<Map<String, String>> lsContainers(final ConfigurationAccessor configurationFilter)
@@ -76,34 +79,53 @@ public class DockerClient {
     public void rmImages(final AbstractList<String> configurationFilter) throws IOException {
         Preconditions.checkNotNull(configurationFilter);
 
-        final ArrayList<String> dockerImages = (ArrayList<String>) lsImages();
+        final ArrayList<Map<String, String>> dockerImages = lsImages();
         for (final String configurationImage : configurationFilter) {
             rmImage(configurationImage, dockerImages);
         }
     }
 
-    private void rmImage(final String configurationImage, final AbstractList<String> dockerImages) throws IOException {
+    private void rmImage(final String configurationImage, final ArrayList<Map<String, String>> dockerImages) throws IOException {
         Preconditions.checkNotNull(configurationImage);
         Preconditions.checkNotNull(dockerImages);
 
-        if (dockerImages.contains(configurationImage)) {
-            logger.info(configurationImage);
-            httpConnection.delete(String.format(
-                    "http://127.0.0.1/v1.39/images/%s?force=True&noprune=False", configurationImage));
+        for (Map<String, String> dockerImage: dockerImages) {
+            if (dockerImage.get("name").equals(configurationImage)) {
+                logger.info(configurationImage);
+                httpConnection.delete(String.format(
+                        "http://127.0.0.1/v1.39/images/%s?force=True&noprune=False", configurationImage));
+            }
         }
     }
 
     public void pull(final AbstractList<String> configurationImages) throws IOException {
         Preconditions.checkNotNull(configurationImages);
 
-        final ArrayList<String> dockerImages = lsImages();
-        for (final String configurationImage : configurationImages) {
-            if (!dockerImages.contains(configurationImage)) {
-                logger.info(configurationImage);
-                httpConnection.post(
-                        String.format("http://127.0.0.1/v1.39/images/create?fromImage=%s", configurationImage));
+        final ArrayList<Map<String, String>> dockerImages = lsImages();
+        for (final String configurationImageName : configurationImages) {
+            if (shouldImageBePulled(dockerImages, configurationImageName)) {
+                logger.info(configurationImageName);
+                Response response = httpConnection.post(
+                        String.format("http://127.0.0.1/v1.39/images/create?fromImage=%s", configurationImageName));
+
+                logger.debug(response.body().string());
             }
         }
+    }
+
+    private boolean shouldImageBePulled(final ArrayList<Map<String, String>> dockerImages,
+                                        final String configurationImageName) {
+        Preconditions.checkNotNull(dockerImages);
+        Preconditions.checkNotNull(configurationImageName);
+
+        List<String> imageNamesAlreadyPulled = new ArrayList<>();
+        for (Map<String, String> dockerImage: dockerImages) {
+            imageNamesAlreadyPulled.add(dockerImage.get("name"));
+        }
+        if (imageNamesAlreadyPulled.contains(configurationImageName)) {
+            return false;
+        }
+        return true;
     }
 
     public void startContainers(final ConfigurationAccessor configurationFilter) throws IOException {
@@ -129,13 +151,12 @@ public class DockerClient {
     public void rmContainers(final ConfigurationAccessor configurationFilter) throws IOException {
         Preconditions.checkNotNull(configurationFilter);
 
-        final ArrayList<String> dockerImages = lsImages();
+        final ArrayList<Map<String, String>> dockerImages = lsImages();
         final ArrayList<Map<String, String>> dockerContainers = lsContainers(configurationFilter);
 
         for (final Map<String, String> dockerCointainer: dockerContainers) {
-            for (final String dockerImageId: dockerImages) {
-                if (dockerCointainer.get("imageId").equals(dockerImageId)) {
-
+            for (final Map<String, String> dockerImage: dockerImages) {
+                if (dockerCointainer.get("imageId").equals(dockerImage.get("id"))) {
                     logger.debug(String.format("%s - %s", dockerCointainer.get("name"), dockerCointainer.get("id")));
                     httpConnection.delete(
                             String.format("http://127.0.0.1/v1.39/containers/%s?v=False&link=False&force=True",

@@ -8,24 +8,32 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 @ExtendWith(ConfigurationAccessorParameterResolver.class)
 class DockerClientTest {
     private final DockerClient dockerClient = new DockerClient();
 
-    //@Test
+    @Test
     void pullImages(final ConfigurationAccessor configurationAccessor) throws IOException {
         dockerClient.rmImages(configurationAccessor.images());
-        ArrayList<String> dockerImages = (ArrayList) dockerClient.lsImages();
+        List<Map<String, String>> dockerImages = dockerClient.lsImages();
         for (final String image : configurationAccessor.images()) {
-            Assertions.assertFalse(dockerImages.contains(image));
+            for (Map<String, String> dockerImage : dockerImages) {
+                Assertions.assertFalse(dockerImage.get("name").equals(image));
+            }
         }
 
         dockerClient.pull(configurationAccessor.images());
-        dockerImages = (ArrayList) dockerClient.lsImages();
-        for (final String image : configurationAccessor.images()) {
-            Assertions.assertTrue(dockerImages.contains(image));
+        dockerImages = dockerClient.lsImages();
+        List<String> dockerImageNames = new ArrayList<>();
+        for (Map<String, String> dockerImage : dockerImages) {
+            dockerImageNames.add(dockerImage.get("name"));
         }
+        Collections.sort(dockerImageNames);
+        Assertions.assertArrayEquals(dockerImageNames.toArray(), configurationAccessor.images().toArray());
     }
 
     @Test

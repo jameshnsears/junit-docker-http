@@ -44,7 +44,7 @@ public class HttpConnection {
         return jsonResponse;
     }
 
-    public void post(final String endpoint) throws IOException {
+    public Response post(final String endpoint) throws IOException {
         Preconditions.checkNotNull(endpoint);
 
         logger.info(endpoint);
@@ -55,7 +55,14 @@ public class HttpConnection {
                 .header("Content-Length", "0")
                 .build();
 
-        executePost(request);
+        return getResponse(request);
+    }
+
+    private Response getResponse(Request request) throws IOException {
+        final Response response = okHttpClient().newCall(request).execute();
+
+        logger.info(String.format("%s", response.code()));
+        return response;
     }
 
     public Response post(final String endpoint, final String json) throws IOException {
@@ -70,16 +77,7 @@ public class HttpConnection {
                 .header("Content-Length", "0")
                 .build();
 
-        return executePost(request);
-    }
-
-    private Response executePost(final Request request) throws IOException {
-        Preconditions.checkNotNull(request);
-
-        final Response response = okHttpClient().newCall(request).execute();
-
-        logger.info(String.format("%s", response.code()));
-        return response;
+        return getResponse(request);
     }
 
     public void delete(final String endpoint) throws IOException {
