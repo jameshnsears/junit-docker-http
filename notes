@@ -1,4 +1,4 @@
-make sure I can start xqa-message-broker without passing it a command
+problem is that stuff is not getting attached to network!
 
 
 work on DockerXqaClientTest

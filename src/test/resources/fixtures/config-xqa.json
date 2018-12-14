@@ -15,5 +15,14 @@
       "5432/tcp": 5432
     },
     "network": "xqa"
+  },
+  {
+    "image": "jameshnsears/xqa-shard:latest",
+    "name": "xqa-shard-01",
+    "ports": {
+      "1984/tcp": 0
+    },
+    "command": "-message_broker_host xqa-message-broker",
+    "network": "xqa"
   }
 ]
