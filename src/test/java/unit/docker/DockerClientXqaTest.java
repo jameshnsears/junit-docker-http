@@ -6,14 +6,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
 
 @ExtendWith(ConfigurationXqaAccessorParameterResolver.class)
-class XqaDockerClientTest extends DockerClientBaseTest {
-    @Test
+class DockerClientXqaTest extends DockerClientBaseTest {
+    //@Test
     void pullImages(final ConfigurationAccessor configurationAccessor) throws IOException {
         assertConfigurationImagesNotPulled(configurationAccessor);
 
@@ -22,7 +18,10 @@ class XqaDockerClientTest extends DockerClientBaseTest {
 
     @Test
     void stopStartContainers(final ConfigurationAccessor configurationAccessor) throws IOException {
-        assertConfigurationContainersStarted(configurationAccessor);
+        dockerClient.startContainers(configurationAccessor);
+        Assertions.assertTrue(dockerClient.lsContainers(configurationAccessor).size() == 7);
+        Assertions.assertTrue(dockerClient.lsNetworks(configurationAccessor).contains("xqa"));
+        Assertions.assertTrue(dockerClient.lsVolumes(configurationAccessor).contains("/home/jsears/GIT_REPOS/xqa-test-data"));
 
         assertConfigurationContainersRemoved(configurationAccessor);
     }

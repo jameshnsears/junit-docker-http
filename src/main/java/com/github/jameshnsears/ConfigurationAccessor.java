@@ -16,11 +16,11 @@ public class ConfigurationAccessor {
     public ArrayList<String> images() {
         final ArrayList<String> images = new ArrayList<>();
         for (Configuration configuration : this.configurationCollection) {
-            if (!configuration.image.isEmpty()) {
+            if (!configuration.image.isEmpty() && !images.contains(configuration.image)) {
                 images.add(configuration.image);
             }
         }
-        Collections.sort(images);
+        Collections.sort(images);  // TODO make unique
         return images;
     }
 

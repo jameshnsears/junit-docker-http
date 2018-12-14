@@ -57,11 +57,12 @@ public class RequestMapper {
             containerCreateRequest.exposedPorts.put(port.getKey(), new HashMap<>());
 
             List<Map<String, String>> portBindingsList = new ArrayList<>();
-            Map<String, String> portBindingsMap = new HashMap<>();
-            portBindingsMap.put("HostIp", "");
-            portBindingsMap.put("HostPort", port.getValue().toString());
-
-            portBindingsList.add(portBindingsMap);
+            if (Integer.valueOf(port.getValue()) != 0) {
+                Map<String, String> portBindingsMap = new HashMap<>();
+                portBindingsMap.put("HostIp", "");
+                portBindingsMap.put("HostPort", port.getValue().toString());
+                    portBindingsList.add(portBindingsMap);
+            }
 
             containerCreateRequest.hostConfig.portBindings.put(port.getKey(), portBindingsList);
         }
@@ -71,9 +72,11 @@ public class RequestMapper {
         Preconditions.checkNotNull(configurationContainer);
         Preconditions.checkNotNull(containerCreateRequest);
 
-        containerCreateRequest.cmd = new ArrayList<>();
-        for (String cmd : configurationContainer.command.split("\\s+")) {
-            containerCreateRequest.cmd.add(cmd);
+        if (!configurationContainer.command.isEmpty()) {
+            containerCreateRequest.cmd = new ArrayList<>();
+            for (String cmd : configurationContainer.command.split("\\s+")) {
+                containerCreateRequest.cmd.add(cmd);
+            }
         }
     }
 }

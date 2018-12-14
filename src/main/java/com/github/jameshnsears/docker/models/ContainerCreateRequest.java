@@ -47,7 +47,7 @@ public class ContainerCreateRequest {
 
     @SerializedName("Cmd")
     @Expose
-    public List<String> cmd = new ArrayList<>();
+    public List<String> cmd;
 
     @SerializedName("Volumes")
     @Expose

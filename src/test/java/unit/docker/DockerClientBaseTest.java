@@ -3,8 +3,6 @@ package unit.docker;
 import com.github.jameshnsears.ConfigurationAccessor;
 import com.github.jameshnsears.docker.DockerClient;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,7 +32,10 @@ class DockerClientBaseTest {
         List<Map<String, String>> dockerImages = dockerClient.lsImages();
         List<String> dockerImageNames = new ArrayList<>();
         for (Map<String, String> dockerImage : dockerImages) {
-            dockerImageNames.add(dockerImage.get("name"));
+            String dockerImageName = dockerImage.get("name");
+            if (configurationImages.contains(dockerImageName)) {
+                dockerImageNames.add(dockerImageName);
+            }
         }
         Collections.sort(dockerImageNames);
         Assertions.assertArrayEquals(dockerImageNames.toArray(), configurationAccessor.images().toArray());
@@ -45,12 +46,5 @@ class DockerClientBaseTest {
         Assertions.assertTrue(dockerClient.lsContainers(configurationAccessor).size() == 0);
         Assertions.assertTrue(dockerClient.lsNetworks(configurationAccessor).size() == 0);
         Assertions.assertTrue(dockerClient.lsVolumes(configurationAccessor).size() == 0);
-    }
-
-    protected void assertConfigurationContainersStarted(ConfigurationAccessor configurationAccessor) throws IOException {
-        dockerClient.startContainers(configurationAccessor);
-        Assertions.assertTrue(dockerClient.lsContainers(configurationAccessor).size() == 2);
-        Assertions.assertTrue(dockerClient.lsNetworks(configurationAccessor).contains("dev"));
-        Assertions.assertTrue(dockerClient.lsVolumes(configurationAccessor).contains("alpine-01"));
     }
 }
