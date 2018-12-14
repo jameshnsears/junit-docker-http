@@ -50,13 +50,15 @@ public class ConfigurationAccessor {
         return networks;
     }
 
-    public ArrayList<Map<String, Map<String, String>>> volumes() {
-        final ArrayList<Map<String, Map<String, String>>> volumes = new ArrayList<>();
+    public ArrayList<String> volumes() {
+        final ArrayList<String> networks = new ArrayList<>();
+        final ArrayList<String> volumes = new ArrayList<>();
         for (final Configuration configuration : this.configurationCollection) {
-            if (!configuration.volumes.isEmpty()) {
-                volumes.add(configuration.volumes);
+            for (Map.Entry<String, Map<String, String>> volume: configuration.volumes.entrySet()) {
+                volumes.add(volume.getKey());
             }
         }
+        Collections.sort(volumes);
         return volumes;
     }
 }

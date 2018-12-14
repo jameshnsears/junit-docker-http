@@ -13,7 +13,7 @@ import java.util.ArrayList;
 class DockerClientTest {
     private final DockerClient dockerClient = new DockerClient();
 
-    //    @Test
+    //@Test
     void pullImages(final ConfigurationAccessor configurationAccessor) throws IOException {
         dockerClient.rmImages(configurationAccessor.images());
         ArrayList<String> dockerImages = (ArrayList) dockerClient.lsImages();
@@ -32,12 +32,12 @@ class DockerClientTest {
     void stopStartContainers(final ConfigurationAccessor configurationAccessor) throws IOException {
         dockerClient.startContainers(configurationAccessor);
         Assertions.assertTrue(dockerClient.lsContainers(configurationAccessor).size() == 2);
-        Assertions.assertTrue(dockerClient.lsNetworks().contains("dev"));
-        Assertions.assertTrue(dockerClient.lsVolumes().contains("alpine-01"));
+        Assertions.assertTrue(dockerClient.lsNetworks(configurationAccessor).contains("dev"));
+        Assertions.assertTrue(dockerClient.lsVolumes(configurationAccessor).contains("alpine-01"));
 
         dockerClient.rmContainers(configurationAccessor);
         Assertions.assertTrue(dockerClient.lsContainers(configurationAccessor).size() == 0);
-//        Assertions.assertTrue(dockerClient.lsNetworks(configurationAccessor).size() == 0);
-//        Assertions.assertTrue(dockerClient.lsVolumes(configurationAccessor).size() == 0);
+        Assertions.assertTrue(dockerClient.lsNetworks(configurationAccessor).size() == 0);
+        Assertions.assertTrue(dockerClient.lsVolumes(configurationAccessor).size() == 0);
     }
 }
