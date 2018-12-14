@@ -32,7 +32,7 @@ public class ConfigurationAccessorParameterResolver implements ParameterResolver
         return new ConfigurationAccessor(configurationCollection);
     }
 
-    private InputStreamReader getInputStreamReader() {
+    protected InputStreamReader getInputStreamReader() {
         return new InputStreamReader(getClass().getResourceAsStream("/fixtures/config.json"));
     }
 }

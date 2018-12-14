@@ -57,11 +57,11 @@ public class RequestMapper {
             containerCreateRequest.exposedPorts.put(port.getKey(), new HashMap<>());
 
             List<Map<String, String>> portBindingsList = new ArrayList<>();
-            Map<String, String> portBidningsMap = new HashMap<>();
-            portBidningsMap.put("HostIp", "");
-            portBidningsMap.put("HostPort", port.getValue().toString());
+            Map<String, String> portBindingsMap = new HashMap<>();
+            portBindingsMap.put("HostIp", "");
+            portBindingsMap.put("HostPort", port.getValue().toString());
 
-            portBindingsList.add(portBidningsMap);
+            portBindingsList.add(portBindingsMap);
 
             containerCreateRequest.hostConfig.portBindings.put(port.getKey(), portBindingsList);
         }

@@ -20,61 +20,36 @@
     "image": "xqa-shard:latest",
     "name": "xqa-shard-01",
     "ports": {
-      "1984/tcp": ""
+      "1984/tcp": 0
     },
-    "command": [
-      "-message_broker_host",
-      "xqa-message-broker"
-    ],
+    "command": "-message_broker_host xqa-message-broker",
     "network": "xqa"
   },
   {
     "image": "xqa-shard:latest",
     "name": "xqa-shard-02",
     "ports": {
-      "1984/tcp": ""
+      "1984/tcp": 0
     },
-    "command": [
-      "-message_broker_host",
-      "xqa-message-broker"
-    ],
+    "command": "-message_broker_host xqa-message-broker",
     "network": "xqa"
   },
   {
     "image": "xqa-ingest-balancer:latest",
     "name": "xqa-ingest-balancer",
-    "command": [
-      "-message_broker_host",
-      "xqa-message-broker",
-      "-pool_size",
-      "1",
-      "-insert_thread_wait",
-      "2000"
-    ],
+    "command": "-message_broker_host xqa-message-broker -pool_size 1 -insert_thread_wait 2000",
     "network": "xqa"
   },
   {
     "image": "xqa-db-amqp:latest",
     "name": "xqa-db-amqp",
-    "command": [
-      "-message_broker_host",
-      "xqa-message-broker",
-      "-storage_host",
-      "xqa-db",
-      "-storage_port",
-      "5432"
-    ],
+    "command": "-message_broker_host xqa-message-broker -storage_host xqa-db -storage_port 5432",
     "network": "xqa"
   },
   {
     "image": "xqa-ingest:latest",
     "name": "xqa-ingest",
-    "command": [
-      "-message_broker_host",
-      "xqa-message-broker",
-      "-path",
-      "/xml"
-    ],
+    "command": "-message_broker_host xqa-message-broker -path /xml",
     "volumes": {
       "/home/jsears/GIT_REPOS/xqa-test-data": {
         "bind": "/xml",
