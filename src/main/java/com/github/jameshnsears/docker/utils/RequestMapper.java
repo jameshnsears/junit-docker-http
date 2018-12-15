@@ -20,6 +20,7 @@ public class RequestMapper {
 
         containerCreateRequest.image = configurationContainer.image;
         cmd(configurationContainer, containerCreateRequest);
+        network(configurationContainer, containerCreateRequest);
         ports(configurationContainer, containerCreateRequest);
         volumes(configurationContainer, containerCreateRequest);
 
@@ -43,6 +44,15 @@ public class RequestMapper {
                             configurationContainer.name,
                             volumeMap.get("bind"),
                             volumeMap.get("mode")));
+        }
+    }
+
+    private void network(Configuration configurationContainer, ContainerCreateRequest containerCreateRequest) {
+        Preconditions.checkNotNull(configurationContainer);
+        Preconditions.checkNotNull(containerCreateRequest);
+
+        if (!configurationContainer.network.isEmpty()) {
+            containerCreateRequest.hostConfig.networkMode = configurationContainer.network;
         }
     }
 

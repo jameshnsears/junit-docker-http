@@ -60,7 +60,7 @@ public class ContainerCreateRequest {
     public static class HostConfig {
         @SerializedName("NetworkMode")
         @Expose
-        public String cmd = "default";
+        public String networkMode = "default";
 
         @SerializedName("Binds")
         @Expose

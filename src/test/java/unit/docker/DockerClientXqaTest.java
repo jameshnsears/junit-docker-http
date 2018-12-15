@@ -9,7 +9,7 @@ import java.io.IOException;
 
 @ExtendWith(ConfigurationXqaAccessorParameterResolver.class)
 class DockerClientXqaTest extends DockerClientBaseTest {
-    //@Test
+    @Test
     void pullImages(final ConfigurationAccessor configurationAccessor) throws IOException {
         assertConfigurationImagesNotPulled(configurationAccessor);
 
