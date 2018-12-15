@@ -13,6 +13,7 @@ addons:
 
 jdk:
   - openjdk10
+  - openjdk11
 
 cache:
   directories:
