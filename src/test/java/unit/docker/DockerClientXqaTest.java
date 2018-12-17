@@ -16,7 +16,7 @@ class DockerClientXqaTest extends DockerClientBaseTest {
         assertConfigurationImagesPulled(configurationAccessor);
     }
 
-    @Test
+    // @Test
     void stopStartContainers(final ConfigurationAccessor configurationAccessor) throws IOException {
         dockerClient.startContainers(configurationAccessor);
         Assertions.assertTrue(dockerClient.lsContainers(configurationAccessor).size() == 7);

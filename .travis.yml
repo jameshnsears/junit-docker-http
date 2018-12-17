@@ -20,9 +20,9 @@ cache:
     - $HOME/.sonar/cache
 
 script:
-  - mvn clean test jacoco:report
+  - mvn clean test
   - mvn checkstyle:check spotbugs:check pmd:pmd
 
 after_success:
-  - mvn clean test jacoco:report coveralls:report
+  - mvn jacoco:report coveralls:report
   - sonar-scanner
