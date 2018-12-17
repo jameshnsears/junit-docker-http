@@ -1,11 +1,5 @@
 volumes not working? (also in pytest-docker-py(!?)
 = check xqa-ingest works, wrong java version!
-= ensure all java dockerfiles use jdk 10
-
-
-sonar.java.spotbugs.reportPaths=target/spotbugsXml.xml
-sonar.java.checkstyle.reportPaths=target/checkstyle-result.xml
-sonar.java.pmd.reportPaths=target/pmd.xml
 
 * docker run -d --net="xqa" --name="xqa-ingest" -v $HOME/GIT_REPOS/xqa-test-data:/xml jameshnsears/xqa-ingest:latest -message_broker_host xqa-message-broker -path /xml
 
