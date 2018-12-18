@@ -36,7 +36,7 @@ public class JuntDockerClientExtension implements BeforeTestExecutionCallback, A
         Preconditions.checkNotNull(context);
 
         final Method testMethod = context.getRequiredTestMethod();
-        readProps();
+        //readProps();
         logger.info(String.format("%s", testMethod.getName()));
         //dockerClient.startContainers(configurationAccessor);
     }
