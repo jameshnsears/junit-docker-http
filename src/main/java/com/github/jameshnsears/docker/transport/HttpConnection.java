@@ -46,8 +46,8 @@ public class HttpConnection {
         final Response response = okHttpClient().newCall(request).execute();
         final String jsonResponse = response.body().string();
 
-        JsonElement jsonElement = new JsonParser().parse(jsonResponse);
-        Gson gsonPrettyPrinter = new GsonBuilder().setPrettyPrinting().create();
+        final JsonElement jsonElement = new JsonParser().parse(jsonResponse);
+        final Gson gsonPrettyPrinter = new GsonBuilder().setPrettyPrinting().create();
         logger.debug(gsonPrettyPrinter.toJson(jsonElement));
 
         logger.info(String.format("%s", response.code()));

@@ -1,5 +1,10 @@
 package com.github.jameshnsears;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,7 +19,7 @@ public class ConfigurationAccessor {
     public ConfigurationAccessor(final Collection<Configuration> configurationCollection) {
         Preconditions.checkNotNull(configurationCollection);
 
-        this.configurationCollection = configurationCollection;
+            this.configurationCollection = configurationCollection;
     }
 
     public ArrayList<String> images() {
@@ -24,7 +29,7 @@ public class ConfigurationAccessor {
                 images.add(configuration.image);
             }
         }
-        Collections.sort(images);  // TODO make unique
+        Collections.sort(images);
         return images;
     }
 

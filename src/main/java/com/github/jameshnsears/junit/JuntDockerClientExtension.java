@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.Properties;
 
+import com.github.jameshnsears.docker.DockerClient;
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -14,10 +15,11 @@ import org.slf4j.LoggerFactory;
 import com.google.common.base.Preconditions;
 
 public class JuntDockerClientExtension implements BeforeTestExecutionCallback, AfterTestExecutionCallback {
-
     private static final Logger logger = LoggerFactory.getLogger(JuntDockerClientExtension.class.getName());
+    private final DockerClient dockerClient = new DockerClient();
 
     private void readProps() {
+        // TODO check TODO's! + also make sure that sue json file!=
         final Properties prop = new Properties();
         try (InputStream inputStream = JuntDockerClientExtension.class.getResourceAsStream("/config.properties")) {
 
@@ -36,19 +38,7 @@ public class JuntDockerClientExtension implements BeforeTestExecutionCallback, A
         final Method testMethod = context.getRequiredTestMethod();
         readProps();
         logger.info(String.format("%s", testMethod.getName()));
-        // use containerCreateRequest key value with name of test being a key into the configuration
-
-        /*
-    logging.debug("setup: %s", item)
-    for fixturename in item.fixturenames:
-        if fixturename.startswith(DockerPyWrapper.RECOGNISED_FIXTURE):
-            docker_py_wrapper = DockerPyWrapper()
-            # no alternative, at moment, other than using ._request
-            config = Configuration(item._request.getfixturevalue(fixturename))
-            docker_py_wrapper.rm_containers(config.images())
-            if docker_py_wrapper.pull(config.images()):
-                docker_py_wrapper.start_containers(config)
-         */
+        //dockerClient.startContainers(configurationAccessor);
     }
 
     @Override
@@ -57,15 +47,6 @@ public class JuntDockerClientExtension implements BeforeTestExecutionCallback, A
 
         final Method testMethod = context.getRequiredTestMethod();
         logger.info(String.format("%s", testMethod.getName()));
-
-        /*
-    logging.debug("teardown: %s", item)
-    if "PYTEST_DOCKER_PY_KEEP_LOGS" not in os.environ:
-        for fixturename in item.fixturenames:
-            if fixturename.startswith(DockerPyWrapper.RECOGNISED_FIXTURE):
-                docker_py_wrapper = DockerPyWrapper()
-                docker_py_wrapper.rm_containers(
-                    Configuration(item._request.getfixturevalue(fixturename)).images())
-         */
+        //dockerClient.rmContainers(configurationAccessor);
     }
 }

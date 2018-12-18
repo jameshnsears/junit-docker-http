@@ -25,9 +25,7 @@ class DockerClientXqaTest extends DockerClientBase {
             Thread.sleep(15000);
         }
 
-        Assertions.assertTrue(dockerClient.lsContainers(configurationAccessor).size() == 7);
-        Assertions.assertTrue(dockerClient.lsNetworks(configurationAccessor).contains("xqa"));
-        Assertions.assertTrue(dockerClient.lsVolumes(configurationAccessor).contains("xqa-ingest"));
+        Assertions.assertTrue(dockerClient.lsContainers(configurationAccessor).size() == 2);
 
         assertConfigurationContainersRemoved(configurationAccessor);
     }

@@ -1,9 +1,35 @@
 package unit.docker;
 
+import com.google.common.io.CharStreams;
+import org.apache.commons.io.Charsets;
+import org.apache.commons.io.IOUtils;
+
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class ConfigurationXqaAccessorParameterResolver extends ConfigurationAccessorParameterResolver {
     protected InputStreamReader getInputStreamReader() {
-        return new InputStreamReader(getClass().getResourceAsStream("/fixtures/config-xqa.json"));
+        String json = "";
+        try {
+            json = CharStreams.toString(new InputStreamReader(
+                    getClass().getResourceAsStream("/fixtures/config-xqa.json"), Charset.defaultCharset()));
+
+            URL resource = getClass().getResource("/fixtures/xqa-ingest");
+            File file = Paths.get(resource.toURI()).toFile();
+
+            json = json.replace("PATH_TO_XQA-INGEST_XML_FILES", file.getAbsolutePath());
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        return new InputStreamReader(IOUtils.toInputStream(json, Charset.defaultCharset()));
     }
 }
