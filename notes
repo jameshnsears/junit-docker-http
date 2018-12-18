@@ -1,14 +1,5 @@
-volume not working in xqa test- I need ot be able to see data going into it!
-* docker run -d --net="xqa" --name="xqa-ingest" -v $HOME/GIT_REPOS/xqa-test-data:/xml jameshnsears/xqa-ingest:latest -message_broker_host xqa-message-broker -path /xml
-
 check precondition used everywhere!
 
-run containers in detached mode - i.e. if not data going into xqa-ingest then it should exit!
-jsears@jsears-GE62-2QF:~$ docker logs -f xqa-ingest
-2018-12-18 15:38:37.989      INFO --- [                main]:                         <init>,  46: ingest/208cf387
-2018-12-18 15:38:37.998      INFO --- [                main]:         setConfigurationValues, 143: message_broker_host=xqa-message-broker
-2018-12-18 15:38:37.998      INFO --- [                main]:         setConfigurationValues, 158: path=/xml
-2018-12-18 15:38:38.350     ERROR --- [                main]:                  executeIngest,  61: no XML files found
-... should exit now!
-
 work on JunitDockerClientExtensionTest.java
+
+generally tidy up the code some more, so easierto understand!

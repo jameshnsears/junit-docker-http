@@ -1,6 +1,7 @@
 package unit.junit;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.github.jameshnsears.junit.JuntDockerClientExtension;
@@ -8,8 +9,8 @@ import com.github.jameshnsears.junit.JuntDockerClientExtension;
 @ExtendWith(JuntDockerClientExtension.class)
 class JunitDockerClientExtensionTest {
 
-    //@Test
+    @Test
     void testExtension() {
-        Assertions.fail();
+        Assertions.assertTrue(true);
     }
 }

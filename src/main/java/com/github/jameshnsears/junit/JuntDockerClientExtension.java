@@ -5,13 +5,13 @@ import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.Properties;
 
-import com.github.jameshnsears.docker.DockerClient;
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.github.jameshnsears.docker.DockerClient;
 import com.google.common.base.Preconditions;
 
 public class JuntDockerClientExtension implements BeforeTestExecutionCallback, AfterTestExecutionCallback {

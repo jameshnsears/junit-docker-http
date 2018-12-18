@@ -1,17 +1,16 @@
 package unit.docker;
 
-import com.google.common.io.CharStreams;
-import org.apache.commons.io.Charsets;
-import org.apache.commons.io.IOUtils;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import org.apache.commons.io.IOUtils;
+
+import com.google.common.io.CharStreams;
 
 public class ConfigurationXqaAccessorParameterResolver extends ConfigurationAccessorParameterResolver {
     protected InputStreamReader getInputStreamReader() {
