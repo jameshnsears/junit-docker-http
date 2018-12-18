@@ -90,7 +90,10 @@ public final class UnixDomainSocketFactory extends SocketFactory {
 
     @Override
     public Socket createSocket(
-            final InetAddress address, final int port, final InetAddress localAddress, final int localPort) throws IOException {
+            final InetAddress address,
+            final int port,
+            final InetAddress localAddress,
+            final int localPort) throws IOException {
         return createUnixDomainSocket();
     }
 }

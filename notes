@@ -1,5 +1,3 @@
-xqa-perf rebuild everything at correct jdk level!
-
 volumes not working? (also in pytest-docker-py(!?)
 = check xqa-ingest works
 = /home/jsears/GIT_REPOS/junit-docker-http/src/test/java/unit/docker/DockerClientXqaTest.java
@@ -24,12 +22,3 @@ do more pretty printing:
         return gsonPrettyPrinter.toJson(containerCreateRequest);
 
 in configurationaccessor use more Models!?
-
---
-
-mvn clean jacoco:report checkstyle:checkstyle pmd:check
-= target/site/jacoco/index.html
-= target/site/checkstyle.html
-= target/site/pmd.html
-
---

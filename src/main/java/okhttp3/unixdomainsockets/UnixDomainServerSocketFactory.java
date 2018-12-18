@@ -60,7 +60,9 @@ final class UnixDomainServerSocketFactory extends ServerSocketFactory {
     }
 
     @Override
-    public ServerSocket createServerSocket(final int port, final int backlog, final InetAddress inetAddress) throws IOException {
+    public ServerSocket createServerSocket(final int port,
+                                           final int backlog,
+                                           final InetAddress inetAddress) throws IOException {
         return createUnixDomainSocket();
     }
 

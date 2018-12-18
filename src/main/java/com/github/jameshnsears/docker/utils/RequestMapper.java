@@ -71,7 +71,7 @@ public class RequestMapper {
                 final Map<String, String> portBindingsMap = new HashMap<>();
                 portBindingsMap.put("HostIp", "");
                 portBindingsMap.put("HostPort", port.getValue().toString());
-                    portBindingsList.add(portBindingsMap);
+                portBindingsList.add(portBindingsMap);
             }
 
             containerCreateRequest.hostConfig.portBindings.put(port.getKey(), portBindingsList);

@@ -92,7 +92,8 @@ public class DockerClient {
         }
     }
 
-    private void rmImage(final String configurationImage, final ArrayList<Map<String, String>> dockerImages) throws IOException {
+    private void rmImage(final String configurationImage,
+                         final ArrayList<Map<String, String>> dockerImages) throws IOException {
         Preconditions.checkNotNull(configurationImage);
         Preconditions.checkNotNull(dockerImages);
 
