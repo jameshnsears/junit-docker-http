@@ -3,15 +3,15 @@ package com.github.jameshnsears.docker.transport;
 import java.io.File;
 import java.io.IOException;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.jameshnsears.docker.DockerClient;
 import com.google.common.base.Preconditions;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;

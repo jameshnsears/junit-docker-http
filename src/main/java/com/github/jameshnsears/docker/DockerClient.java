@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.google.gson.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,6 +21,11 @@ import com.github.jameshnsears.docker.transport.HttpConnection;
 import com.github.jameshnsears.docker.utils.RequestMapper;
 import com.github.jameshnsears.docker.utils.ResponseMapper;
 import com.google.common.base.Preconditions;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 
 import okhttp3.Response;
 
@@ -230,7 +234,9 @@ public class DockerClient {
         logger.info(volumeToCreate);
         httpConnection.post(
                 "http://127.0.0.1/v1.39/volumes/create",
-                String.format("{\"Driver\":\"local\",\"DriverOpts\":{},\"Labels\":{},\"Name\":\"%s\"}", volumeToCreate));
+                String.format(
+                        "{\"Driver\":\"local\",\"DriverOpts\":{},\"Labels\":{},\"Name\":\"%s\"}",
+                        volumeToCreate));
     }
 
     public ArrayList<String> lsNetworks(final ConfigurationAccessor configurationFilter) throws IOException {
