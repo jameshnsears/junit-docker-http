@@ -239,15 +239,16 @@ public class DockerClient {
 
         final ArrayList<String> volumes = new ArrayList<>();
 
-        if (dockerVolumes.size() > 0) {
+        try {
             for (final Map<String, Object> dockerVolume : dockerVolumes.get("Volumes")) {
-
                 final String dockerVolumerName = (String) dockerVolume.get("Name");
-
                 if (configurationVolumes.contains(dockerVolumerName)) {
+                    logger.debug(dockerVolumerName);
                     volumes.add(dockerVolumerName);
                 }
             }
+        } catch (NullPointerException nullPointerException) {
+            logger.warn(nullPointerException.getLocalizedMessage());
         }
 
         return volumes;
