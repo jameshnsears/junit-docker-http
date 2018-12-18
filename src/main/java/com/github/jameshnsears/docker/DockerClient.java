@@ -232,22 +232,23 @@ public class DockerClient {
     public ArrayList<String> lsVolumes(final ConfigurationAccessor configurationFilter) throws IOException {
         Preconditions.checkNotNull(configurationFilter);
 
-        System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxx");
-        final String json = httpConnection.get("http://127.0.0.1/v1.39/volumes");
-        System.out.println(json);
+        final String json = httpConnection.get("http://127.0.0.1/v1.39/volumes?filters=%7B%7D");
         final Map<String, List<Map<String, Object>>> dockerVolumes = responseMapper.volumeResponse(json);
 
         final ArrayList<String> configurationVolumes = configurationFilter.volumes();
-        System.out.println(configurationVolumes);
 
         final ArrayList<String> volumes = new ArrayList<>();
-        for (final Map<String, Object> dockerVolume : dockerVolumes.get("Volumes")) {
-            System.out.println(dockerVolume.toString());
+        System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxx");
+        System.out.println(volumes.toString());
+        if (!volumes.isEmpty()) {
+            for (final Map<String, Object> dockerVolume : dockerVolumes.get("Volumes")) {
+                System.out.println(dockerVolume.toString());
 
-            final String dockerVolumerName = (String) dockerVolume.get("Name");
+                final String dockerVolumerName = (String) dockerVolume.get("Name");
 
-            if (configurationVolumes.contains(dockerVolumerName)) {
-                volumes.add(dockerVolumerName);
+                if (configurationVolumes.contains(dockerVolumerName)) {
+                    volumes.add(dockerVolumerName);
+                }
             }
         }
 
