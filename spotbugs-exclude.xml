@@ -2,20 +2,19 @@
 
 <FindBugsFilter>
     <Match>
-        <Class name="com.github.jameshnsears.docker.DockerClient"/>
-        <And>
-            <Bug category="PERFORMANCE"/>
-            <Bug code="SIC"/>
-            <Bug pattern="SIC_INNER_SHOULD_BE_STATIC"/>
-        </And>
-        <And>
-            <Bug category="STYLE"/>
-            <Bug code="DMI"/>
-            <Bug pattern="DMI_HARDCODED_ABSOLUTE_FILENAME"/>
-        </And>
-    </Match>
-    <Match>
         <Class name="com.github.jameshnsears.ConfigurationAccessor"/>
         <Bug pattern="DLS_DEAD_LOCAL_STORE"/>
+    </Match>
+    <Match>
+        <Class name="com.github.jameshnsears.docker.models.ContainerCreateRequest"/>
+        <Bug pattern="URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD"/>
+    </Match>
+    <Match>
+        <Class name="com.github.jameshnsears.docker.models.ContainerCreateRequest$HostConfig"/>
+        <Bug pattern="URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD"/>
+    </Match>
+    <Match>
+        <Class name="com.github.jameshnsears.docker.transport.HttpConnection"/>
+        <Bug pattern="DMI_HARDCODED_ABSOLUTE_FILENAME"/>
     </Match>
 </FindBugsFilter>

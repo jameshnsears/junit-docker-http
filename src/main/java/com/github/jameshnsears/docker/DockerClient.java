@@ -194,7 +194,7 @@ public class DockerClient {
 
         for (final String configurationNetwork : configurationNetworks) {
             final ArrayList<String> dockerNetworks = lsNetworks(configurationFilter);
-            if (!dockerNetworks.contains(configurationNetwork) && !dockerNetworks.contains(configurationNetwork)) {
+            if (!dockerNetworks.contains(configurationNetwork)) {
                 createNetwork(configurationNetwork);
             }
         }
