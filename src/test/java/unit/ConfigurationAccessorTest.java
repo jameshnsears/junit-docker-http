@@ -1,16 +1,17 @@
 package unit;
 
-import com.github.jameshnsears.Configuration;
-import com.github.jameshnsears.ConfigurationAccessor;
-import com.google.gson.reflect.TypeToken;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+import com.github.jameshnsears.Configuration;
+import com.github.jameshnsears.ConfigurationAccessor;
+import com.google.gson.reflect.TypeToken;
 
 class ConfigurationAccessorTest extends GsonCommon {
     private final ConfigurationAccessor configurationAccessor;

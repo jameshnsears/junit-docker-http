@@ -1,5 +1,17 @@
 package com.github.jameshnsears.docker;
 
+import java.io.IOException;
+import java.util.AbstractList;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.github.jameshnsears.Configuration;
 import com.github.jameshnsears.ConfigurationAccessor;
 import com.github.jameshnsears.docker.models.ContainerResponse;
@@ -10,13 +22,8 @@ import com.github.jameshnsears.docker.utils.RequestMapper;
 import com.github.jameshnsears.docker.utils.ResponseMapper;
 import com.google.common.base.Preconditions;
 import com.google.gson.JsonSyntaxException;
-import okhttp3.Response;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
+import okhttp3.Response;
 
 
 public class DockerClient {
@@ -33,7 +40,7 @@ public class DockerClient {
             final ArrayList<ImageResponse> dockerImages = responseMapper.imagesResponse(json);
 
             for (final ImageResponse dockerImage : dockerImages) {
-                Map<String, String> dockerImageMap = new HashMap<>();
+                final Map<String, String> dockerImageMap = new HashMap<>();
                 dockerImageMap.put("id", dockerImage.id);
                 dockerImageMap.put("name", dockerImage.repoTags.get(0));
                 images.add(dockerImageMap);
@@ -61,7 +68,7 @@ public class DockerClient {
                     containerName = containerName.replaceFirst("/", "");
 
                     if (configurationFilter.imageNames().contains(containerName)) {
-                        Map<String, String> container = new ConcurrentHashMap<>();
+                        final Map<String, String> container = new ConcurrentHashMap<>();
                         container.put("imageId", dockerContainer.imageId);
                         container.put("id", dockerContainer.id);
                         container.put("name", containerName);
@@ -89,7 +96,7 @@ public class DockerClient {
         Preconditions.checkNotNull(configurationImage);
         Preconditions.checkNotNull(dockerImages);
 
-        for (Map<String, String> dockerImage: dockerImages) {
+        for (final Map<String, String> dockerImage: dockerImages) {
             if (dockerImage.get("name").equals(configurationImage)) {
                 logger.info(configurationImage);
                 httpConnection.delete(String.format(
@@ -105,7 +112,7 @@ public class DockerClient {
         for (final String configurationImageName : configurationImages) {
             if (shouldImageBePulled(dockerImages, configurationImageName)) {
                 logger.info(configurationImageName);
-                Response response = httpConnection.post(
+                final Response response = httpConnection.post(
                         String.format("http://127.0.0.1/v1.39/images/create?fromImage=%s", configurationImageName));
 
                 logger.debug(response.body().string());
@@ -118,14 +125,12 @@ public class DockerClient {
         Preconditions.checkNotNull(dockerImages);
         Preconditions.checkNotNull(configurationImageName);
 
-        List<String> imageNamesAlreadyPulled = new ArrayList<>();
-        for (Map<String, String> dockerImage: dockerImages) {
+        final List<String> imageNamesAlreadyPulled = new ArrayList<>();
+        for (final Map<String, String> dockerImage: dockerImages) {
             imageNamesAlreadyPulled.add(dockerImage.get("name"));
         }
-        if (imageNamesAlreadyPulled.contains(configurationImageName)) {
-            return false;
-        }
-        return true;
+
+        return !imageNamesAlreadyPulled.contains(configurationImageName);
     }
 
     public void startContainers(final ConfigurationAccessor configurationFilter) throws IOException {
@@ -138,7 +143,7 @@ public class DockerClient {
 
         for (final Configuration configurationContainer : configurationContainers) {
             logger.info(configurationContainer.name);
-            Response response = httpConnection.post(
+            final Response response = httpConnection.post(
                     String.format("http://127.0.0.1/v1.39/containers/create?name=%s", configurationContainer.name),
                     containerCreateMapper.containerCreateRequest(configurationContainer));
 
@@ -231,9 +236,9 @@ public class DockerClient {
 
         final ArrayList<String> configurationVolumes = configurationFilter.volumes();
 
-        ArrayList<String> volumes = new ArrayList<>();
-        for (Map<String, Object> dockerVolume : dockerVolumes.get("Volumes")) {
-            String dockerVolumerName = (String) dockerVolume.get("Name");
+        final ArrayList<String> volumes = new ArrayList<>();
+        for (final Map<String, Object> dockerVolume : dockerVolumes.get("Volumes")) {
+            final String dockerVolumerName = (String) dockerVolume.get("Name");
 
             if (configurationVolumes.contains(dockerVolumerName)) {
                 volumes.add(dockerVolumerName);

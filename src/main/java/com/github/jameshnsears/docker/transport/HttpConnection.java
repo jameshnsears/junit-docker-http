@@ -1,15 +1,21 @@
 package com.github.jameshnsears.docker.transport;
 
-import com.github.jameshnsears.docker.DockerClient;
-import com.google.common.base.Preconditions;
-import okhttp3.*;
-import okhttp3.logging.HttpLoggingInterceptor;
-import okhttp3.unixdomainsockets.UnixDomainSocketFactory;
+import java.io.File;
+import java.io.IOException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.IOException;
+import com.github.jameshnsears.docker.DockerClient;
+import com.google.common.base.Preconditions;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
+import okhttp3.unixdomainsockets.UnixDomainSocketFactory;
 
 public class HttpConnection {
     private static final Logger logger = LoggerFactory.getLogger(DockerClient.class);

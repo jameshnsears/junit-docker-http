@@ -1,16 +1,17 @@
 package com.github.jameshnsears.junit;
 
-import com.google.common.base.Preconditions;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Method;
+import java.util.Properties;
+
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Method;
-import java.util.Properties;
+import com.google.common.base.Preconditions;
 
 public class JuntDockerClientExtension implements BeforeTestExecutionCallback, AfterTestExecutionCallback {
 

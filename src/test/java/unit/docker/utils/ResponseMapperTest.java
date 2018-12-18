@@ -1,22 +1,24 @@
 package unit.docker.utils;
 
-import com.github.jameshnsears.docker.models.ContainerCreateResponse;
-import com.github.jameshnsears.docker.models.ContainerResponse;
-import com.github.jameshnsears.docker.models.ImageResponse;
-import com.github.jameshnsears.docker.models.NetworkResponse;
-import com.github.jameshnsears.docker.utils.ResponseMapper;
-import com.google.gson.reflect.TypeToken;
-import org.apache.commons.io.FileUtils;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import unit.GsonCommon;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.io.FileUtils;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+import com.github.jameshnsears.docker.models.ContainerCreateResponse;
+import com.github.jameshnsears.docker.models.ContainerResponse;
+import com.github.jameshnsears.docker.models.ImageResponse;
+import com.github.jameshnsears.docker.models.NetworkResponse;
+import com.github.jameshnsears.docker.utils.ResponseMapper;
+import com.google.gson.reflect.TypeToken;
+
+import unit.GsonCommon;
 
 class ResponseMapperTest extends GsonCommon {
     private ResponseMapper responseMapper = new ResponseMapper();
@@ -65,7 +67,7 @@ class ResponseMapperTest extends GsonCommon {
 
     @Test
     void volumesResponse() throws IOException {
-        final ClassLoader classLoader = getClass().getClassLoader();
+        final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         final String json = FileUtils.readFileToString(
                 new File(classLoader.getResource("fixtures/docker/volumesResponse.json").getFile()), "UTF-8");
 

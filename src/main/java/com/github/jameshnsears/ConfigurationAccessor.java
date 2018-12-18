@@ -1,8 +1,12 @@
 package com.github.jameshnsears;
 
-import com.google.common.base.Preconditions;
+import java.util.AbstractList;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Map;
 
-import java.util.*;
+import com.google.common.base.Preconditions;
 
 public class ConfigurationAccessor {
     private final Collection<Configuration> configurationCollection;
@@ -15,7 +19,7 @@ public class ConfigurationAccessor {
 
     public ArrayList<String> images() {
         final ArrayList<String> images = new ArrayList<>();
-        for (Configuration configuration : this.configurationCollection) {
+        for (final Configuration configuration : this.configurationCollection) {
             if (!configuration.image.isEmpty() && !images.contains(configuration.image)) {
                 images.add(configuration.image);
             }
@@ -26,7 +30,7 @@ public class ConfigurationAccessor {
 
     public AbstractList<String> imageNames() {
         final ArrayList<String> imageNames = new ArrayList<>();
-        for (Configuration configuration : this.configurationCollection) {
+        for (final Configuration configuration : this.configurationCollection) {
             if (!configuration.name.isEmpty()) {
                 imageNames.add(configuration.name);
             }
@@ -51,10 +55,9 @@ public class ConfigurationAccessor {
     }
 
     public ArrayList<String> volumes() {
-        final ArrayList<String> networks = new ArrayList<>();
         final ArrayList<String> volumes = new ArrayList<>();
         for (final Configuration configuration : this.configurationCollection) {
-            for (Map.Entry<String, Map<String, String>> volume: configuration.volumes.entrySet()) {
+            for (final Map.Entry<String, Map<String, String>> volume: configuration.volumes.entrySet()) {
                 volumes.add(volume.getKey());
             }
         }

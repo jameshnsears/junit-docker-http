@@ -1,8 +1,8 @@
 package unit;
 
-import com.google.gson.Gson;
-
 import java.io.InputStreamReader;
+
+import com.google.gson.Gson;
 
 public class GsonCommon {
     protected final Gson gson;

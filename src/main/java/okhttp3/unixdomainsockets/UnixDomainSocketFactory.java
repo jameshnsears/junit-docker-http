@@ -15,17 +15,18 @@
  */
 package okhttp3.unixdomainsockets;
 
-import jnr.unixsocket.UnixSocket;
-import jnr.unixsocket.UnixSocketAddress;
-import jnr.unixsocket.UnixSocketChannel;
-
-import javax.net.SocketFactory;
 import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
+
+import javax.net.SocketFactory;
+
+import jnr.unixsocket.UnixSocket;
+import jnr.unixsocket.UnixSocketAddress;
+import jnr.unixsocket.UnixSocketChannel;
 
 /**
  * Impersonate TCP-style SocketFactory over UNIX domain sockets.

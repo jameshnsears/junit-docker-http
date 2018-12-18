@@ -1,29 +1,31 @@
 package unit.docker.utils;
 
-import com.github.jameshnsears.Configuration;
-import com.github.jameshnsears.ConfigurationAccessor;
-import com.github.jameshnsears.docker.utils.RequestMapper;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+
+import com.github.jameshnsears.Configuration;
+import com.github.jameshnsears.ConfigurationAccessor;
+import com.github.jameshnsears.docker.utils.RequestMapper;
+
 import unit.GsonCommon;
 import unit.docker.ConfigurationAccessorParameterResolver;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
 
 @ExtendWith(ConfigurationAccessorParameterResolver.class)
 class RequestMapperTest extends GsonCommon {
     @Test
     void containerCreateRequest(ConfigurationAccessor configurationAccessor) throws IOException {
-        RequestMapper requestMapper = new RequestMapper();
+        final RequestMapper requestMapper = new RequestMapper();
         final List<Configuration> configurationContainers = (List) configurationAccessor.containers();
 
         Assertions.assertEquals(
                 FileUtils.readFileToString(
-                        new File(getClass().getClassLoader().getResource("fixtures/docker/containerCreateRequest.json").getFile()), "UTF-8"),
+                        new File(Thread.currentThread().getContextClassLoader().getResource("fixtures/docker/containerCreateRequest.json").getFile()), "UTF-8"),
                 requestMapper.containerCreateRequest(configurationContainers.get(0)));
     }
 

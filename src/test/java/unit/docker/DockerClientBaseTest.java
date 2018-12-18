@@ -1,44 +1,50 @@
 package unit.docker;
 
-import com.github.jameshnsears.ConfigurationAccessor;
-import com.github.jameshnsears.docker.DockerClient;
-import org.junit.jupiter.api.Assertions;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.jupiter.api.Assertions;
+
+import com.github.jameshnsears.ConfigurationAccessor;
+import com.github.jameshnsears.docker.DockerClient;
+
 class DockerClientBaseTest {
     protected final DockerClient dockerClient = new DockerClient();
 
     protected void assertConfigurationImagesNotPulled(ConfigurationAccessor configurationAccessor) throws IOException {
-        ArrayList<String> configurationImages = configurationAccessor.images();
+        final ArrayList<String> configurationImages = configurationAccessor.images();
 
         dockerClient.rmImages(configurationImages);
 
-        List<Map<String, String>> dockerImages = dockerClient.lsImages();
-        for (final String image : configurationImages) {
-            for (Map<String, String> dockerImage : dockerImages) {
-                Assertions.assertFalse(dockerImage.get("name").equals(image));
-            }
+        final List<String> dockerImageNames = getDockerImageNames();
+
+        for (final String configurationImage : configurationImages) {
+            Assertions.assertFalse(dockerImageNames.contains(configurationImage));
         }
     }
 
-    protected void assertConfigurationImagesPulled(ConfigurationAccessor configurationAccessor) throws IOException {
-        ArrayList<String> configurationImages = configurationAccessor.images();
-        dockerClient.pull(configurationImages);
-        List<Map<String, String>> dockerImages = dockerClient.lsImages();
-        List<String> dockerImageNames = new ArrayList<>();
-        for (Map<String, String> dockerImage : dockerImages) {
-            String dockerImageName = dockerImage.get("name");
-            if (configurationImages.contains(dockerImageName)) {
-                dockerImageNames.add(dockerImageName);
-            }
+    private List<String> getDockerImageNames() throws IOException {
+        final List<Map<String, String>> dockerImages = dockerClient.lsImages();
+
+        final List<String> dockerImageNames = new ArrayList<>();
+        for (final Map<String, String> dockerImage : dockerImages) {
+            dockerImageNames.add(dockerImage.get("name"));
         }
-        Collections.sort(dockerImageNames);
-        Assertions.assertArrayEquals(dockerImageNames.toArray(), configurationAccessor.images().toArray());
+        return dockerImageNames;
+    }
+
+    protected void assertConfigurationImagesPulled(ConfigurationAccessor configurationAccessor) throws IOException {
+        final ArrayList<String> configurationImages = configurationAccessor.images();
+        dockerClient.pull(configurationImages);
+
+        final List<String> dockerImageNames = getDockerImageNames();
+
+        for (final String configurationImage : configurationImages) {
+            Assertions.assertTrue(dockerImageNames.contains(configurationImage));
+        }
     }
 
     protected void assertConfigurationContainersRemoved(ConfigurationAccessor configurationAccessor) throws IOException {

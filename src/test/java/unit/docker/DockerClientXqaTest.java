@@ -1,11 +1,11 @@
 package unit.docker;
 
-import com.github.jameshnsears.ConfigurationAccessor;
+import java.io.IOException;
+
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import java.io.IOException;
+import com.github.jameshnsears.ConfigurationAccessor;
 
 @ExtendWith(ConfigurationXqaAccessorParameterResolver.class)
 class DockerClientXqaTest extends DockerClientBaseTest {
