@@ -41,7 +41,7 @@ public class RequestMapper {
 
             containerCreateRequest.hostConfig.binds.add(
                     String.format("%s:%s:%s",
-                            configurationContainer.name,
+                            volumeMapEntry.getKey(),
                             volumeMap.get("bind"),
                             volumeMap.get("mode")));
         }

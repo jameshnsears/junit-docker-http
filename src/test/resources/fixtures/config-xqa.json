@@ -51,7 +51,7 @@
     "name": "xqa-ingest",
     "command": "-message_broker_host xqa-message-broker -path /xml",
     "volumes": {
-      "/home/jsears/GIT_REPOS/xqa-test-data": {
+      "xqa-ingest": {
         "bind": "/xml",
         "mode": "rw"
       }

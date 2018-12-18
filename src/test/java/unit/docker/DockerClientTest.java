@@ -9,7 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import com.github.jameshnsears.ConfigurationAccessor;
 
 @ExtendWith(ConfigurationAccessorParameterResolver.class)
-class DockerClientTest extends DockerClientBaseTest {
+class DockerClientTest extends DockerClientBase {
     @Test
     void pullImages(final ConfigurationAccessor configurationAccessor) throws IOException {
         assertConfigurationImagesNotPulled(configurationAccessor);
@@ -22,8 +22,7 @@ class DockerClientTest extends DockerClientBaseTest {
         dockerClient.startContainers(configurationAccessor);
 
         if (System.getenv().get("TRAVIS") != null) {
-            // give travis-ci time to start containers
-            Thread.sleep(10000);
+            Thread.sleep(5000);
         }
 
         Assertions.assertTrue(dockerClient.lsContainers(configurationAccessor).size() == 2);

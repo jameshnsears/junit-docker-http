@@ -2,7 +2,6 @@ package unit.docker;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +10,7 @@ import org.junit.jupiter.api.Assertions;
 import com.github.jameshnsears.ConfigurationAccessor;
 import com.github.jameshnsears.docker.DockerClient;
 
-class DockerClientBaseTest {
+class DockerClientBase {
     protected final DockerClient dockerClient = new DockerClient();
 
     protected void assertConfigurationImagesNotPulled(ConfigurationAccessor configurationAccessor) throws IOException {

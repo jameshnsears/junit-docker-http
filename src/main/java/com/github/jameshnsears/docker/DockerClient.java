@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.google.gson.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +22,6 @@ import com.github.jameshnsears.docker.transport.HttpConnection;
 import com.github.jameshnsears.docker.utils.RequestMapper;
 import com.github.jameshnsears.docker.utils.ResponseMapper;
 import com.google.common.base.Preconditions;
-import com.google.gson.JsonSyntaxException;
 
 import okhttp3.Response;
 
@@ -139,6 +139,7 @@ public class DockerClient {
 
         rmContainers(configurationFilter);
         createNetworks(configurationFilter);
+        createVolumes(configurationFilter);
 
         final Collection<Configuration> configurationContainers = configurationFilter.containers();
 
@@ -210,10 +211,34 @@ public class DockerClient {
                 String.format("{\"Name\": \"%s\"}", networkToCreate));
     }
 
+    private void createVolumes(final ConfigurationAccessor configurationFilter) throws IOException {
+        Preconditions.checkNotNull(configurationFilter);
+
+        final ArrayList<String> configurationVolumes = configurationFilter.volumes();
+
+        for (final String configurationVolume : configurationVolumes) {
+            final ArrayList<String> dockerVolumes = lsVolumes(configurationFilter);
+            if (!dockerVolumes.contains(configurationVolume)) {
+                createVolume(configurationVolume);
+            }
+        }
+    }
+
+    private void createVolume(final String volumeToCreate) throws IOException {
+        Preconditions.checkNotNull(volumeToCreate);
+
+        logger.info(volumeToCreate);
+        httpConnection.post(
+                "http://127.0.0.1/v1.39/volumes/create",
+                String.format("{\"Driver\":\"local\",\"DriverOpts\":{},\"Labels\":{},\"Name\":\"%s\"}", volumeToCreate));
+    }
+
     public ArrayList<String> lsNetworks(final ConfigurationAccessor configurationFilter) throws IOException {
         Preconditions.checkNotNull(configurationFilter);
 
         final String json = httpConnection.get("http://127.0.0.1/v1.39/networks");
+        logger.debug(prettyPrintJson(json));
+
         final ArrayList<NetworkResponse> dockerNetworks = responseMapper.networksResponse(json);
 
         final ArrayList<String> configurationNetworks = configurationFilter.networks();
@@ -233,12 +258,13 @@ public class DockerClient {
         Preconditions.checkNotNull(configurationFilter);
 
         final String json = httpConnection.get("http://127.0.0.1/v1.39/volumes");
+        logger.debug(prettyPrintJson(json));
+
         final Map<String, List<Map<String, Object>>> dockerVolumes = responseMapper.volumeResponse(json);
 
         final ArrayList<String> configurationVolumes = configurationFilter.volumes();
 
         final ArrayList<String> volumes = new ArrayList<>();
-
         try {
             for (final Map<String, Object> dockerVolume : dockerVolumes.get("Volumes")) {
                 final String dockerVolumerName = (String) dockerVolume.get("Name");
@@ -252,5 +278,11 @@ public class DockerClient {
         }
 
         return volumes;
+    }
+
+    private String prettyPrintJson(String jsonString) {
+        JsonElement jsonElement = new JsonParser().parse(jsonString);
+        Gson gsonPrettyPrinter = new GsonBuilder().setPrettyPrinting().create();
+        return gsonPrettyPrinter.toJson(jsonElement);
     }
 }

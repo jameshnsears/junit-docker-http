@@ -1,24 +1,5 @@
-volumes not working? (also in pytest-docker-py(!?)
-= check xqa-ingest works
-= /home/jsears/GIT_REPOS/junit-docker-http/src/test/java/unit/docker/DockerClientXqaTest.java
-
-* docker run -d --net="xqa" --name="xqa-ingest" -v $HOME/GIT_REPOS/xqa-test-data:/xml jameshnsears/xqa-ingest:latest -message_broker_host xqa-message-broker -path /xml
-
-    volumes:
-      - "xqa-message-broker:/opt/apache-activemq-5.15.7/data"
-
-docker volume create xqa-ingest
-
-docker volume inspect xqa-ingest
-
-==================
-
 work on JunitDockerClientExtensionTest.java
 
 check precondition used everywhere!
-
-do more pretty printing:
-        Gson gsonPrettyPrinter = new GsonBuilder().setPrettyPrinting().create();
-        return gsonPrettyPrinter.toJson(containerCreateRequest);
 
 in configurationaccessor use more Models!?

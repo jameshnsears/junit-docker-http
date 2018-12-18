@@ -3,6 +3,10 @@ package com.github.jameshnsears.docker.transport;
 import java.io.File;
 import java.io.IOException;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,8 +46,9 @@ public class HttpConnection {
         final Response response = okHttpClient().newCall(request).execute();
         final String jsonResponse = response.body().string();
 
-        // TODO pretty print?.
-        logger.debug(jsonResponse.replace("\n", ""));
+        JsonElement jsonElement = new JsonParser().parse(jsonResponse);
+        Gson gsonPrettyPrinter = new GsonBuilder().setPrettyPrinting().create();
+        logger.debug(gsonPrettyPrinter.toJson(jsonElement));
 
         logger.info(String.format("%s", response.code()));
 
