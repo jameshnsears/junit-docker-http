@@ -238,18 +238,23 @@ public class DockerClient {
         final ArrayList<String> configurationVolumes = configurationFilter.volumes();
 
         final ArrayList<String> volumes = new ArrayList<>();
-        System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxx");
-        System.out.println(volumes.toString());
-        if (!volumes.isEmpty()) {
-            for (final Map<String, Object> dockerVolume : dockerVolumes.get("Volumes")) {
-                System.out.println(dockerVolume.toString());
 
-                final String dockerVolumerName = (String) dockerVolume.get("Name");
+        System.out.println("xxxxxxxxxxxxxxxxx");
+        System.out.println(dockerVolumes.toString());
 
-                if (configurationVolumes.contains(dockerVolumerName)) {
-                    volumes.add(dockerVolumerName);
-                }
+        for (final Map<String, Object> dockerVolume : dockerVolumes.get("Volumes")) {
+            System.out.println("qqqqqqqqqqqqqqqqqqqqqq");
+            System.out.println(dockerVolume.toString());
+
+            final String dockerVolumerName = (String) dockerVolume.get("Name");
+            System.out.println(dockerVolumerName);
+
+            System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwwww");
+
+            if (configurationVolumes.contains(dockerVolumerName)) {
+                volumes.add(dockerVolumerName);
             }
+            System.out.println("eeeeeeeeeeeeeeeeeeeeeeeeeee");
         }
 
         return volumes;
