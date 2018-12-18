@@ -234,7 +234,7 @@ public class DockerClient {
 
         System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxx");
         final String json = httpConnection.get("http://127.0.0.1/v1.39/volumes");
-        System.out.println("json");
+        System.out.println(json);
         final Map<String, List<Map<String, Object>>> dockerVolumes = responseMapper.volumeResponse(json);
 
         final ArrayList<String> configurationVolumes = configurationFilter.volumes();
@@ -242,6 +242,8 @@ public class DockerClient {
 
         final ArrayList<String> volumes = new ArrayList<>();
         for (final Map<String, Object> dockerVolume : dockerVolumes.get("Volumes")) {
+            System.out.println(dockerVolume.toString());
+
             final String dockerVolumerName = (String) dockerVolume.get("Name");
 
             if (configurationVolumes.contains(dockerVolumerName)) {
