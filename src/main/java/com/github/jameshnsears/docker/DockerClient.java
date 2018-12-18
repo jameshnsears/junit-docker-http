@@ -232,7 +232,7 @@ public class DockerClient {
     public ArrayList<String> lsVolumes(final ConfigurationAccessor configurationFilter) throws IOException {
         Preconditions.checkNotNull(configurationFilter);
 
-        final String json = httpConnection.get("http://127.0.0.1/v1.39/volumes?filters=%7B%7D");
+        final String json = httpConnection.get("http://127.0.0.1/v1.39/volumes");
         final Map<String, List<Map<String, Object>>> dockerVolumes = responseMapper.volumeResponse(json);
 
         final ArrayList<String> configurationVolumes = configurationFilter.volumes();
