@@ -213,7 +213,7 @@ public class DockerClient {
     public ArrayList<String> lsNetworks(final ConfigurationAccessor configurationFilter) throws IOException {
         Preconditions.checkNotNull(configurationFilter);
 
-        final String json = httpConnection.get("http://127.0.0.1/v1.39/networks?filters=%7B%7D");
+        final String json = httpConnection.get("http://127.0.0.1/v1.39/networks");
         final ArrayList<NetworkResponse> dockerNetworks = responseMapper.networksResponse(json);
 
         final ArrayList<String> configurationNetworks = configurationFilter.networks();

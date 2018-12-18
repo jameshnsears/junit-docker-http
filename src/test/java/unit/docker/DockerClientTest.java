@@ -21,10 +21,13 @@ class DockerClientTest extends DockerClientBaseTest {
             throws IOException, InterruptedException {
         dockerClient.startContainers(configurationAccessor);
 
+        System.out.println("XXXXXXX1");
         if (System.getenv().get("TRAVIS") != null) {
+            System.out.println("XXXXXXX2");
             // give travis-ci time to start containers
             Thread.sleep(30000);
         }
+        System.out.println("XXXXXXX3");
 
         Assertions.assertTrue(dockerClient.lsContainers(configurationAccessor).size() == 2);
         Assertions.assertTrue(dockerClient.lsNetworks(configurationAccessor).contains("dev"));
