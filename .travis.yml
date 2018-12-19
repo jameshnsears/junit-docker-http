@@ -5,6 +5,13 @@ sudo: required
 notifications:
 email: james.hn.sears@gmail.com
 
+env:
+  global:
+    # travis encrypt COVERALLS_REPO_TOKEN=CpBKE1l9PG9AH6lRztbT0KQy46eAsPGLT
+    - secure: "kbk3Rfo3dpLBHlPqJUjfyJscwrYyN3QjDBiTMdU6oQaj3kKLMFjaf13Fv6NnKGqfcsiL3euUsqB6JWkleWAMEPln+URyvnn5xywHeHgVaXJ4fLbypGvvIrzZIr4IT4ROuI2keO1zJS+LBcpdw0pI/RyWnsgQeGPzT9IbL+fBcX7eqX6Eb9umA7X8qSYVt8ZMW/DPA5XLrRTMFc/cMLdFy4B4gGNKCjwOHzImqjsSsCO/Q1RdQrlNe2C5N0kUfIam7Aciq4K5Z6dKGQAncveFa49G/ul0b+n5XVEc7NRUR4Z1bzKNISec2/1m+bDFN0tIHfAQlopZdt2XuXyvKSzIVwO/cV0dDdTmb2kE0hhl9qpz1EyDC9uvJCHlw8BOjfai4ZMXCEzWZ4zAGYt7RQzdFOzmgLsMBxL3iSPh968E+jEY/bRHJi1ePmDTKEUSs824dUrTueGIHz9uHLhUSXOxAMt1yY2SRW0E3aMeKWUPuEJEN4Y90uvBhoPDg8f21olL9cn3W8l+yN2CWynkR+vjFbafKdpEQgom3eRT+c7MRP6rDVv7+lBKMRwbqY/BVUbJu4kvpBlwKK6hex8nMIvMzhoSjuereLfMVb83q8rf46HWgP0CE40GBOCAk9O5gfrFqInVhWFYJyezgb1QxZ7Y6Z4HuC78LxajYg1qHkyKoAg="
+    # travis encrypt CODACY_PROJECT_TOKEN=...
+    - secure:
+
 addons:
   sonarcloud:
     organization: "jameshnsears-github"
@@ -22,10 +29,14 @@ cache:
     - $HOME/.m2
     - $HOME/.sonar/cache
 
+before_script:
+  - wget https://github.com/codacy/codacy-coverage-reporter/releases/download/4.0.5/codacy-coverage-reporter-4.0.5-assembly.jar
+
 script:
   - mvn clean test
   - mvn checkstyle:check spotbugs:check pmd:pmd
 
 after_success:
   - mvn jacoco:report coveralls:report
+  - java -jar codacy-coverage-reporter-4.0.5-assembly.jar report -l Java -r target/site/jacoco/jacoco.xml
   - sonar-scanner
