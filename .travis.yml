@@ -21,6 +21,9 @@ addons:
 git:
   depth: false
 
+services:
+  - docker
+
 jdk:
   - openjdk10
 

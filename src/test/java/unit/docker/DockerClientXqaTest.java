@@ -22,7 +22,7 @@ class DockerClientXqaTest extends DockerClientBase {
         dockerClient.startContainers(configurationAccessor);
 
         if (System.getenv().get("TRAVIS") != null) {
-            Thread.sleep(60000);
+            Thread.sleep(15000);
         }
 
         Assertions.assertTrue(dockerClient.lsContainers(configurationAccessor).size() == 2);
