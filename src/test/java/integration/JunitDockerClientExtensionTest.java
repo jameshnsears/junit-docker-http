@@ -1,6 +1,12 @@
 package integration;
 
-class JunitDockerClientExtensionTest {
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+import com.github.jameshnsears.junit.JuntDockerClientExtension;
+
+
     /*
 import com.github.jameshnsears.docker
 import pytest
@@ -34,4 +40,37 @@ def test_plugin(dockerpy_easy_to_use):
     assert container_found == True
 
      */
+
+    /*
+@ExtendWith(ConfigurationXqaAccessorParameterResolver.class)
+class DockerClientXqaTest extends DockerClientBase {
+    @Test
+    void pullImages(final ConfigurationAccessor configurationAccessor) throws IOException {
+        assertConfigurationImagesNotPulled(configurationAccessor);
+
+        assertConfigurationImagesPulled(configurationAccessor);
+    }
+
+    @Test
+    void stopStartContainers(final ConfigurationAccessor configurationAccessor) throws IOException, InterruptedException {
+        dockerClient.startContainers(configurationAccessor);
+
+        if (System.getenv().get("TRAVIS") != null) {
+            Thread.sleep(15000);
+        }
+
+        Assertions.assertTrue(dockerClient.lsContainers(configurationAccessor).size() == 2);
+
+        assertConfigurationContainersRemoved(configurationAccessor);
+    }
+}
+     */
+
+@ExtendWith(JuntDockerClientExtension.class)
+class JunitDockerClientExtensionTest {
+
+    @Test
+    void testExtension() {
+        Assertions.assertTrue(true);
+    }
 }
