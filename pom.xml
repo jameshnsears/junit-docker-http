@@ -184,7 +184,7 @@
                 <version>0.8.2</version>
                 <configuration>
                     <excludes>
-                        <exclude>**/okhttp/**</exclude>
+                        <exclude>okhttp3.unixdomainsockets.*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
