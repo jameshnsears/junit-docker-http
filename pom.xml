@@ -182,11 +182,13 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.2</version>
+                <!--
                 <configuration>
                     <excludes>
                         <exclude>okhttp3.unixdomainsockets.*</exclude>
                     </excludes>
                 </configuration>
+                -->
                 <executions>
                     <execution>
                         <goals>
