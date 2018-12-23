@@ -1,4 +1,4 @@
-package unit;
+package com.github.jameshnsears;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -9,8 +9,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import com.github.jameshnsears.Configuration;
-import com.github.jameshnsears.ConfigurationAccessor;
 import com.google.gson.reflect.TypeToken;
 
 class ConfigurationAccessorTest extends GsonCommon {

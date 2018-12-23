@@ -59,6 +59,11 @@
             <version>3.12.0</version>
         </dependency>
         <dependency>
+            <groupId>com.squareup.okhttp3.sample</groupId>
+            <artifactId>unixdomainsockets</artifactId>
+            <version>3.12.0</version>
+        </dependency>
+        <dependency>
             <groupId>com.github.jnr</groupId>
             <artifactId>jnr-unixsocket</artifactId>
             <version>0.21</version>

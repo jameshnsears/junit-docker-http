@@ -1,4 +1,4 @@
-package unit;
+package com.github.jameshnsears;
 
 import java.io.InputStreamReader;
 

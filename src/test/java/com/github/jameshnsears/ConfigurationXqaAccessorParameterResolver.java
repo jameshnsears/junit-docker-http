@@ -1,4 +1,4 @@
-package integration;
+package com.github.jameshnsears;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import org.apache.commons.io.IOUtils;
 
 import com.google.common.io.CharStreams;
-import unit.docker.ConfigurationAccessorParameterResolver;
+import com.github.jameshnsears.docker.ConfigurationAccessorParameterResolver;
 
 public class ConfigurationXqaAccessorParameterResolver extends ConfigurationAccessorParameterResolver {
     protected InputStreamReader getInputStreamReader() {

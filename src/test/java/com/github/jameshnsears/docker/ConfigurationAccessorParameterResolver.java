@@ -1,4 +1,4 @@
-package unit.docker;
+package com.github.jameshnsears.docker;
 
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;

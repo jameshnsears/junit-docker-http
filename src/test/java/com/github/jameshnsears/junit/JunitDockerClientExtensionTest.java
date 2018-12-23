@@ -1,4 +1,4 @@
-package integration;
+package com.github.jameshnsears.junit;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

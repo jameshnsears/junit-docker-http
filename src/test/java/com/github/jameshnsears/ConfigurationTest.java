@@ -1,4 +1,4 @@
-package unit;
+package com.github.jameshnsears;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,7 +7,6 @@ import java.util.Map;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import com.github.jameshnsears.Configuration;
 import com.google.gson.reflect.TypeToken;
 
 class ConfigurationTest extends GsonCommon {

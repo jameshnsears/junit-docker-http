@@ -1,4 +1,4 @@
-package unit.docker;
+package com.github.jameshnsears.docker;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,7 +8,6 @@ import java.util.Map;
 import org.junit.jupiter.api.Assertions;
 
 import com.github.jameshnsears.ConfigurationAccessor;
-import com.github.jameshnsears.docker.DockerClient;
 
 class DockerClientBase {
     protected final DockerClient dockerClient = new DockerClient();
