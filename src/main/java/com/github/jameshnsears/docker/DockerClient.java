@@ -271,16 +271,16 @@ public class DockerClient {
 
         final ArrayList<String> volumes = new ArrayList<>();
 
-        if (dockerVolumes == null) {
-            return volumes;
-        }
-
-        for (final Map<String, Object> dockerVolume : dockerVolumes.get("Volumes")) {
-            final String dockerVolumerName = (String) dockerVolume.get("Name");
-            if (configurationVolumes.contains(dockerVolumerName)) {
-                logger.debug(dockerVolumerName);
-                volumes.add(dockerVolumerName);
+        try {
+            for (final Map<String, Object> dockerVolume : dockerVolumes.get("Volumes")) {
+                final String dockerVolumerName = (String) dockerVolume.get("Name");
+                if (configurationVolumes.contains(dockerVolumerName)) {
+                    logger.debug(dockerVolumerName);
+                    volumes.add(dockerVolumerName);
+                }
             }
+        } catch (Exception exception) {
+            logger.warn(exception.getMessage());
         }
 
         return volumes;
