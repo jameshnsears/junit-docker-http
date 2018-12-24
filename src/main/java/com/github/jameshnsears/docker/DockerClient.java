@@ -266,12 +266,11 @@ public class DockerClient {
         Preconditions.checkNotNull(configurationFilter);
 
         final String json = httpConnection.get("http://127.0.0.1/v1.39/volumes");
-        logger.debug(prettyPrintJson(json));
-
         final ArrayList<String> volumes = new ArrayList<>();
 
-        if ("{}".equals(json)) {
-            logger.debug("json empty");
+        try {
+            logger.debug(prettyPrintJson(json));
+        } catch (NullPointerException nullPointerExcpetion) {
             return volumes;
         }
 
