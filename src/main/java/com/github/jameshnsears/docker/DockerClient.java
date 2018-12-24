@@ -268,28 +268,24 @@ public class DockerClient {
         final String json = httpConnection.get("http://127.0.0.1/v1.39/volumes");
         final ArrayList<String> volumes = new ArrayList<>();
 
-        try {
-            logger.debug(prettyPrintJson(json));
-        } catch (Exception nullPointerExcpetion) {
-            return volumes;
-        }
-
-        logger.debug("xxx 1");
-
         final Map<String, List<Map<String, Object>>> dockerVolumes = responseMapper.volumeResponse(json);
-
-
-        logger.debug("xxx 2");
 
         final ArrayList<String> configurationVolumes = configurationFilter.volumes();
 
-        logger.debug("xxx 3");
+        logger.debug("xxx 1");
 
         for (final Map<String, Object> dockerVolume : dockerVolumes.get("Volumes")) {
-            final String dockerVolumerName = (String) dockerVolume.get("Name");
-            if (configurationVolumes.contains(dockerVolumerName)) {
-                logger.debug(dockerVolumerName);
-                volumes.add(dockerVolumerName);
+
+            logger.debug("xxx 2");
+
+            if (dockerVolume != null) {
+                logger.debug("xxx 3");
+
+                final String dockerVolumerName = (String) dockerVolume.get("Name");
+                if (configurationVolumes.contains(dockerVolumerName)) {
+                    logger.debug(dockerVolumerName);
+                    volumes.add(dockerVolumerName);
+                }
             }
         }
 
