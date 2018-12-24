@@ -28,7 +28,9 @@ public class RequestMapper {
         return gsonPrettyPrinter.toJson(containerCreateRequest);
     }
 
-    private void volumes(final Configuration configurationContainer, final ContainerCreateRequest containerCreateRequest) {
+    private void volumes(
+            final Configuration configurationContainer,
+            final ContainerCreateRequest containerCreateRequest) {
         Preconditions.checkNotNull(configurationContainer);
         Preconditions.checkNotNull(containerCreateRequest);
 
@@ -47,7 +49,9 @@ public class RequestMapper {
         }
     }
 
-    private void network(final Configuration configurationContainer, final ContainerCreateRequest containerCreateRequest) {
+    private void network(
+            final Configuration configurationContainer,
+            final ContainerCreateRequest containerCreateRequest) {
         Preconditions.checkNotNull(configurationContainer);
         Preconditions.checkNotNull(containerCreateRequest);
 
@@ -56,7 +60,9 @@ public class RequestMapper {
         }
     }
 
-    private void ports(final Configuration configurationContainer, final ContainerCreateRequest containerCreateRequest) {
+    private void ports(
+            final Configuration configurationContainer,
+            final ContainerCreateRequest containerCreateRequest) {
         Preconditions.checkNotNull(configurationContainer);
         Preconditions.checkNotNull(containerCreateRequest);
 

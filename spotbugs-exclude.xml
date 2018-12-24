@@ -17,4 +17,8 @@
         <Class name="com.github.jameshnsears.docker.transport.HttpConnection"/>
         <Bug pattern="DMI_HARDCODED_ABSOLUTE_FILENAME"/>
     </Match>
+    <Match>
+        <Class name="com.github.jameshnsears.configuration.ConfigurationParameterResolver"/>
+        <Bug pattern="DM_DEFAULT_ENCODING"/>
+    </Match>
 </FindBugsFilter>
