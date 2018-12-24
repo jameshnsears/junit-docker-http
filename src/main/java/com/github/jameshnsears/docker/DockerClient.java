@@ -266,26 +266,20 @@ public class DockerClient {
         Preconditions.checkNotNull(configurationFilter);
 
         final String json = httpConnection.get("http://127.0.0.1/v1.39/volumes");
-        final ArrayList<String> volumes = new ArrayList<>();
-
         final Map<String, List<Map<String, Object>>> dockerVolumes = responseMapper.volumeResponse(json);
-
         final ArrayList<String> configurationVolumes = configurationFilter.volumes();
 
-        logger.debug("xxx 1");
+        final ArrayList<String> volumes = new ArrayList<>();
+
+        if (dockerVolumes == null) {
+            return volumes;
+        }
 
         for (final Map<String, Object> dockerVolume : dockerVolumes.get("Volumes")) {
-
-            logger.debug("xxx 2");
-
-            if (dockerVolume != null) {
-                logger.debug("xxx 3");
-
-                final String dockerVolumerName = (String) dockerVolume.get("Name");
-                if (configurationVolumes.contains(dockerVolumerName)) {
-                    logger.debug(dockerVolumerName);
-                    volumes.add(dockerVolumerName);
-                }
+            final String dockerVolumerName = (String) dockerVolume.get("Name");
+            if (configurationVolumes.contains(dockerVolumerName)) {
+                logger.debug(dockerVolumerName);
+                volumes.add(dockerVolumerName);
             }
         }
 
