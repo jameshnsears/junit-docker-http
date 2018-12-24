@@ -7,3 +7,6 @@
     * pull images - if not already pulled.
     * start containers - with various, optional, parameters - i.e. ports; networks; volumes; commands.
     * stop containers.
+
+## 2. Example Usage
+* see: [DockerConfigurationXqaTest.java](https://github.com/jameshnsears/junit-docker-http/blob/master/src/test/java/com/github/jameshnsears/DockerConfigurationXqaTest.java)
