@@ -1,4 +1,4 @@
-package com.github.jameshnsears;
+package com.github.jameshnsears.junit;
 
 import java.io.File;
 import java.io.IOException;
