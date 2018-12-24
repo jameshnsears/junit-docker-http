@@ -9,4 +9,4 @@
     * stop containers.
 
 ## 2. Example Usage
-* see: [DockerConfigurationXqaTest.java](https://github.com/jameshnsears/junit-docker-http/blob/master/src/test/java/com/github/jameshnsears/DockerConfigurationXqaTest.java)
+* see: [DockerConfigurationXqaTest.java](https://github.com/jameshnsears/junit-docker-http/blob/master/src/test/java/com/github/jameshnsears/DockerConfigurationXqaTest.java) and [config-xqa.json](https://github.com/jameshnsears/junit-docker-http/blob/master/src/test/resources/fixtures/config-xqa.json)
