@@ -270,7 +270,7 @@ public class DockerClient {
 
         final ArrayList<String> volumes = new ArrayList<>();
 
-        if ("{}\n".equals(json)) {
+        if ("{}".equals(json)) {
             logger.debug("json empty");
             return volumes;
         }
