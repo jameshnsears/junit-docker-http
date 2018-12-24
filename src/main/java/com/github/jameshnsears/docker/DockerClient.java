@@ -283,8 +283,12 @@ public class DockerClient {
     }
 
     private String prettyPrintJson(final String jsonString) {
-        final JsonElement jsonElement = new JsonParser().parse(jsonString);
-        final Gson gsonPrettyPrinter = new GsonBuilder().setPrettyPrinting().create();
-        return gsonPrettyPrinter.toJson(jsonElement);
+        if (jsonString != null) {
+            final JsonElement jsonElement = new JsonParser().parse(jsonString);
+            final Gson gsonPrettyPrinter = new GsonBuilder().setPrettyPrinting().create();
+            return gsonPrettyPrinter.toJson(jsonElement);
+        } else {
+            return "";
+        }
     }
 }

@@ -18,7 +18,7 @@ public class DockerConfigurationXqaTest {
         dockerClient.startContainers(configurationAccessor);
 
         if (System.getenv().get("TRAVIS") != null) {
-            Thread.sleep(5000);
+            Thread.sleep(10000);
         }
 
         Assertions.assertTrue(dockerClient.lsContainers(configurationAccessor).size() == 2);
