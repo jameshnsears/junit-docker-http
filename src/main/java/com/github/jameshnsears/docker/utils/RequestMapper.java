@@ -1,15 +1,15 @@
 package com.github.jameshnsears.docker.utils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.github.jameshnsears.Configuration;
+import com.github.jameshnsears.configuration.Configuration;
 import com.github.jameshnsears.docker.models.ContainerCreateRequest;
 import com.google.common.base.Preconditions;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class RequestMapper {
     public String containerCreateRequest(Configuration configurationContainer) {

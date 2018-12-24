@@ -1,21 +1,22 @@
-package com.github.jameshnsears.docker;
+package com.github.jameshnsears;
+
+import com.github.jameshnsears.configuration.ConfigurationAccessor;
+import com.github.jameshnsears.configuration.ConfigurationParameterResolver;
+import com.github.jameshnsears.docker.DockerClient;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+@ExtendWith(ConfigurationParameterResolver.class)
+class DockerConfigurationTest {
+    private final DockerClient dockerClient = new DockerClient();
 
-import com.github.jameshnsears.ConfigurationAccessor;
-
-@ExtendWith(ConfigurationAccessorParameterResolver.class)
-class DockerClientTest {
-    protected final DockerClient dockerClient = new DockerClient();
-
-    protected void assertConfigurationImagesNotPulled(ConfigurationAccessor configurationAccessor) throws IOException {
+    private void assertConfigurationImagesNotPulled(ConfigurationAccessor configurationAccessor) throws IOException {
         final ArrayList<String> configurationImages = configurationAccessor.images();
 
         dockerClient.rmImages(configurationImages);
@@ -37,7 +38,7 @@ class DockerClientTest {
         return dockerImageNames;
     }
 
-    protected void assertConfigurationImagesPulled(ConfigurationAccessor configurationAccessor) throws IOException {
+    private void assertConfigurationImagesPulled(ConfigurationAccessor configurationAccessor) throws IOException {
         final ArrayList<String> configurationImages = configurationAccessor.images();
         dockerClient.pull(configurationImages);
 
@@ -48,7 +49,7 @@ class DockerClientTest {
         }
     }
 
-    protected void assertConfigurationContainersRemoved(ConfigurationAccessor configurationAccessor) throws IOException {
+    private void assertConfigurationContainersRemoved(ConfigurationAccessor configurationAccessor) throws IOException {
         dockerClient.rmContainers(configurationAccessor);
         Assertions.assertTrue(dockerClient.lsContainers(configurationAccessor).size() == 0);
         Assertions.assertTrue(dockerClient.lsNetworks(configurationAccessor).size() == 0);

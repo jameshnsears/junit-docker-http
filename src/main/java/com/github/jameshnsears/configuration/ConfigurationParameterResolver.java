@@ -1,20 +1,17 @@
-package com.github.jameshnsears.docker;
+package com.github.jameshnsears.configuration;
 
-import java.io.InputStreamReader;
-import java.lang.reflect.Type;
-import java.util.Collection;
-
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
 
-import com.github.jameshnsears.Configuration;
-import com.github.jameshnsears.ConfigurationAccessor;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
+import java.util.Collection;
 
-public class ConfigurationAccessorParameterResolver implements ParameterResolver {
+public class ConfigurationParameterResolver implements ParameterResolver {
     @Override
     public boolean supportsParameter(final ParameterContext parameterContext,
                                      final ExtensionContext extensionContext) throws ParameterResolutionException {

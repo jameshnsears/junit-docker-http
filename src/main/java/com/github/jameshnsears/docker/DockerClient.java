@@ -1,19 +1,7 @@
 package com.github.jameshnsears.docker;
 
-import java.io.IOException;
-import java.util.AbstractList;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.github.jameshnsears.Configuration;
-import com.github.jameshnsears.ConfigurationAccessor;
+import com.github.jameshnsears.configuration.Configuration;
+import com.github.jameshnsears.configuration.ConfigurationAccessor;
 import com.github.jameshnsears.docker.models.ContainerResponse;
 import com.github.jameshnsears.docker.models.ImageResponse;
 import com.github.jameshnsears.docker.models.NetworkResponse;
@@ -21,13 +9,14 @@ import com.github.jameshnsears.docker.transport.HttpConnection;
 import com.github.jameshnsears.docker.utils.RequestMapper;
 import com.github.jameshnsears.docker.utils.ResponseMapper;
 import com.google.common.base.Preconditions;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
-
+import com.google.gson.*;
 import okhttp3.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 public class DockerClient {
@@ -36,7 +25,7 @@ public class DockerClient {
     private final ResponseMapper responseMapper = new ResponseMapper();
     private final RequestMapper containerCreateMapper = new RequestMapper();
 
-    public ArrayList<Map<String, String>>lsImages() throws IOException {
+    public ArrayList<Map<String, String>> lsImages() throws IOException {
         final ArrayList<Map<String, String>> images = new ArrayList<>();
 
         try {
@@ -101,7 +90,7 @@ public class DockerClient {
         Preconditions.checkNotNull(configurationImage);
         Preconditions.checkNotNull(dockerImages);
 
-        for (final Map<String, String> dockerImage: dockerImages) {
+        for (final Map<String, String> dockerImage : dockerImages) {
             if (dockerImage.get("name").equals(configurationImage)) {
                 logger.info(configurationImage);
                 httpConnection.delete(String.format(
@@ -131,7 +120,7 @@ public class DockerClient {
         Preconditions.checkNotNull(configurationImageName);
 
         final List<String> imageNamesAlreadyPulled = new ArrayList<>();
-        for (final Map<String, String> dockerImage: dockerImages) {
+        for (final Map<String, String> dockerImage : dockerImages) {
             imageNamesAlreadyPulled.add(dockerImage.get("name"));
         }
 
@@ -165,8 +154,8 @@ public class DockerClient {
         final ArrayList<Map<String, String>> dockerImages = lsImages();
         final ArrayList<Map<String, String>> dockerContainers = lsContainers(configurationFilter);
 
-        for (final Map<String, String> dockerCointainer: dockerContainers) {
-            for (final Map<String, String> dockerImage: dockerImages) {
+        for (final Map<String, String> dockerCointainer : dockerContainers) {
+            for (final Map<String, String> dockerImage : dockerImages) {
                 if (dockerCointainer.get("imageId").equals(dockerImage.get("id"))) {
                     logger.debug(String.format("%s - %s", dockerCointainer.get("name"), dockerCointainer.get("id")));
                     httpConnection.delete(

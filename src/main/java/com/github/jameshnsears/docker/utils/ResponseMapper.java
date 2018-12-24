@@ -1,11 +1,5 @@
 package com.github.jameshnsears.docker.utils;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
 import com.github.jameshnsears.docker.models.ContainerCreateResponse;
 import com.github.jameshnsears.docker.models.ContainerResponse;
 import com.github.jameshnsears.docker.models.ImageResponse;
@@ -13,8 +7,13 @@ import com.github.jameshnsears.docker.models.NetworkResponse;
 import com.google.common.base.Preconditions;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import okhttp3.Response;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 public class ResponseMapper {
     private final Gson gson = new Gson();

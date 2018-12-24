@@ -1,12 +1,8 @@
-package com.github.jameshnsears;
-
-import java.util.AbstractList;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
+package com.github.jameshnsears.configuration;
 
 import com.google.common.base.Preconditions;
+
+import java.util.*;
 
 public class ConfigurationAccessor {
     private final Collection<Configuration> configurationCollection;

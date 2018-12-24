@@ -2,7 +2,7 @@
 
 <FindBugsFilter>
     <Match>
-        <Class name="com.github.jameshnsears.ConfigurationAccessor"/>
+        <Class name="com.github.jameshnsears.configuration.ConfigurationAccessor"/>
         <Bug pattern="DLS_DEAD_LOCAL_STORE"/>
     </Match>
     <Match>

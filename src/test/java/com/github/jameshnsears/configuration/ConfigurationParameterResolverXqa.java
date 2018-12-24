@@ -1,27 +1,23 @@
-package com.github.jameshnsears.junit;
+package com.github.jameshnsears.configuration;
+
+import com.google.common.io.CharStreams;
+import org.apache.commons.io.IOUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.Paths;
 
-import org.apache.commons.io.IOUtils;
-
-import com.google.common.io.CharStreams;
-import com.github.jameshnsears.docker.ConfigurationAccessorParameterResolver;
-
-public class ConfigurationXqaAccessorParameterResolver extends ConfigurationAccessorParameterResolver {
+public class ConfigurationParameterResolverXqa extends ConfigurationParameterResolver {
     protected InputStreamReader getInputStreamReader() {
         String json = "";
         try {
             json = CharStreams.toString(new InputStreamReader(
                     getClass().getResourceAsStream("/fixtures/config-xqa.json"), Charset.defaultCharset()));
 
-            URL resource = getClass().getResource("/fixtures/xqa-ingest");
-            File file = Paths.get(resource.toURI()).toFile();
+            File file = Paths.get(getClass().getResource("/fixtures/xqa-ingest").toURI()).toFile();
 
             json = json.replace("PATH_TO_XQA-INGEST_XML_FILES", file.getAbsolutePath());
         } catch (IOException ioException) {
