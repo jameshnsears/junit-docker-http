@@ -64,7 +64,7 @@ public class DockerClient {
 
         try {
             final String json = httpConnection.get(
-                    "http://127.0.0.1/v1.39/containers/json?limit=-1&all=0&size=0&trunc_cmd=0");
+                    "http://127.0.0.1/v1.39/containers/json");
             final ArrayList<ContainerResponse> dockerContainers = responseMapper.containersResponse(json);
 
             for (final ContainerResponse dockerContainer : dockerContainers) {
