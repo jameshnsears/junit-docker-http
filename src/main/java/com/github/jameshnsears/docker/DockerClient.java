@@ -270,13 +270,20 @@ public class DockerClient {
 
         try {
             logger.debug(prettyPrintJson(json));
-        } catch (NullPointerException nullPointerExcpetion) {
+        } catch (Exception nullPointerExcpetion) {
             return volumes;
         }
 
+        logger.debug("xxx 1");
+
         final Map<String, List<Map<String, Object>>> dockerVolumes = responseMapper.volumeResponse(json);
 
+
+        logger.debug("xxx 2");
+
         final ArrayList<String> configurationVolumes = configurationFilter.volumes();
+
+        logger.debug("xxx 3");
 
         for (final Map<String, Object> dockerVolume : dockerVolumes.get("Volumes")) {
             final String dockerVolumerName = (String) dockerVolume.get("Name");
