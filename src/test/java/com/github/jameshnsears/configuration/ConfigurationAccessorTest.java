@@ -22,7 +22,7 @@ class ConfigurationAccessorTest extends GsonCommon {
     }
 
     @Test
-    void images() {
+    public void images() {
         final ArrayList<String> expectation = new ArrayList<>();
         expectation.add("alpine:latest");
         expectation.add("busybox:latest");
@@ -30,12 +30,12 @@ class ConfigurationAccessorTest extends GsonCommon {
     }
 
     @Test
-    void networks() {
+    public void networks() {
         Assertions.assertArrayEquals(configurationAccessor.networks().toArray(), new String[]{"dev"});
     }
 
     @Test
-    void volumes() {
+    public void volumes() {
         final ArrayList<Map<String, Map<String, String>>> volumes = new ArrayList<>();
         final Map<String, Map<String, String>> volume = new ConcurrentHashMap<>();
 

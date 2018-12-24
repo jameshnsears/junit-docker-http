@@ -1,5 +1,17 @@
 package com.github.jameshnsears.docker;
 
+import java.io.IOException;
+import java.util.AbstractList;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.github.jameshnsears.configuration.Configuration;
 import com.github.jameshnsears.configuration.ConfigurationAccessor;
 import com.github.jameshnsears.docker.models.ContainerResponse;
@@ -9,14 +21,13 @@ import com.github.jameshnsears.docker.transport.HttpConnection;
 import com.github.jameshnsears.docker.utils.RequestMapper;
 import com.github.jameshnsears.docker.utils.ResponseMapper;
 import com.google.common.base.Preconditions;
-import com.google.gson.*;
-import okhttp3.Response;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 
-import java.io.IOException;
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
+import okhttp3.Response;
 
 
 public class DockerClient {
@@ -260,24 +271,20 @@ public class DockerClient {
         final ArrayList<String> configurationVolumes = configurationFilter.volumes();
 
         final ArrayList<String> volumes = new ArrayList<>();
-        try {
-            for (final Map<String, Object> dockerVolume : dockerVolumes.get("Volumes")) {
-                final String dockerVolumerName = (String) dockerVolume.get("Name");
-                if (configurationVolumes.contains(dockerVolumerName)) {
-                    logger.debug(dockerVolumerName);
-                    volumes.add(dockerVolumerName);
-                }
+        for (final Map<String, Object> dockerVolume : dockerVolumes.get("Volumes")) {
+            final String dockerVolumerName = (String) dockerVolume.get("Name");
+            if (configurationVolumes.contains(dockerVolumerName)) {
+                logger.debug(dockerVolumerName);
+                volumes.add(dockerVolumerName);
             }
-        } catch (NullPointerException nullPointerException) {
-            logger.warn(nullPointerException.getLocalizedMessage());
         }
 
         return volumes;
     }
 
-    private String prettyPrintJson(String jsonString) {
-        JsonElement jsonElement = new JsonParser().parse(jsonString);
-        Gson gsonPrettyPrinter = new GsonBuilder().setPrettyPrinting().create();
+    private String prettyPrintJson(final String jsonString) {
+        final JsonElement jsonElement = new JsonParser().parse(jsonString);
+        final Gson gsonPrettyPrinter = new GsonBuilder().setPrettyPrinting().create();
         return gsonPrettyPrinter.toJson(jsonElement);
     }
 }

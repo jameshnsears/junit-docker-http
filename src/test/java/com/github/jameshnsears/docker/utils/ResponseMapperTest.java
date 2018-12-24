@@ -18,10 +18,8 @@ import java.util.List;
 import java.util.Map;
 
 class ResponseMapperTest extends GsonCommon {
-    private ResponseMapper responseMapper = new ResponseMapper();
-
     @Test
-    void imagesResponse() {
+    public void imagesResponse() {
         final ArrayList<ImageResponse> images = gson.fromJson(
                 getInputStreamReader("/fixtures/docker/imagesResponse.json"),
                 new TypeToken<Collection<ImageResponse>>() {
@@ -33,7 +31,7 @@ class ResponseMapperTest extends GsonCommon {
     }
 
     @Test
-    void containersResponse() {
+    public void containersResponse() {
         final ArrayList<ContainerResponse> containers = gson.fromJson(
                 getInputStreamReader("/fixtures/docker/containersResponse.json"),
                 new TypeToken<Collection<ContainerResponse>>() {
@@ -51,7 +49,7 @@ class ResponseMapperTest extends GsonCommon {
     }
 
     @Test
-    void networksResponse() {
+    public void networksResponse() {
         final ArrayList<NetworkResponse> networks = gson.fromJson(
                 getInputStreamReader("/fixtures/docker/networksResponse.json"),
                 new TypeToken<Collection<NetworkResponse>>() {
@@ -63,18 +61,19 @@ class ResponseMapperTest extends GsonCommon {
     }
 
     @Test
-    void volumesResponse() throws IOException {
+    public void volumesResponse() throws IOException {
         final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         final String json = FileUtils.readFileToString(
                 new File(classLoader.getResource("fixtures/docker/volumesResponse.json").getFile()), "UTF-8");
 
+        final ResponseMapper responseMapper = new ResponseMapper();
         final Map<String, List<Map<String, Object>>> volumeResponse = responseMapper.volumeResponse(json);
 
         Assertions.assertEquals(volumeResponse.get("Volumes").size(), 3);
     }
 
     @Test
-    void containerCreateResponse() {
+    public void containerCreateResponse() {
         final ContainerCreateResponse containerCreateResponse = gson.fromJson(getInputStreamReader(
                 "/fixtures/docker/containerCreateResponse.json"),
                 ContainerCreateResponse.class);

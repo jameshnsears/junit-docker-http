@@ -10,9 +10,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import java.io.IOException;
 
 @ExtendWith(ConfigurationParameterResolverXqa.class)
-class DockerConfigurationXqaTest {
+public class DockerConfigurationXqaTest {
     @Test
-    void testXqa(final ConfigurationAccessor configurationAccessor) throws IOException, InterruptedException {
+    public void testXqa(final ConfigurationAccessor configurationAccessor) throws IOException, InterruptedException {
         final DockerClient dockerClient = new DockerClient();
         dockerClient.pull(configurationAccessor.images());
         dockerClient.startContainers(configurationAccessor);

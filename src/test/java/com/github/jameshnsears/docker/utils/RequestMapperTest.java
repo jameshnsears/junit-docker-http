@@ -16,7 +16,7 @@ import java.util.List;
 @ExtendWith(ConfigurationParameterResolver.class)
 class RequestMapperTest extends GsonCommon {
     @Test
-    void containerCreateRequest(ConfigurationAccessor configurationAccessor) throws IOException {
+    public void containerCreateRequest(final ConfigurationAccessor configurationAccessor) throws IOException {
         final RequestMapper requestMapper = new RequestMapper();
         final List<Configuration> configurationContainers = (List) configurationAccessor.containers();
 

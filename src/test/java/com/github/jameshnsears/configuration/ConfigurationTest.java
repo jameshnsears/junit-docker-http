@@ -11,7 +11,7 @@ import java.util.Map;
 
 class ConfigurationTest extends GsonCommon {
     @Test
-    void loadConfig() {
+    public void loadConfig() {
         final Collection<Configuration> configurationCollection = gson.fromJson(
                 getInputStreamReader("/fixtures/config.json"),
                 new TypeToken<Collection<Configuration>>() {

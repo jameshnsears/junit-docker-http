@@ -16,7 +16,7 @@ import java.util.Map;
 class DockerConfigurationTest {
     private final DockerClient dockerClient = new DockerClient();
 
-    private void assertConfigurationImagesNotPulled(ConfigurationAccessor configurationAccessor) throws IOException {
+    private void assertConfigurationImagesNotPulled(final ConfigurationAccessor configurationAccessor) throws IOException {
         final ArrayList<String> configurationImages = configurationAccessor.images();
 
         dockerClient.rmImages(configurationImages);
@@ -38,7 +38,7 @@ class DockerConfigurationTest {
         return dockerImageNames;
     }
 
-    private void assertConfigurationImagesPulled(ConfigurationAccessor configurationAccessor) throws IOException {
+    private void assertConfigurationImagesPulled(final ConfigurationAccessor configurationAccessor) throws IOException {
         final ArrayList<String> configurationImages = configurationAccessor.images();
         dockerClient.pull(configurationImages);
 
@@ -49,7 +49,7 @@ class DockerConfigurationTest {
         }
     }
 
-    private void assertConfigurationContainersRemoved(ConfigurationAccessor configurationAccessor) throws IOException {
+    private void assertConfigurationContainersRemoved(final ConfigurationAccessor configurationAccessor) throws IOException {
         dockerClient.rmContainers(configurationAccessor);
         Assertions.assertTrue(dockerClient.lsContainers(configurationAccessor).size() == 0);
         Assertions.assertTrue(dockerClient.lsNetworks(configurationAccessor).size() == 0);
@@ -57,13 +57,13 @@ class DockerConfigurationTest {
     }
 
     @Test
-    void pullImages(final ConfigurationAccessor configurationAccessor) throws IOException {
+    public void pullImages(final ConfigurationAccessor configurationAccessor) throws IOException {
         assertConfigurationImagesNotPulled(configurationAccessor);
         assertConfigurationImagesPulled(configurationAccessor);
     }
 
     @Test
-    void stopStartContainers(final ConfigurationAccessor configurationAccessor)
+    public void stopStartContainers(final ConfigurationAccessor configurationAccessor)
             throws IOException, InterruptedException {
         dockerClient.startContainers(configurationAccessor);
 

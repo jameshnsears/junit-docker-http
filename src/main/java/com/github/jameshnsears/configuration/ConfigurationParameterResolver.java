@@ -1,15 +1,16 @@
 package com.github.jameshnsears.configuration;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
+import java.util.Collection;
+
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
 
-import java.io.InputStreamReader;
-import java.lang.reflect.Type;
-import java.util.Collection;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class ConfigurationParameterResolver implements ParameterResolver {
     @Override

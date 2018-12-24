@@ -1,18 +1,18 @@
 package com.github.jameshnsears.docker.utils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.github.jameshnsears.configuration.Configuration;
 import com.github.jameshnsears.docker.models.ContainerCreateRequest;
 import com.google.common.base.Preconditions;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 public class RequestMapper {
-    public String containerCreateRequest(Configuration configurationContainer) {
+    public String containerCreateRequest(final Configuration configurationContainer) {
         Preconditions.checkNotNull(configurationContainer);
 
         final ContainerCreateRequest containerCreateRequest = new ContainerCreateRequest();
@@ -28,7 +28,7 @@ public class RequestMapper {
         return gsonPrettyPrinter.toJson(containerCreateRequest);
     }
 
-    private void volumes(Configuration configurationContainer, ContainerCreateRequest containerCreateRequest) {
+    private void volumes(final Configuration configurationContainer, final ContainerCreateRequest containerCreateRequest) {
         Preconditions.checkNotNull(configurationContainer);
         Preconditions.checkNotNull(containerCreateRequest);
 
@@ -47,7 +47,7 @@ public class RequestMapper {
         }
     }
 
-    private void network(Configuration configurationContainer, ContainerCreateRequest containerCreateRequest) {
+    private void network(final Configuration configurationContainer, final ContainerCreateRequest containerCreateRequest) {
         Preconditions.checkNotNull(configurationContainer);
         Preconditions.checkNotNull(containerCreateRequest);
 
@@ -56,7 +56,7 @@ public class RequestMapper {
         }
     }
 
-    private void ports(Configuration configurationContainer, ContainerCreateRequest containerCreateRequest) {
+    private void ports(final Configuration configurationContainer, final ContainerCreateRequest containerCreateRequest) {
         Preconditions.checkNotNull(configurationContainer);
         Preconditions.checkNotNull(containerCreateRequest);
 
@@ -78,7 +78,7 @@ public class RequestMapper {
         }
     }
 
-    private void cmd(Configuration configurationContainer, ContainerCreateRequest containerCreateRequest) {
+    private void cmd(final Configuration configurationContainer, final ContainerCreateRequest containerCreateRequest) {
         Preconditions.checkNotNull(configurationContainer);
         Preconditions.checkNotNull(containerCreateRequest);
 
