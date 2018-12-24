@@ -220,10 +220,12 @@ public class DockerClient {
 
         final ArrayList<String> configurationVolumes = configurationFilter.volumes();
 
-        for (final String configurationVolume : configurationVolumes) {
-            final ArrayList<String> dockerVolumes = lsVolumes(configurationFilter);
-            if (!dockerVolumes.contains(configurationVolume)) {
-                createVolume(configurationVolume);
+        if (!configurationVolumes.isEmpty()) {
+            for (final String configurationVolume : configurationVolumes) {
+                final ArrayList<String> dockerVolumes = lsVolumes(configurationFilter);
+                if (!dockerVolumes.contains(configurationVolume)) {
+                    createVolume(configurationVolume);
+                }
             }
         }
     }
@@ -283,12 +285,8 @@ public class DockerClient {
     }
 
     private String prettyPrintJson(final String jsonString) {
-        if (jsonString != null) {
-            final JsonElement jsonElement = new JsonParser().parse(jsonString);
-            final Gson gsonPrettyPrinter = new GsonBuilder().setPrettyPrinting().create();
-            return gsonPrettyPrinter.toJson(jsonElement);
-        } else {
-            return "";
-        }
+        final JsonElement jsonElement = new JsonParser().parse(jsonString);
+        final Gson gsonPrettyPrinter = new GsonBuilder().setPrettyPrinting().create();
+        return gsonPrettyPrinter.toJson(jsonElement);
     }
 }
