@@ -17,10 +17,6 @@ public class DockerConfigurationXqaTest {
         dockerClient.pull(configurationAccessor.images());
         dockerClient.startContainers(configurationAccessor);
 
-        if (System.getenv().get("TRAVIS") != null) {
-            Thread.sleep(10000);
-        }
-
         Assertions.assertTrue(dockerClient.lsContainers(configurationAccessor).size() == 2);
         Assertions.assertTrue(dockerClient.lsNetworks(configurationAccessor).contains("xqa"));
 
