@@ -8,5 +8,26 @@
     * start containers - with various, optional, parameters - i.e. ports; networks; volumes; commands.
     * stop containers.
 
-## 2. Example Usage
+### 1.1. Example Usage
 * see: [DockerConfigurationXqaTest.java](https://github.com/jameshnsears/junit-docker-http/blob/master/src/test/java/com/github/jameshnsears/DockerConfigurationXqaTest.java) and [config-xqa.json](https://github.com/jameshnsears/junit-docker-http/blob/master/src/test/resources/fixtures/config-xqa.json)
+
+## 2. Publishing to [Maven Central](https://search.maven.org/)
+
+### 2.1. settings.xml
+* decrypt settings.xml.pgp
+* cp settings.xml ~/.m2
+
+###  2.2. Deploy
+export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
+
+#### 2.2.1. To staging repo
+* mvn -DperformRelease=true clean deploy
+    * enter private pgp key password
+* visit:
+    * [https://oss.sonatype.org/#nexus-search;quick~junit-docker-http](https://oss.sonatype.org/#nexus-search;quick~junit-docker-http)
+
+#### 2.2.2 To release repo
+* (optionally) [https://www.youtube.com/watch?v=dXR4pJ_zS-0&feature=youtu.be](https://www.youtube.com/watch?v=dXR4pJ_zS-0&feature=youtu.be)
+* remove "-SNAPSHOT" in pom.xml + increment version #.
+* mvn -DperformRelease=true clean deploy
+    * enter private pgp key password
