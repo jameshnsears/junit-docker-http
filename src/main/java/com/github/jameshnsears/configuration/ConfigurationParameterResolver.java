@@ -32,6 +32,6 @@ public class ConfigurationParameterResolver implements ParameterResolver {
     }
 
     protected InputStreamReader getInputStreamReader() {
-        return new InputStreamReader(getClass().getResourceAsStream("/fixtures/config.json"));
+        return new InputStreamReader(getClass().getResourceAsStream("/config.json"));
     }
 }

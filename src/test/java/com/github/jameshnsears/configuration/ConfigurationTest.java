@@ -13,7 +13,7 @@ class ConfigurationTest extends GsonCommon {
     @Test
     public void loadConfig() {
         final Collection<Configuration> configurationCollection = gson.fromJson(
-                getInputStreamReader("/fixtures/config.json"),
+                getInputStreamReader("/config.json"),
                 new TypeToken<Collection<Configuration>>() {
                 }.getType());
 
