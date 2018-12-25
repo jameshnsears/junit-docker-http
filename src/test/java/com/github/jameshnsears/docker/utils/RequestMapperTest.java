@@ -1,17 +1,18 @@
 package com.github.jameshnsears.docker.utils;
 
-import com.github.jameshnsears.GsonCommon;
-import com.github.jameshnsears.configuration.Configuration;
-import com.github.jameshnsears.configuration.ConfigurationAccessor;
-import com.github.jameshnsears.configuration.ConfigurationParameterResolver;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
+import com.github.jameshnsears.GsonCommon;
+import com.github.jameshnsears.configuration.Configuration;
+import com.github.jameshnsears.configuration.ConfigurationAccessor;
+import com.github.jameshnsears.configuration.ConfigurationParameterResolver;
 
 @ExtendWith(ConfigurationParameterResolver.class)
 class RequestMapperTest extends GsonCommon {

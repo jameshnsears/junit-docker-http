@@ -1,16 +1,17 @@
 package com.github.jameshnsears;
 
-import com.github.jameshnsears.configuration.ConfigurationAccessor;
-import com.github.jameshnsears.configuration.ConfigurationParameterResolver;
-import com.github.jameshnsears.docker.DockerClient;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+import com.github.jameshnsears.configuration.ConfigurationAccessor;
+import com.github.jameshnsears.configuration.ConfigurationParameterResolver;
+import com.github.jameshnsears.docker.DockerClient;
 
 @ExtendWith(ConfigurationParameterResolver.class)
 class DockerConfigurationTest {

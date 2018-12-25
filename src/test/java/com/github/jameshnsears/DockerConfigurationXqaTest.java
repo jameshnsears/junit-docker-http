@@ -1,13 +1,14 @@
 package com.github.jameshnsears;
 
-import com.github.jameshnsears.configuration.ConfigurationAccessor;
-import com.github.jameshnsears.configuration.ConfigurationParameterResolverXqa;
-import com.github.jameshnsears.docker.DockerClient;
+import java.io.IOException;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import java.io.IOException;
+import com.github.jameshnsears.configuration.ConfigurationAccessor;
+import com.github.jameshnsears.configuration.ConfigurationParameterResolverXqa;
+import com.github.jameshnsears.docker.DockerClient;
 
 @ExtendWith(ConfigurationParameterResolverXqa.class)
 public class DockerConfigurationXqaTest {
