@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.jameshnsears</groupId>
     <artifactId>junit-docker-http</artifactId>
-    <version>1.1</version>
+    <version>1.2-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>junit-docker-http</name>
     <url>http://github.com/jameshnsears/junit-docker-http</url>
