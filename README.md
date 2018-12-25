@@ -3,12 +3,14 @@
 * [JUnit 5](https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/extension/ParameterResolver.html) Parameter Resolver & API that minimally leverages the [Docker Engine API](https://docs.docker.com/engine/api/v1.39/).
 
 ## 1. Introduction
-* A JUnit 5 Parameter Resolver & API that lets you easily:
-    * pull images - if not already pulled.
+* A "keep it simple" JUnit 5 Parameter Resolver & API that lets you easily:
+    * pull docker images - if not already pulled.
     * start containers - with various, optional, parameters - i.e. ports; networks; volumes; commands.
     * stop containers.
+    
+* Uses a simple [config.json](https://github.com/jameshnsears/junit-docker-http/blob/master/src/test/resources/config.json) file to define container setup; then flesh out your test with simple API calls that sit on top of the Docker Enginer API.
 
-### 1.1. Example Usage
+### 1.1. Example Usage - using local path as a volume mount
 * see: [DockerConfigurationXqaTest.java](https://github.com/jameshnsears/junit-docker-http/blob/master/src/test/java/com/github/jameshnsears/DockerConfigurationXqaTest.java) and [config-xqa.json](https://github.com/jameshnsears/junit-docker-http/blob/master/src/test/resources/fixtures/config-xqa.json)
 
 ## 2. Publishing to [Maven Central](https://search.maven.org/)
