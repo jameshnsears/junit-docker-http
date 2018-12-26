@@ -19,7 +19,8 @@ class ConfigurationAccessorTest extends GsonCommon {
         final Type collectionType = new TypeToken<Collection<Configuration>>() {
         }.getType();
 
-        configurationAccessor = new ConfigurationAccessor(gson.fromJson(getInputStreamReader("/config.json"), collectionType));
+        configurationAccessor = new ConfigurationAccessor(
+                gson.fromJson(getInputStreamReader("/config.json"), collectionType));
     }
 
     @Test

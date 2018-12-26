@@ -23,7 +23,7 @@ public class ConfigurationParameterResolverXqa extends ConfigurationParameterRes
         try {
             json = CharStreams.toString(new InputStreamReader(
                     getClass().getResourceAsStream("/fixtures/config-xqa.json"), Charset.defaultCharset()));
-            logger.debug(json.toString());
+            logger.debug(json);
 
             final File file = Paths.get(getClass().getResource("/fixtures/xqa-ingest").toURI()).toFile();
             logger.debug(file.toString());
