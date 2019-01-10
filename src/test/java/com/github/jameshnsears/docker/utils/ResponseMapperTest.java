@@ -42,10 +42,10 @@ class ResponseMapperTest extends GsonCommon {
                 containers.size(),
                 7);
         Assertions.assertEquals(
-                ((ContainerResponse) ((ArrayList) containers).get(0)).id,
+                ((ContainerResponse) ((ArrayList<ContainerResponse>) containers).get(0)).id,
                 "60cb5bc7fa7f5ac26a48520f8bd68decd8307af1b114f25b29827120ba4d4c16");
         Assertions.assertEquals(
-                ((ArrayList) ((ContainerResponse) ((ArrayList) containers).get(0)).names).get(0),
+                ((ArrayList) ((ContainerResponse) ((ArrayList<ContainerResponse>) containers).get(0)).names).get(0),
                 "/xqa-ingest");
     }
 

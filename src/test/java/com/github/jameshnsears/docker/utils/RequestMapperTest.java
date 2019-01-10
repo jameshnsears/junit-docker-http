@@ -19,7 +19,7 @@ class RequestMapperTest extends GsonCommon {
     @Test
     public void containerCreateRequest(final ConfigurationAccessor configurationAccessor) throws IOException {
         final RequestMapper requestMapper = new RequestMapper();
-        final List<Configuration> configurationContainers = (List) configurationAccessor.containers();
+        final List<Configuration> configurationContainers = (List<Configuration>) configurationAccessor.containers();
 
         Assertions.assertEquals(
                 FileUtils.readFileToString(
